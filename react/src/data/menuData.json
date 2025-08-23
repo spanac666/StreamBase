@@ -1,0 +1,84 @@
+{
+  "categories": {
+    "pizza": {
+      "name": "🍕 Pizza",
+      "displayOrder": 1,
+      "items": [
+        {
+          "id": 1,
+          "name": "Margherita",
+          "price": 12.99,
+          "ingredients": "Paradajz sos, mozzarella sir, bosiljak",
+          "image": "/pizza/MARGHERITA.jpeg",
+          "available": true,
+          "featured": true
+        },
+        {
+          "id": 2,
+          "name": "Peperoni",
+          "price": 15.99,
+          "ingredients": "Paradajz sos, mozzarella sir, pepperoni kobasica",
+          "image": "/pizza/PEPERONI.jpeg",
+          "available": true,
+          "featured": false
+        },
+        {
+          "id": 3,
+          "name": "Mexicana",
+          "price": 14.99,
+          "ingredients": "Paradajz sos, mozzarella sir, paprika, gljive, crni luk",
+          "image": "/pizza/MEXICANA.jpeg",
+          "available": true,
+          "featured": false
+        }
+      ]
+    },
+    "grill": {
+      "name": "🔥 Grill",
+      "displayOrder": 2,
+      "items": [
+        {
+          "id": 7,
+          "name": "Čevapi",
+          "price": 8.99,
+          "ingredients": "Tradicionalni bosanski čevapi s kajmakom",
+          "image": "/rostilj/ČEVAPI.jpeg",
+          "available": true,
+          "featured": false
+        }
+      ]
+    }
+  },
+  "restaurant": {
+    "name": "RESTORAN ŠPANAC",
+    "address": {
+      "street": "Šantićeva 9",
+      "city": "Oborovo Bistransko",
+      "country": "Croatia",
+      "coordinates": {
+        "lat": 45.123456,
+        "lng": 16.123456
+      }
+    },
+    "contact": {
+      "phone": "+387 XX XXX XXX",
+      "email": "info@restoran.com"
+    },
+    "hours": {
+      "monday": "10:00 - 23:00",
+      "tuesday": "10:00 - 23:00",
+      "wednesday": "10:00 - 23:00",
+      "thursday": "10:00 - 23:00",
+      "friday": "10:00 - 23:00",
+      "saturday": "10:00 - 23:00",
+      "sunday": "10:00 - 23:00"
+    }
+  },
+  "settings": {
+    "currency": "€",
+    "taxRate": 0.25,
+    "deliveryFee": 2.50,
+    "minimumOrder": 15.00,
+    "maxDeliveryDistance": 10
+  }
+}

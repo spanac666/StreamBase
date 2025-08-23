@@ -1,0 +1,250 @@
+.main-about {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: center;
+  position: relative;
+  min-height: 100vh;
+}
+
+.main-about::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: url('/slike/logo.jpeg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  opacity: 0.25;
+  z-index: -10;
+  pointer-events: none;
+}
+
+.hero-section {
+  text-align: center;
+  padding: 40px 20px;
+  background: linear-gradient(135deg, rgba(245, 245, 245, 0.95) 0%, rgba(232, 232, 232, 0.95) 100%);
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  width: 100%;
+  margin-bottom: 20px;
+  backdrop-filter: blur(5px);
+  position: relative;
+  z-index: 10;
+}
+
+.hero-logo {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  margin-bottom: 30px;
+  transition: transform 0.3s ease;
+}
+
+.hero-logo:hover {
+  transform: scale(1.1);
+}
+
+.hero-section h1 {
+  font-size: 2.5em;
+  color: #333;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.hero-description {
+  font-size: 1.2em;
+  color: #666;
+  margin-bottom: 30px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+
+.hero-btn {
+  background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+  color: white;
+  padding: 15px 40px;
+  border: none;
+  border-radius: 50px;
+  font-size: 1.1em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+}
+
+.hero-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+}
+
+.content-sections {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  width: 100%;
+  justify-content: center;
+}
+
+.map-container {
+  flex: 1;
+  min-width: 300px;
+  position: relative;
+  z-index: 10;
+}
+
+.map-overlay {
+  width: 100%;
+  height: 300px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  cursor: pointer;
+  position: relative;
+}
+
+.map-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.2em;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  text-align: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.map-placeholder .address-text {
+  font-size: 0.9em;
+  margin-top: 10px;
+  opacity: 0.9;
+  font-weight: normal;
+}
+
+.map-placeholder:hover {
+  background: linear-gradient(135deg, #f7931e 0%, #ff6b35 100%);
+  transform: scale(1.02);
+}
+
+.map {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.map iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.registracija {
+  flex: 1;
+  min-width: 300px;
+  background: rgba(249, 249, 249, 0.95);
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  backdrop-filter: blur(5px);
+  position: relative;
+  z-index: 10;
+}
+
+.registracija h2 {
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #333;
+}
+
+.content-main {
+  flex: 1;
+  min-width: 300px;
+  text-align: center;
+  padding: 30px;
+  background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+  color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.content-main h2 {
+  margin-bottom: 20px;
+  font-size: 2em;
+}
+
+.content-main p {
+  margin-bottom: 30px;
+  font-size: 1.2em;
+  line-height: 1.6;
+}
+
+.map-btn {
+  background: white;
+  color: #ff6b6b;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 25px;
+  font-size: 1.1em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.map-btn:hover {
+  background: #f0f0f0;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+@media (max-width: 768px) {
+  .main-about {
+    flex-direction: column;
+    padding: 15px;
+  }
+  
+  .map-container,
+  .registracija,
+  .content-main {
+    min-width: 100%;
+  }
+  
+  .content-main h2 {
+    font-size: 1.5em;
+  }
+  
+  .content-main p {
+    font-size: 1em;
+  }
+}

@@ -1,0 +1,257 @@
+{
+  "restaurant": {
+    "name": "SHPANAC",
+    "description": "Pizza Restaurant",
+    "contact": {
+      "phone": "+385 91 5 406 406",
+      "email": "spanac666@gmail.com",
+      "address": "Your Address Here",
+      "workingHours": {
+        "monday": "10:00 - 23:00",
+        "tuesday": "10:00 - 23:00",
+        "wednesday": "10:00 - 23:00",
+        "thursday": "10:00 - 23:00",
+        "friday": "10:00 - 23:00",
+        "saturday": "10:00 - 23:00",
+        "sunday": "12:00 - 22:00"
+      }
+    }
+  },
+  "navigation": {
+    "main": [
+      {
+        "id": "home",
+        "title": "Početna",
+        "url": "index.html",
+        "active": true
+      },
+      {
+        "id": "menu",
+        "title": "Jelovnik",
+        "url": "menu.html",
+        "active": false
+      },
+      {
+        "id": "about",
+        "title": "O nama",
+        "url": "about.html",
+        "active": false
+      },
+      {
+        "id": "contact",
+        "title": "Kontakt",
+        "url": "contact.html",
+        "active": false
+      }
+    ]
+  },
+  "pizzas": [
+    {
+      "id": 1,
+      "name": "CALZONE",
+      "description": "Zatvorena pizza sa šunkom, gljivama i sirom",
+      "price": 850,
+      "currency": "RSD",
+      "image": "pizza/CALZIONE.jpg",
+      "ingredients": ["šunka", "gljive", "sir", "kečap", "origano"],
+      "category": "classic",
+      "available": true
+    },
+    {
+      "id": 2,
+      "name": "DIAVOLO",
+      "description": "Ljuta pizza sa pikantnim kobasicama",
+      "price": 920,
+      "currency": "RSD",
+      "image": "pizza/DIAVOLO.jpeg",
+      "ingredients": ["pikantne kobasice", "luk", "ljute papričice", "sir", "kečap"],
+      "category": "spicy",
+      "available": true
+    },
+    {
+      "id": 3,
+      "name": "KAFANSKA",
+      "description": "Pizza sa tradicionalnim ukusima",
+      "price": 880,
+      "currency": "RSD",
+      "image": "pizza/KAFANSKA.jpeg",
+      "ingredients": ["šunka", "slanina", "jaja", "sir", "kečap"],
+      "category": "traditional",
+      "available": true
+    },
+    {
+      "id": 4,
+      "name": "MARGHERITA",
+      "description": "Klasična pizza sa paradajzom i sirom",
+      "price": 650,
+      "currency": "RSD",
+      "image": "pizza/MARGHERITA.jpeg",
+      "ingredients": ["paradajz", "mozzarella", "bosiljak", "maslinovo ulje"],
+      "category": "classic",
+      "available": true
+    },
+    {
+      "id": 5,
+      "name": "MEXICANA",
+      "description": "Pizza sa meksičkim ukusima",
+      "price": 950,
+      "currency": "RSD",
+      "image": "pizza/MEXICANA.jpeg",
+      "ingredients": ["piletina", "kukuruz", "feferon", "sir", "kečap"],
+      "category": "international",
+      "available": true
+    },
+    {
+      "id": 6,
+      "name": "PANCETA",
+      "description": "Pizza sa pancetom i gljivama",
+      "price": 890,
+      "currency": "RSD",
+      "image": "pizza/PANCETA.jpeg",
+      "ingredients": ["panceta", "gljive", "luk", "sir", "kečap"],
+      "category": "meat",
+      "available": true
+    },
+    {
+      "id": 7,
+      "name": "PEPERONI",
+      "description": "Pizza sa peperoni kobasicom",
+      "price": 880,
+      "currency": "RSD",
+      "image": "pizza/PEPERONI.jpeg",
+      "ingredients": ["peperoni", "sir", "kečap", "origano"],
+      "category": "classic",
+      "available": true
+    },
+    {
+      "id": 8,
+      "name": "PROSCIUTTO",
+      "description": "Pizza sa pršutom i rukolom",
+      "price": 1100,
+      "currency": "RSD",
+      "image": "pizza/PROSCIUTTO.jpeg",
+      "ingredients": ["pršut", "rukola", "parmezan", "maslinovo ulje"],
+      "category": "premium",
+      "available": true
+    },
+    {
+      "id": 9,
+      "name": "SLAVONSKA",
+      "description": "Pizza sa slavonskim specijalitetima",
+      "price": 920,
+      "currency": "RSD",
+      "image": "pizza/SLAVONSKA.jpeg",
+      "ingredients": ["kulen", "slanina", "luk", "sir", "kečap"],
+      "category": "traditional",
+      "available": true
+    },
+    {
+      "id": 10,
+      "name": "TUNA",
+      "description": "Pizza sa tunjevinom i maslinama",
+      "price": 870,
+      "currency": "RSD",
+      "image": "pizza/TUNA.jpeg",
+      "ingredients": ["tunjevina", "masline", "luk", "sir", "kečap"],
+      "category": "seafood",
+      "available": true
+    },
+    {
+      "id": 11,
+      "name": "VEGETARIJANSKA",
+      "description": "Pizza za vegetarijance",
+      "price": 750,
+      "currency": "RSD",
+      "image": "pizza/VEGETARIJANSKA.jpeg",
+      "ingredients": ["paradajz", "paprike", "gljive", "luk", "sir", "masline"],
+      "category": "vegetarian",
+      "available": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "classic",
+      "name": "Klasične",
+      "description": "Tradicionalne pizza recepte"
+    },
+    {
+      "id": "meat",
+      "name": "Mesne",
+      "description": "Pizza sa raznim vrstama mesa"
+    },
+    {
+      "id": "vegetarian",
+      "name": "Vegetarijanske",
+      "description": "Pizza bez mesa"
+    },
+    {
+      "id": "seafood",
+      "name": "Morske",
+      "description": "Pizza sa morskim plodovima"
+    },
+    {
+      "id": "spicy",
+      "name": "Ljute",
+      "description": "Pizza sa ljutim sastojcima"
+    },
+    {
+      "id": "traditional",
+      "name": "Tradicionalne",
+      "description": "Pizza sa domaćim ukusima"
+    },
+    {
+      "id": "international",
+      "name": "Internacionalne",
+      "description": "Pizza sa internacionalnim ukusima"
+    },
+    {
+      "id": "premium",
+      "name": "Premium",
+      "description": "Pizza sa premium sastojcima"
+    }
+  ],
+  "gallery": [
+    {
+      "id": 1,
+      "title": "Restoran spolja",
+      "image": "gallery/exterior.jpg",
+      "alt": "Spoljašnost restorana SHPANAC"
+    },
+    {
+      "id": 2,
+      "title": "Unutrašnjost",
+      "image": "gallery/interior.jpg",
+      "alt": "Unutrašnjost restorana"
+    },
+    {
+      "id": 3,
+      "title": "Kuhinja",
+      "image": "gallery/kitchen.jpg",
+      "alt": "Profesionalna kuhinja"
+    },
+    {
+      "id": 4,
+      "title": "Pizza priprema",
+      "image": "gallery/preparation.jpg",
+      "alt": "Priprema pizza"
+    }
+  ],
+  "settings": {
+    "currency": "RSD",
+    "deliveryFee": 150,
+    "minOrderForFreeDelivery": 1500,
+    "deliveryTime": {
+      "min": 30,
+      "max": 45,
+      "unit": "minutes"
+    },
+    "orderingEnabled": true,
+    "deliveryEnabled": true,
+    "takeawayEnabled": true
+  },
+  "socialMedia": {
+    "facebook": "https://facebook.com/shpanac",
+    "instagram": "https://instagram.com/shpanac",
+    "twitter": "https://twitter.com/shpanac"
+  }
+}

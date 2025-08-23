@@ -1,0 +1,1335 @@
+
+/* menu_style.css - moderni, višekratni stilovi za sekcije menija */
+/* Ovaj CSS definira izgled i responsivnost menija restorana */
+
+/* Osnovni stilovi za tijelo stranice */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #2c3e50;
+  margin: 0;
+  overflow-x: auto;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  padding-top: 12vh; /* Space for fixed header */
+  padding-bottom: 90px; /* Space for fixed footer */
+}
+body::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+/* Stilovi za zaglavlje i podnožje stranice */
+footer, header {
+  display: flex;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  color: #ffffff;
+  font-style: normal;
+  font-size: 20px;
+  font-weight: 600;
+  box-sizing: border-box;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  letter-spacing: 1px;
+}
+
+/* Stilovi specifični za zaglavlje */
+header {
+  box-sizing: border-box;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 25px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 10vh;
+  z-index: 3000;
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  border-bottom: 3px solid #3498db;
+}
+
+/* Stilizacija naslova restorana u zaglavlju */
+header h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  background: linear-gradient(45deg, #ffffff 0%, #f1c40f 50%, #ffffff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+  letter-spacing: 2px;
+  margin: 0;
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+/* Animacija sjaja za naslov restorana */
+@keyframes glow {
+  from {
+    filter: drop-shadow(0 0 5px rgba(241, 196, 15, 0.5));
+  }
+  to {
+    filter: drop-shadow(0 0 15px rgba(241, 196, 15, 0.8));
+  }
+}
+
+/* Stilovi specifični za podnožje */
+footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  padding: 15px 25px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  border-top: 3px solid #3498db;
+  box-sizing: border-box;
+  min-height: 80px;
+}
+
+/* Sadržaj podnožja: košarica, autorska prava */
+.footer-content {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.footer-content span:first-child {
+  flex: 0 0 auto;
+  margin-right: 20px;
+}
+
+.footer-content .basket {
+  flex: 0 0 auto;
+  order: -1; /* Move basket to the leftmost position */
+  margin-right: auto; /* Push copyright to the right */
+}
+
+/* Ikone kartica za plaćanje u podnožju */
+.footer-cards {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding-top: 5px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.footer-cards .card-icons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer-content span {
+  font-weight: 600;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+  letter-spacing: 0.5px;
+}
+
+.footer-content svg, .footer-cards svg {
+  padding-left: 8px;
+  padding-right: 8px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+/* Desktop specific - larger payment card icons */
+@media (min-width: 769px) {
+  .footer-cards .card-icons {
+    gap: 12px;
+  }
+  
+  .footer-cards svg {
+    width: 40px;
+    height: 26px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+/* Header content styling */
+header .sadrzaj {
+  text-align: right;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+header .sadrzaj p {
+  margin: 2px 0;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+/* Stilovi za svaku sekciju menija (pizza, burgeri, itd.) */
+.menu-section {
+  width: 99vw;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  padding: 12vh 0 48px 0;
+  box-sizing: border-box;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  overflow-x: auto;
+  white-space: wrap;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.menu-section:nth-child(even) {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.menu-section:nth-child(odd) {
+  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+}
+
+.menu-section::-webkit-scrollbar {
+  display: none;
+}
+
+/* Layout sekcije menija: lijeva info kutija + grid artikala */
+.menu-layout {
+  display: flex;
+  flex-direction: row;
+  width: 90vw;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 48px;
+  align-items: flex-start;
+}
+
+/* Lijeva info kutija u sekciji menija */
+.menu-info-left {
+  flex: 1 1 250px;
+  max-width: 320px;
+  font-size: 1.2rem;
+  color: #ffffff;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 20px;
+  padding: 32px 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  margin-top: 48px;
+  text-align: left;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.menu-info-left p, h2 {
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: #ffffff;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+  letter-spacing: 1px;
+}
+
+/* Grid za prikaz artikala u sekciji menija */
+.card-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  flex: 2 1 600px;
+  justify-content: center;
+  align-items: stretch;
+}
+
+/* Kartica pojedinog artikla */
+.card {
+  background: burlywood;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px 0 rgba(44, 62, 80, 0.08);
+  padding: 24px 18px 18px 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  transition: box-shadow 0.2s, transform 0.2s;
+  border: 1px solid #f2e9e1;
+  min-height: 300px;
+}
+
+.card-dropdown {
+  margin-top: auto;
+  width: 60%;
+}
+
+.card:hover {
+  box-shadow: 0 8px 24px 0 rgba(44, 62, 80, 0.16);
+  transform: translateY(-4px) scale(1.03);
+}
+
+/* Slika artikla u kartici */
+.menu-img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 18px;
+  box-shadow: 0 2px 8px 0 rgba(220, 120, 20, 0.10);
+  border: 3px solid #fff3e0;
+  transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+}
+
+.card:hover .menu-img {
+  transform: rotate(360deg) scale(1.1);
+}
+
+/* Naslov artikla u kartici */
+.card h3 {
+  font-size: 1.3rem;
+  color: #d35400;
+  margin: 0 0 8px 0;
+  letter-spacing: 1px;
+}
+
+/* Opis artikla u kartici */
+.card p {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 1rem;
+  color: #555;
+  margin: 0 0 12px 0;
+}
+
+/* Prikaz cijene artikla */
+.menu-price {
+  font-size: 1.1rem;
+  color: #27ae60;
+  font-weight: bold;
+  margin-top: auto;
+  background: #eafaf1;
+  padding: 6px 18px;
+  border-radius: 12px;
+  letter-spacing: 1px;
+}
+
+/* Navigacija na vrhu stranice */
+#navigacija1 {
+  color: white;
+  padding: 15px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Linkovi u navigaciji */
+#navigacija1 a {
+  text-decoration: none;
+  color: #ffffff;
+  padding: 12px 20px;
+  margin: 0 5px;
+  display: inline-block;
+  border-radius: 25px;
+  text-align: center;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+}
+
+/* Hover efekt za linkove u navigaciji */
+#navigacija1 a:hover {
+  background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(243, 156, 18, 0.4);
+  cursor: pointer;
+}
+
+/* Lista linkova u navigaciji */
+#navigacija1 ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  flex-wrap: wrap;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Poboljšana responsivnost za mobilne uređaje */
+@media (max-width: 1024px) {
+  /* Tablet adjustments - 2 columns */
+  .menu-layout {
+    width: 95vw;
+    gap: 40px;
+  }
+  
+  .card-grid {
+    gap: 24px;
+  }
+  
+  .card {
+    flex: 0 0 calc(50% - 12px); /* Exactly 2 columns on tablet */
+    max-width: calc(50% - 12px);
+    min-width: 250px;
+  }
+  
+  .menu-info-left {
+    max-width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 900px) {
+  .menu-layout {
+    flex-direction: column;
+    gap: 32px;
+    align-items: center;
+    width: 95vw;
+  }
+  
+  .menu-section h2 {
+    position: static;
+    margin-bottom: 24px;
+    text-align: center;
+  }
+  
+  .menu-info-left {
+    margin-top: 0;
+    margin-bottom: 24px;
+    width: 100%;
+    max-width: 100%;
+    text-align: center;
+  }
+  
+  .card-grid {
+    width: 100%;
+    gap: 20px;
+    justify-items: center;
+  }
+  
+  .card {
+    flex: 0 0 calc(50% - 10px); /* Exactly 2 columns on smaller tablet */
+    max-width: calc(50% - 10px);
+    min-width: 280px;
+  }
+  
+  /* Header navigation adjustments */
+  #navigacija1 ul {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  #navigacija1 a {
+    width: 200px;
+    text-align: center;
+  }
+  
+  header {
+    flex-direction: column;
+    height: auto;
+    padding: 20px 15px;
+    text-align: center;
+  }
+  
+  header h1 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+  }
+  
+  .footer-content {
+    flex-direction: row;
+    gap: 10px;
+    text-align: left;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+  
+  .footer-content .basket {
+    order: -1; /* Keep basket leftmost */
+    margin-right: 15px;
+  }
+  
+  .footer-content span:first-child {
+    order: 1;
+    font-size: 0.85rem;
+    flex: 1;
+    text-align: center;
+  }
+  
+  .footer-cards {
+    justify-content: center;
+    padding-top: 8px;
+  }
+  
+  .footer-cards .card-icons {
+    gap: 3px;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Mobile tablet adjustments */
+  .menu-section {
+    padding: 12vh 0 48px 0;
+    width: 100vw;
+  }
+  
+  .menu-layout {
+    width: 98vw;
+    gap: 25px;
+    padding: 0 10px;
+  }
+  
+  .card-grid {
+    gap: 18px;
+  }
+  
+  .card {
+    flex: 0 0 calc(50% - 9px); /* Exactly 2 columns on mobile tablet */
+    max-width: calc(50% - 9px);
+    min-width: 250px;
+    margin: 0 auto;
+  }
+  
+  .menu-info-left {
+    padding: 24px 16px;
+    font-size: 1.1rem;
+  }
+  
+  .menu-info-left h2 {
+    font-size: 1.4rem;
+  }
+  
+  header {
+    padding: 15px 10px;
+  }
+  
+  header h1 {
+    font-size: 1.6rem;
+  }
+  
+  .footer-content {
+    gap: 12px;
+    justify-content: flex-start;
+  }
+  
+  .footer-content .basket {
+    order: -1; /* Keep basket leftmost on tablet */
+    margin-right: 20px;
+  }
+  
+  .footer-cards {
+    padding-top: 6px;
+  }
+  
+  .footer-cards .card-icons {
+    gap: 2px;
+  }
+}
+
+@media (max-width: 600px) {
+  /* Small mobile devices */
+  .menu-section {
+    padding: 12vh 0 48px 0;
+    min-height: auto;
+  }
+  
+  .menu-layout {
+    width: 98vw;
+    gap: 20px;
+    padding: 0 5px;
+  }
+  
+  .menu-info-left {
+    padding: 20px 12px;
+    font-size: 1rem;
+    margin-bottom: 20px;
+  }
+  
+  .menu-info-left h2 {
+    font-size: 1.3rem;
+    margin-bottom: 12px;
+  }
+  
+  .card-grid {
+    gap: 15px;
+    width: 100%;
+  }
+  
+  .card {
+    flex: 1 1 100%; /* Single column on mobile */
+    max-width: 100%;
+    min-width: auto;
+    padding: 16px 12px;
+    margin: 0;
+    box-sizing: border-box;
+  }
+  
+  .menu-img {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .card h3 {
+    font-size: 1.2rem;
+    margin: 12px 0 8px 0;
+  }
+  
+  .card p {
+    font-size: 0.95rem;
+    margin: 0 0 15px 0;
+  }
+  
+  .card-actions {
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
+  
+  .add-to-basket-btn {
+    margin-left: 0;
+    width: 100%;
+    padding: 12px;
+    font-size: 1.1rem;
+  }
+  
+  .menu-price {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+  
+  header {
+    padding: 12px 8px;
+  }
+  
+  header h1 {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+  }
+  
+  header .sadrzaj {
+    font-size: 12px;
+    text-align: center;
+  }
+  
+  #navigacija1 a {
+    width: 180px;
+    padding: 10px 15px;
+    font-size: 0.9rem;
+  }
+  
+  footer {
+    padding: 12px 8px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Extra small mobile devices */
+  .menu-section {
+    padding: 12vh 0 48px 0;
+  }
+  
+  .menu-layout {
+    width: 100vw;
+    gap: 15px;
+    padding: 0 2px;
+  }
+  
+  .menu-info-left {
+    padding: 16px 10px;
+    font-size: 0.9rem;
+  }
+  
+  .menu-info-left h2 {
+    font-size: 1.2rem;
+  }
+  
+  .card {
+    padding: 14px 10px;
+  }
+  
+  .menu-img {
+    width: 90px;
+    height: 90px;
+  }
+  
+  .card h3 {
+    font-size: 1.1rem;
+    margin: 10px 0 6px 0;
+  }
+  
+  .card p {
+    font-size: 0.9rem;
+    margin: 0 0 12px 0;
+  }
+  
+  .add-to-basket-btn {
+    padding: 10px;
+    font-size: 1rem;
+  }
+  
+  .menu-price {
+    font-size: 1.1rem;
+  }
+  
+  header h1 {
+    font-size: 1.2rem;
+  }
+  
+  header .sadrzaj {
+    font-size: 11px;
+  }
+  
+  #navigacija1 a {
+    width: 160px;
+    padding: 8px 12px;
+    font-size: 0.85rem;
+  }
+  
+  footer {
+    font-size: 12px;
+    padding: 10px 5px;
+  }
+}
+
+@media (max-width: 360px) {
+  /* Very small mobile devices */
+  .menu-layout {
+    padding: 0 1px;
+  }
+  
+  .card {
+    padding: 12px 8px;
+  }
+  
+  .menu-img {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .card h3 {
+    font-size: 1rem;
+  }
+  
+  .card p {
+    font-size: 0.85rem;
+  }
+  
+  .add-to-basket-btn {
+    padding: 8px;
+    font-size: 0.95rem;
+  }
+  
+  header h1 {
+    font-size: 1.1rem;
+  }
+  
+  #navigacija1 a {
+    width: 140px;
+    padding: 7px 10px;
+    font-size: 0.8rem;
+  }
+}
+
+/* Prilagodbe za landscape orijentaciju na mobilnim uređajima */
+@media (max-width: 768px) and (orientation: landscape) {
+  .card-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+  }
+  
+  .menu-section {
+    padding: 12vh 0 48px 0;
+  }
+  
+  .menu-layout {
+    gap: 15px;
+  }
+  
+  .card {
+    padding: 12px 8px;
+  }
+  
+  .menu-img {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+/* Prilagodbe za lakši dodir na mobilnim uređajima */
+@media (max-width: 768px) {
+  .add-to-basket-btn,
+  .basket,
+  #navigacija1 a {
+    min-height: 44px;
+    min-width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Prevent zoom on input focus */
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+  
+  /* Improve modal responsiveness */
+  #basket-modal > div,
+  #pay-modal > div {
+    width: 95vw !important;
+    max-width: none !important;
+    margin: 2.5vw !important;
+    max-height: 95vh !important;
+    padding: 20px 15px !important;
+  }
+  
+  /* Improve form layout on mobile */
+  form#pay-form {
+    padding: 20px 15px;
+  }
+  
+  form#pay-form input,
+  form#pay-form select {
+    padding: 14px 12px;
+    font-size: 16px;
+  }
+}
+
+/* Dodatne optimizacije za mobilne uređaje i flexbox poboljšanja */
+
+/* Poboljšan flexbox za grid kartica na svim uređajima */
+.card-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px;
+  flex: 2 1 600px;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+/* Poboljšano ponašanje kartica - 3 stupca na desktopu */
+.card {
+  flex: 0 0 calc(30% - 17px); /* Smaller cards - 30% instead of 33.333% */
+  max-width: calc(30% - 17px);
+  min-width: 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Desktop: točno 3 stupca */
+@media (min-width: 1025px) {
+  .card-grid {
+    gap: 20px;
+    justify-content: flex-start;
+  }
+  
+  .card {
+    flex: 0 0 calc(30% - 14px);
+    max-width: calc(30% - 14px);
+    min-width: auto;
+  }
+}
+
+/* Veliki desktop: 3 stupca s boljim razmakom */
+@media (min-width: 1200px) {
+  .card-grid {
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+    justify-content: flex-start;
+  }
+  
+  .card {
+    flex: 0 0 calc(30% - 20px);
+    max-width: calc(30% - 20px);
+    min-width: auto;
+  }
+}
+
+/* Osiguraj da sadržaj kartice ispuni prostor */
+.card p {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* Optimizacije performansi za mobilne uređaje */
+@media (max-width: 768px) {
+  /* Reduce animations on mobile for better performance */
+  .card:hover .menu-img {
+    transform: none;
+  }
+  
+  .card:hover {
+    transform: translateY(-2px) scale(1.01);
+  }
+  
+  /* Optimize flex for mobile */
+  .card-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .card {
+    flex: none;
+    width: 100%;
+    max-width: 100%;
+    min-width: auto;
+  }
+  
+  /* Better spacing for mobile cards */
+  .card-actions {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(0,0,0,0.1);
+  }
+}
+
+/* Poboljšana navigacija za mobilne uređaje */
+@media (max-width: 768px) {
+  #navigacija1 ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+  }
+  
+  #navigacija1 li {
+    width: 100%;
+    max-width: 200px;
+  }
+  
+  #navigacija1 a {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+/* Poboljšanja podnožja za mobilne uređaje */
+@media (max-width: 768px) {
+  footer {
+    min-height: 85px;
+    padding: 12px 20px;
+  }
+  
+  .footer-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    margin-bottom: 6px;
+  }
+  
+  .footer-content .basket {
+    order: -1; /* Keep basket first/leftmost */
+    margin-right: 15px;
+  }
+  
+  .footer-content span:first-child {
+    order: 1;
+    font-size: 0.9rem;
+    flex: 1;
+    text-align: center;
+  }
+  
+  .footer-cards {
+    justify-content: center;
+    padding-top: 4px;
+  }
+  
+  .footer-cards .card-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+  
+  .footer-cards svg {
+    padding-left: 4px;
+    padding-right: 4px;
+  }
+}
+
+/* Poboljšanja kontejnera za vrlo male ekrane */
+@media (max-width: 480px) {
+  /* Optimize card grid for small screens */
+  .card-grid {
+    gap: 15px;
+    padding: 0 5px;
+  }
+  
+  /* Better touch targets */
+  .add-to-basket-btn {
+    min-height: 48px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  
+  /* Improved modal spacing */
+  #basket-modal > div,
+  #pay-modal > div {
+    padding: 15px !important;
+    border-radius: 12px !important;
+  }
+}
+
+/* Poboljšanja pristupačnosti za mobilne uređaje */
+@media (max-width: 768px) {
+  /* Better focus states for mobile */
+  .add-to-basket-btn:focus,
+  #navigacija1 a:focus,
+  .basket:focus {
+    outline: 3px solid #3498db;
+    outline-offset: 2px;
+  }
+  
+  /* Improved text contrast for small screens */
+  .card h3 {
+    color: #2c3e50;
+    font-weight: 700;
+  }
+  
+  .card p {
+    color: #444;
+    line-height: 1.5;
+  }
+}
+
+/* Sprječavanje horizontalnog scrollanja */
+* {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+html, body {
+  overflow-x: hidden;
+}
+
+/* Zamjenski stilovi za starije preglednike bez flexbox podrške */
+@supports not (display: flex) {
+  .card-grid {
+    display: block;
+  }
+  
+  .card {
+    display: block;
+    margin-bottom: 20px;
+  }
+  
+  .menu-layout {
+    display: block;
+  }
+}
+
+/* Optimizacije za ekrane visoke rezolucije */
+@media (max-width: 768px) and (-webkit-min-device-pixel-ratio: 2) {
+  .menu-img {
+    image-rendering: -webkit-optimize-contrast;
+  }
+}
+
+/* Prilagodbe za tamni način rada na mobilnim uređajima */
+@media (prefers-color-scheme: dark) and (max-width: 768px) {
+  .card {
+    background: #2c3e50;
+    color: #ecf0f1;
+  }
+  
+  .card h3 {
+    color: #3498db;
+  }
+  
+  .card p {
+    color: #bdc3c7;
+  }
+}
+
+/* Naslov u popup prozorima */
+.popup-title {
+  color: #2c3e50;
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 16px;
+  text-shadow: 2px 2px 8px rgba(52, 152, 219, 0.3);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Stilovi za formu plaćanja */
+form#pay-form {
+  max-width: 400px;
+  margin: 0 auto;
+  background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.8);
+}
+
+/* Labela u formi plaćanja */
+form#pay-form label {
+  font-weight: 600;
+  margin-top: 16px;
+  display: block;
+  color: #2c3e50;
+}
+
+/* Polja za unos i odabir u formi plaćanja */
+form#pay-form input,
+form#pay-form select {
+  width: 100%;
+  padding: 12px 15px;
+  margin: 8px 0;
+  border: 2px solid #e0e6ed;
+  border-radius: 10px;
+  box-sizing: border-box;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  background: #ffffff;
+}
+
+/* Fokusirani inputi u formi plaćanja */
+form#pay-form input:focus,
+form#pay-form select:focus {
+  border-color: #3498db;
+  outline: none;
+  box-shadow: 0 0 15px rgba(52, 152, 219, 0.3);
+  transform: scale(1.02);
+}
+
+/* Stilizirani dropdown izbornik */
+.styled-dropdown {
+  width: 100%;
+  padding: 12px 18px;
+  border-radius: 10px;
+  border: 2px solid #3498db;
+  background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+  color: #2c3e50;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 8px 0 16px 0;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(52, 152, 219, 0.2);
+  transition: all 0.3s ease;
+}
+/* Fokusirani dropdown */
+.styled-dropdown:focus {
+  border: 2px solid #667eea;
+  outline: none;
+  box-shadow: 0 0 20px rgba(102, 126, 234, 0.4);
+  transform: scale(1.02);
+}
+
+/* Moderni stilovi za tipke */
+/* Tipka za dodavanje u košaricu */
+.add-to-basket-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #ffffff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 15px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+  margin-left: 10px;
+}
+
+/* Hover efekt za tipku dodavanja u košaricu */
+.add-to-basket-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+}
+
+/* Akcije u kartici (cijena, tipka) */
+.card-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  width: 100%;
+  padding-top: 15px;
+}
+
+/* Stilovi za tipke u modalima */
+/* Tipka za pražnjenje košarice */
+#empty-basket {
+  background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%) !important;
+  color: #ffffff !important;
+  border: none !important;
+  padding: 12px 25px !important;
+  border-radius: 15px !important;
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3) !important;
+  margin-top: 20px !important;
+}
+
+/* Hover efekt za tipku pražnjenja košarice */
+#empty-basket:hover {
+  transform: scale(1.05) !important;
+  box-shadow: 0 6px 20px rgba(231, 76, 60, 0.5) !important;
+}
+
+/* Tipka za plaćanje košarice */
+#pay-basket {
+  background: linear-gradient(135deg, #27ae60 0%, #229954 100%) !important;
+  color: #ffffff !important;
+  border: none !important;
+  padding: 12px 25px !important;
+  border-radius: 15px !important;
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3) !important;
+  margin-top: 20px !important;
+  margin-left: 15px !important;
+}
+
+/* Hover efekt za tipku plaćanja košarice */
+#pay-basket:hover {
+  transform: scale(1.05) !important;
+  box-shadow: 0 6px 20px rgba(39, 174, 96, 0.5) !important;
+}
+
+/* Prikaz broja artikala u košarici */
+/* Stilovi za prikaz košarice u podnožju */
+.basket {
+  background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+  padding: 10px 16px;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(243, 156, 18, 0.3);
+  color: white;
+  font-weight: 600;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 2px solid rgba(255,255,255,0.2);
+}
+
+/* Hover efekt za košaricu */
+.basket:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(243, 156, 18, 0.5);
+  background: linear-gradient(135deg, #e67e22 0%, #f39c12 100%);
+}
+
+/* Brojač artikala u košarici */
+#basket-count {
+  background: rgba(255,255,255,0.3);
+  padding: 4px 10px;
+  border-radius: 15px;
+  min-width: 24px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1rem;
+  border: 1px solid rgba(255,255,255,0.5);
+}
+
+/* Tipka za povratak na vrh stranice */
+button[onclick*="scrollTo"] {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  color: #ffffff !important;
+  border: none !important;
+  padding: 15px 25px !important;
+  border-radius: 25px !important;
+  font-size: 1.2rem !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3) !important;
+}
+
+button[onclick*="scrollTo"]:hover {
+  transform: scale(1.1) !important;
+  box-shadow: 0 12px 35px rgba(102, 126, 234, 0.5) !important;
+}
+
+/* Tipka za potvrdu plaćanja u formi */
+form#pay-form button[type="submit"] {
+  background: linear-gradient(135deg, #27ae60 0%, #229954 100%) !important;
+  color: #ffffff !important;
+  border: none !important;
+  padding: 12px 25px !important;
+  border-radius: 15px !important;
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3) !important;
+  margin-top: 20px !important;
+  width: 100% !important;
+}
+
+form#pay-form button[type="submit"]:hover {
+  transform: scale(1.02) !important;
+  box-shadow: 0 6px 20px rgba(39, 174, 96, 0.5) !important;
+}
+
+/* Dodatna responsivnost podnožja za mobilne uređaje */
+@media (max-width: 768px) {
+  body {
+    padding-bottom: 110px; /* More space for two-row footer content */
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding-bottom: 120px; /* Even more space for very small screens */
+  }
+  
+  footer {
+    min-height: 100px;
+    padding: 10px 5px;
+  }
+}
+
+/* Osiguraj da je podnožje uvijek vidljivo i pravilno pozicionirano */
+footer {
+  height: 70px;
+}
+
+/* Optimizacije za velike ekrane i 3 stupca */
+@media (min-width: 1400px) {
+  .menu-layout {
+    max-width: 1400px;
+  }
+  
+  .card-grid {
+    gap: 40px;
+    justify-content: flex-start;
+  }
+  
+  .card {
+    flex: 0 0 calc(30% - 27px);
+    max-width: calc(30% - 27px);
+    min-width: auto;
+  }
+}

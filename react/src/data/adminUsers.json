@@ -1,0 +1,41 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "admin",
+      "password": "admin123",
+      "role": "administrator",
+      "permissions": ["menu_edit", "orders_view", "settings_edit", "users_manage"],
+      "lastLogin": null,
+      "active": true
+    },
+    {
+      "id": 2,
+      "username": "manager",
+      "password": "manager123",
+      "role": "manager",
+      "permissions": ["menu_edit", "orders_view"],
+      "lastLogin": null,
+      "active": true
+    }
+  ],
+  "sessions": [],
+  "permissions": [
+    {
+      "name": "menu_edit",
+      "description": "Edit menu items and categories"
+    },
+    {
+      "name": "orders_view",
+      "description": "View and manage orders"
+    },
+    {
+      "name": "settings_edit",
+      "description": "Edit restaurant settings"
+    },
+    {
+      "name": "users_manage",
+      "description": "Manage admin users"
+    }
+  ]
+}

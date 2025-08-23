@@ -1,0 +1,215 @@
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header and Footer base styles */
+header, footer {
+  display: flex;
+  font-family: Arial, Helvetica, sans-serif;
+  height: 10vh;
+  background-color: #333;
+  color: tomato;
+  font-style: italic;
+  font-size: 20px;
+  font-weight: bold;
+  box-sizing: border-box;
+}
+
+/* Main content area */
+main {
+  flex: 1 0 auto;
+  min-height: 80vh;
+  position: relative;
+}
+
+/* Animations */
+@keyframes colorChange {
+  from {
+    color: red;
+  }
+  to {
+    color: yellow;
+  }
+}
+
+@keyframes basketFadeIn {
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes paymentPop {
+  from { opacity: 0; transform: translateY(-30px) scale(0.9); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Button styles */
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1em;
+}
+
+.btn-primary {
+  background-color: #33b5e5;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #0099cc;
+}
+
+.btn-danger {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.btn-danger:hover {
+  background-color: #c0392b;
+}
+
+/* Modal styles */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.5);
+  transition: opacity 0.3s;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal.show {
+  display: flex;
+  opacity: 1;
+}
+
+.modal-content {
+  background: #fff;
+  color: #333;
+  padding: 30px 40px;
+  border-radius: 12px;
+  min-width: 300px;
+  max-width: 90vw;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  transform: scale(0.8);
+  transition: transform 0.3s;
+  position: relative;
+}
+
+.modal.show .modal-content {
+  transform: scale(1);
+}
+
+.close-btn {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+  font-size: 2rem;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: #666;
+}
+
+.close-btn:hover {
+  color: #333;
+}
+
+/* Form styles */
+input, textarea {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1em;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Card styles */
+.card {
+  border-radius: 8px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05);
+  padding: 20px;
+  background-color: white;
+  transition: transform 0.3s ease;
+  color: crimson;
+}
+
+.card:hover {
+  cursor: pointer;
+  transform: translateY(-5px);
+}
+
+/* Image fallback styles */
+img {
+  background-color: #f0f0f0;
+  background-image: linear-gradient(45deg, #e0e0e0 25%, transparent 25%, transparent 75%, #e0e0e0 75%, #e0e0e0),
+                    linear-gradient(45deg, #e0e0e0 25%, transparent 25%, transparent 75%, #e0e0e0 75%, #e0e0e0);
+  background-size: 20px 20px;
+  background-position: 0 0, 10px 10px;
+}
+
+img[src=""], img:not([src]) {
+  opacity: 0.5;
+}
+
+img[alt]:after {
+  content: " 📷 " attr(alt);
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 12px;
+  color: #666;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  header, footer {
+    font-size: 16px;
+    padding: 0 10px;
+  }
+  
+  .modal-content {
+    margin: 20px;
+    padding: 20px;
+  }
+}

@@ -1,0 +1,1128 @@
+<!-- Dokument tip: HTML5 -->
+<!DOCTYPE html>
+<!-- Početak HTML dokumenta, jezik: hrvatski -->
+<html lang="hr">
+<head>
+  <!-- Postavljanje kodiranja znakova -->
+  <meta charset="UTF-8">
+  <!-- Omogućuje responzivni dizajn na mobilnim uređajima -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Naslov stranice -->
+  <title>Restoran Shpanac</title>
+  <!-- Opis stranice za tražilice -->
+  <meta name="description" content="Restoran Shpanac - najbolji restoran u Zagrebu">
+  <!-- Ključne riječi za SEO -->
+  <meta name="keywords" content="Restoran, Zagreb, najbolji restoran, hrvatsko italijanska kuhinja">
+  <!-- Autor stranice -->
+  <meta name="author" content="Restoran Shpanac">
+  <!-- Ikona stranice -->
+  <link rel="icon" href="slike/favicon.jpeg">
+  <!-- Povezivanje vanjskog CSS-a -->
+  <link rel="stylesheet" href="style.css">
+  <!-- Unutarnji CSS stilovi za hamburger meni, kontakt sekciju i responzivnost -->
+  <style>
+  /* Stilovi za hamburger meni */
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+        padding: 10px;
+        background: rgba(102, 126, 234, 0.9);
+        border-radius: 8px;
+        margin: 5px auto;
+        width: fit-content;
+        z-index: 1001;
+      }
+      
+      .hamburger span {
+        width: 25px;
+        height: 3px;
+        background: white;
+        margin: 3px 0;
+        transition: 0.3s;
+        border-radius: 2px;
+      }
+      
+      .hamburger.active span:nth-child(1) {
+        transform: rotate(-45deg) translate(-5px, 6px);
+      }
+      
+      .hamburger.active span:nth-child(2) {
+        opacity: 0;
+      }
+      
+      .hamburger.active span:nth-child(3) {
+        transform: rotate(45deg) translate(-5px, -6px);
+      }
+      
+      html, body {
+        box-sizing: border-box;
+        width: 100%;
+        overflow-x: hidden;
+        margin: 0;
+        padding: 0;
+        font-family: 'Segoe UI', 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: #2c3e50;
+        min-height: 100vh;
+      }
+
+  /* Moderni stilovi za input i textarea na svim uređajima */
+      input[type="text"], textarea {
+        font-family: 'Segoe UI', 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+        font-size: 0.9em;
+        padding: 8px 10px;
+        margin-bottom: 10px;
+        border-radius: 12px;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        background: rgba(255, 255, 255, 0.95);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+        backdrop-filter: blur(10px);
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      input[type="file"] {
+        font-family: 'Segoe UI', 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+        font-size: 1.05em;
+        padding: 14px 16px;
+        margin-bottom: 20px;
+        border-radius: 12px;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        background: rgba(255, 255, 255, 0.95);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+        backdrop-filter: blur(10px);
+        width: 100%;
+        box-sizing: border-box;
+        display: none;
+      }
+
+  /* Potpuno sakrij gumb za odabir datoteke */
+      input[type="file"]::file-selector-button {
+        display: none;
+      }
+      
+      input[type="file"]::-webkit-file-upload-button {
+        display: none;
+      }
+
+      input[type="text"]:focus, textarea:focus {
+        outline: none;
+        border-color: #667eea;
+        background: rgba(255, 255, 255, 1);
+        box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.15), 0 8px 32px rgba(0, 0, 0, 0.12);
+        transform: translateY(-2px);
+      }
+
+      textarea {
+        min-height: 60px;
+        resize: vertical;
+        padding: 8px !important;
+        line-height: 1.4;
+        font-size: 0.9em;
+        font-weight: 400;
+      }
+
+      label {
+        font-family: 'Segoe UI', 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+        font-weight: 600;
+        font-size: 1.05em;
+        letter-spacing: 0.3px;
+      }
+      *, *:before, *:after {
+        box-sizing: inherit;
+      }
+      
+  /* Globalno ljepljivo zaglavlje - za sve veličine ekrana */
+      #zaglavlje {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        z-index: 99999 !important;
+        width: 100% !important;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+        color: white !important;
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3) !important;
+      }
+      
+  /* Dodaj gornju marginu tijelu zbog fiksnog zaglavlja */
+      body {
+        margin-top: 120px !important;
+      }
+      
+  /* Osiguraj ispravno ponašanje ljepljivog zaglavlja */
+      html, body {
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+      
+  /* Stilovi za mobilne uređaje */
+  @media (max-width: 900px) {
+        /* Header styling for mobile */
+        #zaglavlje {
+          padding: 10px 0 !important;
+        }
+        
+        #zaglavlje h1 {
+          color: white !important;
+          text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3) !important;
+          margin: 5px 0 !important;
+          text-align: center !important;
+        }
+        
+        .sadrzaj p {
+          color: white !important;
+          text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3) !important;
+          text-align: center !important;
+        }
+        
+        /* Show hamburger menu on mobile */
+        .hamburger {
+          display: flex !important;
+        }
+        
+        /* Hide regular navigation on mobile */
+        .navigacija1 {
+          display: none !important;
+          flex-direction: column;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          background: rgba(255, 255, 255, 0.98);
+          backdrop-filter: blur(15px);
+          border-radius: 0 0 15px 15px;
+          box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+          z-index: 999;
+          margin: 0;
+          padding: 10px;
+          list-style: none;
+        }
+        
+        .navigacija1.show {
+          display: flex !important;
+        }
+        
+        #navigacija1 {
+          position: relative;
+        }
+        
+        .navigacija1 li {
+          list-style: none;
+          margin: 5px 0;
+        }
+        
+        .navigacija1 a {
+          display: block;
+          padding: 15px;
+          background: transparent;
+          border-radius: 8px;
+          text-align: center;
+          font-size: 0.7em;
+          text-decoration: none;
+          color: #333 !important;
+          font-weight: bold;
+          transition: all 0.3s ease;
+        }
+        
+        .navigacija1 a:hover {
+          background: rgba(102, 126, 234, 0.1) !important;
+          transform: scale(0.98);
+        }
+        
+        /* Ensure contact main is visible on mobile */
+        .contact-main {
+          display: block !important;
+          visibility: visible !important;
+          opacity: 1 !important;
+          padding: 20px 10px !important;
+        }
+        
+        .contact-container {
+          display: flex !important;
+          flex-direction: column !important;
+          height: auto !important;
+          min-height: unset !important;
+          gap: 20px !important;
+          padding: 0 2vw;
+        }
+        .contact-box, .need-job-box, .contact-social-box, .tripadvisor-box {
+          display: block !important;
+          min-width: 0 !important;
+          max-width: 100vw !important;
+          width: 100% !important;
+          margin: 0 auto 10px auto;
+          box-sizing: border-box !important;
+          background: rgba(255, 255, 255, 0.1) !important;
+          color: #ffffff !important;
+          z-index: 2 !important;
+          visibility: visible !important;
+          opacity: 1 !important;
+          border-radius: 15px !important;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2) !important;
+          backdrop-filter: blur(10px) !important;
+        }
+        .slider-box {
+          min-width: 0 !important;
+          max-width: 100vw !important;
+          width: 100% !important;
+          height: auto !important;
+          margin: 0 auto 10px auto;
+          padding: 0 !important;
+        }
+        .slider-img {
+          max-width: 100vw !important;
+          width: 100% !important;
+          height: auto !important;
+          max-height: 50vw;
+        }
+      }
+  /* Stilovi za male mobilne uređaje */
+  @media (max-width: 600px) {
+        /* Show hamburger menu on mobile */
+        .hamburger {
+          display: flex !important;
+        }
+        
+        /* Hide regular navigation on mobile */
+        .navigacija1 {
+          display: none !important;
+          flex-direction: column;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          background: rgba(255, 255, 255, 0.98);
+          backdrop-filter: blur(15px);
+          border-radius: 0 0 15px 15px;
+          box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+          z-index: 999;
+          margin: 0;
+          padding: 10px;
+          list-style: none;
+        }
+        
+        .navigacija1.show {
+          display: flex !important;
+        }
+        
+        #navigacija1 {
+          position: relative;
+        }
+        
+        .navigacija1 li {
+          list-style: none;
+          margin: 5px 0;
+        }
+        
+        .navigacija1 a {
+          display: block;
+          padding: 15px;
+          background: transparent;
+          border-radius: 8px;
+          text-align: center;
+          font-size: 0.7em;
+          text-decoration: none;
+          color: #333 !important;
+          font-weight: bold;
+          transition: all 0.3s ease;
+        }
+        
+        .navigacija1 a:hover,
+        .navigacija1 a:active,
+        .navigacija1 a:focus {
+          background: rgba(102, 126, 234, 0.1) !important;
+          transform: scale(0.98);
+        }
+        
+        /* Ensure contact main is visible on mobile */
+        .contact-main {
+          display: block !important;
+          visibility: visible !important;
+          opacity: 1 !important;
+          padding: 15px 5px !important;
+        }
+        
+        h1 {
+          font-size: 0.95em;
+          text-align: center;
+          word-break: break-word;
+        }
+        .navigacija1 {
+          display: flex;
+          flex-direction: column;
+          align-items: stretch;
+          gap: 10px;
+          padding: 0;
+        }
+        .navigacija1 li {
+          list-style: none;
+        }
+        .navigacija1 a {
+          display: block;
+          padding: 14px 0;
+          background: #fff !important;
+          border-radius: 6px;
+          text-align: center;
+          font-size: 1.1em;
+          text-decoration: none;
+          color: #222 !important;
+          font-weight: bold;
+          box-shadow: 0 1px 4px #0001;
+        }
+        .navigacija1 a:active, .navigacija1 a:focus {
+          background: #d1d1d1 !important;
+        }
+        .sadrzaj p {
+          font-size: 0.85em;
+          text-align: center;
+        }
+        .contact-box, .need-job-box, .contact-social-box, .tripadvisor-box {
+          padding: 15px !important;
+          background: rgba(255, 255, 255, 0.1) !important;
+          color: #ffffff !important;
+          z-index: 2 !important;
+          visibility: visible !important;
+          opacity: 1 !important;
+          border-radius: 15px !important;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2) !important;
+          backdrop-filter: blur(10px) !important;
+        }
+        .slider-img {
+          max-width: 100vw !important;
+          width: 100% !important;
+          height: auto !important;
+          max-height: 50vw;
+        }
+        .slider-box {
+          padding: 0 !important;
+        }
+        input[type="text"], textarea {
+          width: 100% !important;
+          font-size: 1em;
+          padding: 15px;
+          margin-bottom: 15px;
+          border-radius: 10px;
+          border: 2px solid #ddd;
+          font-family: 'Segoe UI', 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+          transition: all 0.3s ease;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        input[type="file"] {
+          width: 100% !important;
+          font-size: 1em;
+          padding: 15px;
+          margin-bottom: 15px;
+          border-radius: 10px;
+          border: 2px solid #ddd;
+          font-family: 'Segoe UI', 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+          transition: all 0.3s ease;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+          display: none;
+        }
+        
+        /* Hide file input buttons on mobile */
+        input[type="file"]::file-selector-button {
+          display: none;
+        }
+        
+        input[type="file"]::-webkit-file-upload-button {
+          display: none;
+        }
+        input[type="text"]:focus, textarea:focus {
+          outline: none;
+          border-color: #667eea;
+          box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        textarea {
+          min-height: 120px;
+          resize: vertical;
+          padding: 8px !important;
+          line-height: 1.6;
+          font-size: 1.05em;
+        }
+        input[type="submit"], button.map-btn {
+          width: 100%;
+          padding: 16px 24px;
+          font-size: 1.1em;
+          font-family: 'Segoe UI', 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+          font-weight: 600;
+          letter-spacing: 0.5px;
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          color: #fff;
+          border: none;
+          border-radius: 12px;
+          cursor: pointer;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+        input[type="submit"]:hover, button.map-btn:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 10px 30px rgba(102, 126, 234, 0.5);
+        }
+        input[type="submit"]:active, button.map-btn:active {
+          transform: translateY(-1px);
+        }
+        label {
+          font-size: 1em;
+        }
+        .contact-social-box svg {
+          width: 28px;
+          height: 28px;
+        }
+        footer#podnožje {
+          font-size: 0.95em;
+          text-align: center;
+          padding: 10px 0;
+        }
+        #mapa iframe {
+          width: 100vw !important;
+          min-width: 0;
+          max-width: 100vw;
+          height: 40vw !important;
+          min-height: 160px;
+          max-height: 300px;
+          display: block;
+          margin: 0 auto;
+        }
+      }
+      
+  /* Stilovi za desktop prikaz */
+      @media (min-width: 901px) {
+        .hamburger {
+          display: none !important;
+        }
+        
+        .navigacija1 {
+          display: flex !important;
+          list-style: none;
+          margin: 0;
+          padding: 0;
+          justify-content: center;
+        }
+        
+        .navigacija1 li {
+          margin: 0 15px;
+        }
+        
+        .navigacija1 a {
+          text-decoration: none;
+          font-weight: bold;
+          padding: 10px 15px;
+          border-radius: 5px;
+          transition: all 0.3s ease;
+        }
+        
+        #zaglavlje {
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+          color: white !important;
+          position: sticky !important;
+          top: 0 !important;
+          z-index: 9999 !important;
+          padding: 15px 0;
+          box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+          width: 100% !important;
+        }
+        
+        #zaglavlje h1 {
+          color: white !important;
+          text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3) !important;
+          text-align: center !important;
+        }
+        
+        .sadrzaj p {
+          color: white !important;
+          text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3) !important;
+          text-align: center !important;
+        }
+      }
+    </style>
+</head>
+<!-- Početak tijela stranice -->
+<body>
+  <!-- Zaglavlje stranice s naslovom i navigacijom -->
+  <header id="zaglavlje">
+  <!-- Glavni naslov -->
+  <h1>RESTORAN SHPANAC</h1>
+  <!-- Navigacija s hamburger menijem -->
+  <nav id="navigacija1">
+            <!-- Hamburger ikona za mobilnu navigaciju -->
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <!-- Glavna navigacija -->
+            <ul class="navigacija1">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+  <!-- Dodatne informacije o lokaciji i radnom vremenu -->
+  <div class="sadrzaj">
+            <p>Šantićeva ulica 9, 10298 Oborovo bistransko</p>
+            <p>Nedeljom i praznicima ne radimo!</p>
+        </div>
+    </header>
+  <!-- Glavni sadržaj stranice - kontakt sekcija -->
+  <main class="contact-main">
+  <!-- Kontejner za kontakt, recenzije, slike, prijavu za posao i društvene mreže -->
+  <div id="contact" class="contact-container" style="display: flex; flex-direction: row; gap: 15px; align-items: flex-start; justify-content: center; min-height:300px; padding: 15px;">
+            <!-- TripAdvisor recenzije -->
+            <div class="tripadvisor-box" style="flex:1 1 260px; min-width:200px; max-width:320px; max-height:700px; overflow-y:auto; background: rgba(255, 255, 255, 0.1); border-radius:15px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); padding:12px; border: 2px solid rgba(255, 255, 255, 0.3); backdrop-filter: blur(10px);">
+                <h3 style="color: #ffffff; text-align: center; margin-top: 0; margin-bottom: 12px; font-weight: 600; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); font-size: 1em; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="10" fill="#00AA6C"/>
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" fill="#fff"/>
+                        <circle cx="8" cy="9" r="1.5" fill="#fff"/>
+                        <circle cx="16" cy="9" r="1.5" fill="#fff"/>
+                        <path d="M8 14s1.5 2 4 2 4-2 4-2" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                    TripAdvisor Recenzije
+                </h3>
+                
+                <div style="text-align: center; margin-bottom: 15px;">
+                    <div style="display: flex; justify-content: center; gap: 3px; margin-bottom: 8px;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="#FFD700">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="#FFD700">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="#FFD700">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="#FFD700">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="#FFD700">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                    </div>
+                    <p style="color: #ffffff; margin: 0; font-weight: 600; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);">4.8/5 ⭐ (247 recenzija)</p>
+                </div>
+
+                <div style="margin-bottom: 12px;">
+                    <div style="background: rgba(255, 255, 255, 0.15); border-radius: 8px; padding: 8px; margin-bottom: 8px;">
+                        <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 4px;">
+                            <strong style="color: #ffffff; font-size: 0.85em;">Marko P.</strong>
+                            <div style="display: flex; gap: 2px;">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="#FFD700">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="#FFD700">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="#FFD700">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="#FFD700">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="#FFD700">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <p style="color: #ffffff; margin: 0; font-size: 0.8em; line-height: 1.3;">"Odličan restoran! Hrana je fantastična, osoblje ljubazno. Posebno preporučujem ćevape i pljeskavicu."</p>
+                    </div>
+
+                    <div style="background: rgba(255, 255, 255, 0.15); border-radius: 8px; padding: 8px; margin-bottom: 8px;">
+                        <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 4px;">
+                            <strong style="color: #ffffff; font-size: 0.85em;">Ana M.</strong>
+                            <div style="display: flex; gap: 2px;">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="#FFD700">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="#FFD700">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="#FFD700">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="#FFD700">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="#ddd">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <p style="color: #ffffff; margin: 0; font-size: 0.8em; line-height: 1.3;">"Izuzetno dobar ambijent i ukusna hrana. Definitivno ću doći ponovo!"</p>
+                    </div>
+
+                    <div style="background: rgba(255, 255, 255, 0.15); border-radius: 8px; padding: 8px; margin-bottom: 8px;">
+                        <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 4px;">
+                            <strong style="color: #ffffff; font-size: 0.85em;">Stefan K.</strong>
+                            <div style="display: flex; gap: 2px;">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="#FFD700">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="#FFD700">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="#FFD700">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="#FFD700">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="#FFD700">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <p style="color: #ffffff; margin: 0; font-size: 0.8em; line-height: 1.3;">"Najbolji restoran u gradu! Hrana je uvek sveža i ukusna. Brza usluga."</p>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 15px;">
+                    <a href="https://www.tripadvisor.com/Restaurant_Review-g294454-d12345678-Reviews-Restoran_Shpanac-Zagreb_Central_Croatia.html" target="_blank" style="background: linear-gradient(135deg, #00AA6C 0%, #00934A 100%); color: white; text-decoration: none; padding: 8px 16px; border-radius: 8px; font-weight: 600; font-size: 0.85em; display: inline-block; transition: all 0.3s ease; box-shadow: 0 3px 12px rgba(0, 170, 108, 0.3);">
+                        Pogledaj sve recenzije
+                    </a>
+                </div>
+            </div>
+            <!-- Slider sa slikama i mapom -->
+            <div class="slider-box" style="flex:3 1 660px; min-width:360px; max-width:900px; max-height:500px; display:flex; align-items:center; justify-content:center; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border-radius:15px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); border: 2px solid rgba(255, 255, 255, 0.3);">
+                <div class="slider" id="slider">
+                    <button id="fullscreenMapBtn" style="display:none;position:absolute;top:16px;right:16px;z-index:20;background: #0072ff; color: white; border: none; padding: 7px 12px; border-radius: 50%; font-size: 1.2em; cursor: pointer; box-shadow: 0 2px 8px rgba(0,198,255,0.18);">⛶</button>
+                    <img src="lokal_background/slika-1.jpg" class="slider-img" style="display:block; max-width:100%; max-height:45vh; border-radius:8px;">
+                    <img src="lokal_background/slika-2.jpg" class="slider-img" style="display:none; max-width:100%; max-height:45vh; border-radius:8px;">
+                    <img src="lokal_background/slika-3.jpg" class="slider-img" style="display:none; max-width:100%; max-height:45vh; border-radius:8px;">
+                    <img src="lokal_background/slika-4.jpg" class="slider-img" style="display:none; max-width:100%; max-height:45vh; border-radius:8px;">
+                    <img src="lokal_background/slika-5.jpg" class="slider-img" style="display:none; max-width:100%; max-height:45vh; border-radius:8px;">
+                    <img src="lokal_background/slika-6.jpg" class="slider-img" style="display:none; max-width:100%; max-height:45vh; border-radius:8px;">
+                    <img src="lokal_background/slika-7.jpg" class="slider-img" style="display:none; max-width:100%; max-height:45vh; border-radius:8px;">
+                    <img src="lokal_background/slika-8.jpg" class="slider-img"  style="display:none; max-width:100%; max-height:45vh; border-radius:8px;">
+                    <img src="lokal_background/slika-9.jpg" class="slider-img"  style="display:none; max-width:100%; max-height:45vh; border-radius:8px;">
+                    <img src="lokal_background/slika-10.jpg" class="slider-img"  style="display:none; max-width:100%; max-height:45vh; border-radius:8px;">
+                    <img src="lokal_background/POZADINSKA SLIKA 11.jpeg"class="slider-img"  style="display:none; max-width:100%; max-height:45vh; border-radius:8px;">
+                    <iframe id="slider-map" src="https://www.google.com/maps?q=Šantićeva%20ulica%209,%20Oborovo%20bistransko,%20Hrvatska&output=embed" style="display:none; width:100%; height:45vh; border-radius:8px; border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <div id="fullscreenMapOverlay" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:#000c;z-index:99999;align-items:center;justify-content:center;">
+                        <button id="closeFullscreenMapBtn" style="position:absolute;top:30px;right:30px;background:#e74c3c;color:#fff;border:none;border-radius:8px;padding:12px 24px;font-weight:600;cursor:pointer;z-index:100;">Zatvori mapu</button>
+                        <iframe src="https://www.google.com/maps?q=Šantićeva%20ulica%209,%20Oborovo%20bistransko,%20Hrvatska&output=embed" width="100%" height="100%" style="border:0; border-radius:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </div>
+            <!-- Prijava za posao -->
+            <div class="need-job-box" style="flex:1 1 200px; min-width:240px; max-width:260px; max-height:590px; overflow-y:auto; background: rgba(255, 255, 255, 0.1); border-radius:15px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); padding:2px; border: 2px solid rgba(255, 255, 255, 0.3); backdrop-filter: blur(10px);">
+                <h3 style="margin-top:0; margin-bottom: 15px; color: #ffffff; text-align: center; font-weight: 600; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); font-size: 1.1em;">Trebate posao?</h3>
+                <form id="job-form" action="#" method="post" enctype="multipart/form-data">
+                    <label for="job-ime" style="color: #ffffff; font-weight: 500; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);">Ime i prezime:</label><br>
+                    <input type="text" id="job-ime" name="job-ime" required style="width:100%;"><br><br>
+                    <label for="job-adresa" style="color: #ffffff; font-weight: 500; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);">Adresa:</label><br>
+                    <input type="text" id="job-adresa" name="job-adresa" required style="width:100%;"><br><br>
+                    <div style="display: flex; gap: 12px; margin-bottom: 12px; justify-content: center;">
+                      <div id="picture-btn-container" style="display:flex; align-items:center; justify-content:center;">
+                        <button id="add-picture-btn" type="button" onclick="document.getElementById('job-picture').click();" style="width:60px; height:60px; border-radius:12px; border:none; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display:flex; flex-direction:column; align-items:center; justify-content:center; box-shadow:0 2px 8px rgba(0,0,0,0.18); cursor:pointer; position:relative;">
+                          <span style='font-size:1.5em; margin-bottom:2px;'>📷</span>
+                          <span style='font-size:0.8em;'>Slika</span>
+                        </button>
+                      </div>
+                      <div id="document-btn-container" style="display:flex; align-items:center; justify-content:center;">
+                        <button id="add-document-btn" type="button" onclick="document.getElementById('job-document').click();" style="width:60px; height:60px; border-radius:12px; border:none; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); display:flex; flex-direction:column; align-items:center; justify-content:center; box-shadow:0 2px 8px rgba(0,0,0,0.18); cursor:pointer; position:relative;">
+                          <span style='font-size:1.5em; margin-bottom:2px;'>📄</span>
+                          <span style='font-size:0.8em;'>Dok</span>
+                        </button>
+                      </div>
+                    </div>
+                    <input type="file" id="job-picture" name="job-picture" accept="image/*" style="display:none;">
+                    <!-- The preview will be injected dynamically in the button container above --><br>
+                    <input type="file" id="job-document" name="job-document" accept=".pdf,.doc,.docx,.jpg,.png" style="display:none;">
+                    <!-- The preview will be injected dynamically in the button container above --><br>
+                    <label for="job-exp" style="color: #ffffff; font-weight: 500; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);">Iskustvo:</label><br>
+                    <textarea id="job-exp" name="job-exp" rows="3" cols="40" maxlength="500" style="resize:none; width:100%; min-width:0; max-width:100%;" placeholder="Opišite vaše radno iskustvo..."></textarea><br><br>
+                    <input type="submit" value="Pošalji prijavu" style="background: linear-gradient(135deg, #27ae60 0%, #229954 100%); color: white; border: none; padding: 12px 20px; border-radius: 10px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3); width: 100%;">
+                </form>
+            </div>
+            <!-- Kontakt i društvene mreže -->
+            <div class="contact-social-box" style="flex:1 1 260px; min-width:220px; max-width:320px; max-height:500px; overflow-y:auto; background: rgba(255, 255, 255, 0.1); border-radius:15px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); padding:15px; display:flex; flex-direction:column; align-items:center; justify-content:flex-start; border: 2px solid rgba(255, 255, 255, 0.3); backdrop-filter: blur(10px);">
+                <h3 style="margin-top:0; margin-bottom: 15px; color: #ffffff; text-align: center; font-weight: 600; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); font-size: 1.1em;">Kontakt &amp; Društvene mreže</h3>
+                <div style="margin-bottom:12px; text-align:center;">
+                    <p style="margin:0; font-size:1.05em; font-weight:500; color: #ffffff; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);">Šantićeva ulica 9<br>10298 Oborovo bistransko</p>
+                    <p style="margin:0; color: #ffffff; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);">Tel: <a href="tel:+385 91 5 406 406" style="color:#ffffff; text-decoration:underline;">+385 91 5 406 406</a></p>
+                    <p style="margin:0; color: #ffffff; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);">Email: <a href="mailto:spanac666@gmail.com" style="color:#ffffff; text-decoration:underline;">spanac666@gmail.com</a></p>
+                </div>
+                <div style="display:flex; flex-direction:column; gap:18px; justify-content:center; align-items:center; margin-top:8px;">
+                    <a href="https://www.facebook.com/" target="_blank" title="Facebook" style="display:inline-block;">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="16" fill="#1877F2"/><path d="M21.333 16.001h-3.2v8h-3.2v-8h-1.6v-2.667h1.6v-1.6c0-2.133 1.067-3.2 3.2-3.2h2.133v2.667h-1.067c-.533 0-.8.267-.8.8v1.333h2.133l-.267 2.667z" fill="#fff"/></svg>
+                    </a>
+                    <a href="https://www.instagram.com/" target="_blank" title="Instagram" style="display:inline-block;">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="16" fill="#E4405F"/><path d="M21.333 10.667H10.667A1.333 1.333 0 0 0 9.333 12v9.333a1.333 1.333 0 0 0 1.334 1.334h10.666a1.333 1.333 0 0 0 1.334-1.334V12a1.333 1.333 0 0 0-1.334-1.333zm-5.333 2.666a3.333 3.333 0 1 1 0 6.667 3.333 3.333 0 0 1 0-6.667zm5.333.667a.667.667 0 1 1 0 1.333.667.667 0 0 1 0-1.333zm-5.333 1.333a2 2 0 1 0 0 4 2 2 0 0 0 0-4z" fill="#fff"/></svg>
+                    </a>
+                    <a href="https://wa.me/38512345678" target="_blank" title="WhatsApp" style="display:inline-block;">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="16" fill="#25D366"/><path d="M22.667 17.333c-.267-.133-1.6-.8-1.867-.933-.267-.133-.467-.2-.667.133-.2.267-.8.933-.967 1.133-.2.2-.333.2-.6.067-.267-.133-1.133-.417-2.133-1.333-.8-.667-1.333-1.467-1.467-1.733-.133-.267-.013-.4.12-.533.12-.12.267-.333.4-.5.133-.167.18-.267.267-.433.087-.167.043-.3-.02-.433-.067-.133-.667-1.6-.933-2.2-.2-.467-.4-.4-.667-.4-.2 0-.4 0-.6.033-.2.033-.467.067-.733.267-.267.2-.8.8-.8 1.933 0 1.133.8 2.233.933 2.4.133.167 1.6 2.467 3.867 3.2.54.167.96.267 1.28.333.54.113 1.033.1 1.42.06.433-.047 1.333-.547 1.52-1.08.187-.533.187-.987.133-1.08z" fill="#fff"/></svg>
+                    </a>
+                    <a href="https://www.tiktok.com/@yourprofile" target="_blank" title="TikTok" style="display:inline-block;">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="16" fill="#000"/><path d="M22.5 14.5c-1.1 0-2-.9-2-2V9.5h-2v8c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2c.2 0 .4 0 .5.1v-2.1c-.2 0-.3-.1-.5-.1-2.2 0-4 1.8-4 4s1.8 4 4 4 4-1.8 4-4v-2.5c.6.4 1.3.6 2 .6v-2z" fill="#fff"/></svg>
+                    </a>
+                    <a href="https://www.snapchat.com/add/yourprofile" target="_blank" title="Snapchat" style="display:inline-block;">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="16" fill="#FFFC00"/><path d="M16 10c-2.2 0-4 1.8-4 4 0 1.2.6 2.3 1.6 3-.2.2-.4.4-.6.6-.2.2-.2.5 0 .7.2.2.5.2.7 0 .2-.2.4-.4.6-.6.7.5 1.5.8 2.4.8s1.7-.3 2.4-.8c.2.2.4.4.6.6.2.2.5.2.7 0 .2-.2.2-.5 0-.7-.2-.2-.4-.4-.6-.6 1-.7 1.6-1.8 1.6-3 0-2.2-1.8-4-4-4zm0 6c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z" fill="#000"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    
+  <!-- Pulsirajući gumb s hamburger emotikonom za brzi pristup meniju -->
+  <div id="hamburger-emoji-btn" style="position:fixed;bottom:70px;right:40px;font-size:2.2em;cursor:pointer;animation:pulse 2s infinite;user-select:none;z-index:9999;background:rgba(255,255,255,0.9);border-radius:50%;padding:8px;box-shadow:0 4px 12px rgba(0,0,0,0.2);" onclick="goToMenu()">🍔</div>
+    <style>
+      /* Animacija za pulsirajući hamburger gumb */
+      @keyframes pulse {
+        0% { transform: scale(1); opacity: 0.8; }
+        50% { transform: scale(1.15); opacity: 1; }
+        100% { transform: scale(1); opacity: 0.8; }
+      }
+    </style>
+    
+    </main>
+  <!-- Podnožje stranice -->
+  <footer id="podnožje" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: white; padding: 20px; text-align: center; box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);">
+  <!-- Gumb za prikaz Google karte -->
+  <button id="showMapBtn" class="map-btn" style="background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%); color: white; border: none; padding: 12px 25px; border-radius: 15px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(243, 156, 18, 0.3); margin-bottom: 15px;">Prikaži kartu</button>
+  <!-- Google karta lokacije restorana -->
+  <div id="mapa" style="display:none; margin-top:15px;">
+            <iframe 
+                src="https://www.google.com/maps?q=Šantićeva%20ulica%209,%20Oborovo%20bistransko,%20Hrvatska&output=embed"
+                width="100%" 
+                height="300" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+  <!-- Autorska prava -->
+  <p>&copy; 2025 Restoran Shpanac. Sva prava pridržana.</p>
+    </footer>
+  <script>
+  // Funkcija za otvaranje/zatvaranje hamburger menija
+  function toggleMenu() {
+    const nav = document.querySelector('.navigacija1');
+    const hamburger = document.querySelector('.hamburger');
+    nav.classList.toggle('show');
+    hamburger.classList.toggle('active');
+  }
+    
+  // Zatvara meni kada se klikne na link
+  document.querySelectorAll('.navigacija1 a').forEach(link => {
+    link.addEventListener('click', () => {
+      const nav = document.querySelector('.navigacija1');
+      const hamburger = document.querySelector('.hamburger');
+      nav.classList.remove('show');
+      hamburger.classList.remove('active');
+    });
+  });
+    
+  // Zatvara meni kada se klikne izvan navigacije
+  document.addEventListener('click', function(event) {
+    const nav = document.querySelector('.navigacija1');
+    const hamburger = document.querySelector('.hamburger');
+    const navContainer = document.querySelector('#navigacija1');
+        
+    if (!navContainer.contains(event.target)) {
+      nav.classList.remove('show');
+      hamburger.classList.remove('active');
+    }
+  });
+    
+  // Jednostavna animacija slidera za slike
+  let current = 0;
+  const sliderImgs = document.querySelectorAll('.slider-img');
+  const sliderMap = document.getElementById('slider-map');
+  let mapInSlider = false;
+  let sliderInterval = null;
+  // Prikazuje sliku u slideru po indeksu
+  function showSliderImage(idx) {
+    sliderImgs.forEach((img, i) => {
+      img.style.display = 'none';
+    });
+    if (!mapInSlider) {
+      sliderImgs[idx].style.display = 'block';
+      sliderMap.style.display = 'none';
+    } else {
+      sliderMap.style.display = 'block';
+    }
+  }
+  // Pokreće automatsku izmjenu slika
+  function startSlider() {
+    if (sliderInterval) {
+      clearInterval(sliderInterval);
+      sliderInterval = null;
+    }
+    sliderInterval = setInterval(() => {
+      if (!mapInSlider) {
+        current = (current + 1) % sliderImgs.length;
+        showSliderImage(current);
+      }
+    }, 2500);
+  }
+  // Zaustavlja slider
+  function stopSlider() {
+    if (sliderInterval) {
+      clearInterval(sliderInterval);
+      sliderInterval = null;
+    }
+  }
+  // Logika za prikaz mape preko cijelog ekrana
+  const fullscreenMapBtn = document.getElementById('fullscreenMapBtn');
+  const fullscreenMapOverlay = document.getElementById('fullscreenMapOverlay');
+  const closeFullscreenMapBtn = document.getElementById('closeFullscreenMapBtn');
+  fullscreenMapBtn.onclick = function() {
+    fullscreenMapOverlay.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+  closeFullscreenMapBtn.onclick = function() {
+    fullscreenMapOverlay.style.display = 'none';
+    document.body.style.overflow = '';
+  }
+  // Gumb za prikaz/skrivanje mape u slideru
+  const btn = document.getElementById('showMapBtn');
+  const mapa = document.getElementById('mapa');
+  btn.onclick = function() {
+    mapInSlider = !mapInSlider;
+    if (mapInSlider) {
+      btn.textContent = "Prikaži slike";
+      stopSlider();
+      sliderImgs.forEach(img => img.style.display = 'none');
+      sliderMap.style.display = 'block';
+      fullscreenMapBtn.style.display = 'inline-block';
+    } else {
+      btn.textContent = "Prikaži kartu";
+      sliderMap.style.display = 'none';
+      fullscreenMapBtn.style.display = 'none';
+      current = 0;
+      showSliderImage(current);
+      fullscreenMapBtn.style.display = 'none';
+      startSlider();
+    }
+  }
+  </script>
+  <script>
+// Funkcionalnost za prikaz slike u prijavi za posao
+document.getElementById('job-picture').addEventListener('change', function(event) {
+  const file = event.target.files[0];
+  const btnContainer = document.getElementById('picture-btn-container');
+  if (file && file.type.startsWith('image/')) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      // Uklanja gumb za dodavanje
+      btnContainer.innerHTML = '';
+      // Kreira preview slike
+      const img = document.createElement('img');
+      img.src = e.target.result;
+      img.alt = 'Preview';
+      img.style.width = '60px';
+      img.style.height = '60px';
+      img.style.objectFit = 'cover';
+      img.style.borderRadius = '12px';
+      img.style.boxShadow = '0 2px 8px rgba(0,0,0,0.18)';
+      img.style.display = 'block';
+      img.style.position = 'relative';
+      // Kreira X gumb za uklanjanje slike
+      const xBtn = document.createElement('button');
+      xBtn.type = 'button';
+      xBtn.innerHTML = '&times;';
+      xBtn.title = 'Ukloni sliku';
+      xBtn.style.position = 'absolute';
+      xBtn.style.top = '2px';
+      xBtn.style.right = '2px';
+      xBtn.style.background = 'rgba(255,0,0,0.85)';
+      xBtn.style.color = 'white';
+      xBtn.style.border = 'none';
+      xBtn.style.borderRadius = '50%';
+      xBtn.style.width = '22px';
+      xBtn.style.height = '22px';
+      xBtn.style.fontSize = '15px';
+      xBtn.style.cursor = 'pointer';
+      xBtn.style.display = 'flex';
+      xBtn.style.alignItems = 'center';
+      xBtn.style.justifyContent = 'center';
+      xBtn.style.zIndex = '10';
+      xBtn.onclick = function() {
+        document.getElementById('job-picture').value = '';
+        btnContainer.innerHTML = '';
+        // Vraća gumb za dodavanje
+        const addBtn = document.createElement('button');
+        addBtn.type = 'button';
+        addBtn.id = 'add-picture-btn';
+        addBtn.onclick = function() { document.getElementById('job-picture').click(); };
+        addBtn.style.width = '60px';
+        addBtn.style.height = '60px';
+        addBtn.style.borderRadius = '12px';
+        addBtn.style.border = 'none';
+        addBtn.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+        addBtn.style.display = 'flex';
+        addBtn.style.flexDirection = 'column';
+        addBtn.style.alignItems = 'center';
+        addBtn.style.justifyContent = 'center';
+        addBtn.style.boxShadow = '0 2px 8px rgba(0,0,0,0.18)';
+        addBtn.style.cursor = 'pointer';
+        addBtn.style.position = 'relative';
+        addBtn.innerHTML = "<span style='font-size:1.5em; margin-bottom:2px;'>📷</span><span style='font-size:0.8em;'>Slika</span>";
+        btnContainer.appendChild(addBtn);
+      };
+      // Omotava sliku i X gumb radi pozicioniranja
+      const wrap = document.createElement('div');
+      wrap.style.position = 'relative';
+      wrap.style.display = 'inline-block';
+      wrap.appendChild(img);
+      wrap.appendChild(xBtn);
+      btnContainer.appendChild(wrap);
+    };
+    reader.readAsDataURL(file);
+  } else {
+    // Ako nema datoteke, vraća gumb za dodavanje
+    btnContainer.innerHTML = '';
+    const addBtn = document.createElement('button');
+    addBtn.type = 'button';
+    addBtn.id = 'add-picture-btn';
+    addBtn.onclick = function() { document.getElementById('job-picture').click(); };
+    addBtn.style.width = '60px';
+    addBtn.style.height = '60px';
+    addBtn.style.borderRadius = '12px';
+    addBtn.style.border = 'none';
+    addBtn.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+    addBtn.style.display = 'flex';
+    addBtn.style.flexDirection = 'column';
+    addBtn.style.alignItems = 'center';
+    addBtn.style.justifyContent = 'center';
+    addBtn.style.boxShadow = '0 2px 8px rgba(0,0,0,0.18)';
+    addBtn.style.cursor = 'pointer';
+    addBtn.style.position = 'relative';
+    addBtn.innerHTML = "<span style='font-size:1.5em; margin-bottom:2px;'>📷</span><span style='font-size:0.8em;'>Slika</span>";
+    btnContainer.appendChild(addBtn);
+  }
+});
+
+// Funkcionalnost za prikaz dokumenta u prijavi za posao
+document.getElementById('job-document').addEventListener('change', function(event) {
+  const file = event.target.files[0];
+  const btnContainer = document.getElementById('document-btn-container');
+  if (file) {
+    btnContainer.innerHTML = '';
+    // Kreira preview ikonu dokumenta
+    const iconDiv = document.createElement('div');
+    iconDiv.style.width = '60px';
+    iconDiv.style.height = '60px';
+    iconDiv.style.borderRadius = '12px';
+    iconDiv.style.background = 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)';
+    iconDiv.style.display = 'flex';
+    iconDiv.style.flexDirection = 'column';
+    iconDiv.style.alignItems = 'center';
+    iconDiv.style.justifyContent = 'center';
+    iconDiv.style.position = 'relative';
+    iconDiv.style.boxShadow = '0 2px 8px rgba(0,0,0,0.18)';
+    // Ikona i ime datoteke
+    const icon = document.createElement('span');
+    icon.innerText = '📄';
+    icon.style.fontSize = '1.5em';
+    icon.style.marginBottom = '2px';
+    const name = document.createElement('span');
+    name.innerText = file.name.length > 10 ? file.name.slice(0,7)+'…' : file.name;
+    name.style.fontSize = '0.7em';
+    name.style.color = '#fff';
+    name.style.textAlign = 'center';
+    name.style.wordBreak = 'break-all';
+    iconDiv.appendChild(icon);
+    iconDiv.appendChild(name);
+    // X gumb za uklanjanje dokumenta
+    const xBtn = document.createElement('button');
+    xBtn.type = 'button';
+    xBtn.innerHTML = '&times;';
+    xBtn.title = 'Ukloni dokument';
+    xBtn.style.position = 'absolute';
+    xBtn.style.top = '2px';
+    xBtn.style.right = '2px';
+    xBtn.style.background = 'rgba(255,0,0,0.85)';
+    xBtn.style.color = 'white';
+    xBtn.style.border = 'none';
+    xBtn.style.borderRadius = '50%';
+    xBtn.style.width = '22px';
+    xBtn.style.height = '22px';
+    xBtn.style.fontSize = '15px';
+    xBtn.style.cursor = 'pointer';
+    xBtn.style.display = 'flex';
+    xBtn.style.alignItems = 'center';
+    xBtn.style.justifyContent = 'center';
+    xBtn.style.zIndex = '10';
+    xBtn.onclick = function() {
+      document.getElementById('job-document').value = '';
+      btnContainer.innerHTML = '';
+      // Vraća gumb za dodavanje
+      const addBtn = document.createElement('button');
+      addBtn.type = 'button';
+      addBtn.id = 'add-document-btn';
+      addBtn.onclick = function() { document.getElementById('job-document').click(); };
+      addBtn.style.width = '60px';
+      addBtn.style.height = '60px';
+      addBtn.style.borderRadius = '12px';
+      addBtn.style.border = 'none';
+      addBtn.style.background = 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)';
+      addBtn.style.display = 'flex';
+      addBtn.style.flexDirection = 'column';
+      addBtn.style.alignItems = 'center';
+      addBtn.style.justifyContent = 'center';
+      addBtn.style.boxShadow = '0 2px 8px rgba(0,0,0,0.18)';
+      addBtn.style.cursor = 'pointer';
+      addBtn.style.position = 'relative';
+      addBtn.innerHTML = "<span style='font-size:1.5em; margin-bottom:2px;'>📄</span><span style='font-size:0.8em;'>Dok</span>";
+      btnContainer.appendChild(addBtn);
+    };
+    iconDiv.appendChild(xBtn);
+    btnContainer.appendChild(iconDiv);
+  } else {
+    btnContainer.innerHTML = '';
+    const addBtn = document.createElement('button');
+    addBtn.type = 'button';
+    addBtn.id = 'add-document-btn';
+    addBtn.onclick = function() { document.getElementById('job-document').click(); };
+    addBtn.style.width = '60px';
+    addBtn.style.height = '60px';
+    addBtn.style.borderRadius = '12px';
+    addBtn.style.border = 'none';
+    addBtn.style.background = 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)';
+    addBtn.style.display = 'flex';
+    addBtn.style.flexDirection = 'column';
+    addBtn.style.alignItems = 'center';
+    addBtn.style.justifyContent = 'center';
+    addBtn.style.boxShadow = '0 2px 8px rgba(0,0,0,0.18)';
+    addBtn.style.cursor = 'pointer';
+    addBtn.style.position = 'relative';
+    addBtn.innerHTML = "<span style='font-size:1.5em; margin-bottom:2px;'>📄</span><span style='font-size:0.8em;'>Dok</span>";
+    btnContainer.appendChild(addBtn);
+  }
+});
+
+// Funkcija za čišćenje previewa slike
+function clearImagePreview() {
+  document.getElementById('job-picture').value = '';
+  document.getElementById('picture-preview').style.display = 'none';
+  document.getElementById('preview-img').src = '';
+}
+
+// Funkcija za čišćenje previewa dokumenta
+function clearDocumentPreview() {
+  document.getElementById('job-document').value = '';
+  document.getElementById('document-preview').style.display = 'none';
+  document.getElementById('document-name').textContent = '';
+  document.getElementById('document-type').textContent = '';
+}
+
+// Pokreće slider odmah po učitavanju stranice
+document.addEventListener('DOMContentLoaded', function() {
+  if (typeof startSlider === 'function') {
+  startSlider();
+  }
+});
+
+// Funkcija za preusmjeravanje na stranicu s menijem
+function goToMenu() {
+  window.location.href = 'meni_clean.html';
+}
+</script>
+</body>
+</html>

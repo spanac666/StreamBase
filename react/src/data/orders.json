@@ -1,0 +1,47 @@
+{
+  "orders": [
+    {
+      "id": "ORD-001",
+      "timestamp": "2025-08-04T10:30:00Z",
+      "customer": {
+        "name": "Marko Petrović",
+        "phone": "+387 66 123 456",
+        "address": "Ulica Mira 15, Zagreb"
+      },
+      "items": [
+        {
+          "id": 1,
+          "name": "Margherita",
+          "price": 12.99,
+          "quantity": 2
+        },
+        {
+          "id": 37,
+          "name": "Coca Cola",
+          "price": 2.99,
+          "quantity": 2
+        }
+      ],
+      "subtotal": 31.96,
+      "tax": 7.99,
+      "deliveryFee": 2.50,
+      "total": 42.45,
+      "status": "pending",
+      "paymentMethod": "cash",
+      "notes": "Bez luka molim"
+    }
+  ],
+  "orderStatuses": [
+    "pending",
+    "confirmed",
+    "preparing",
+    "ready",
+    "delivered",
+    "cancelled"
+  ],
+  "paymentMethods": [
+    "cash",
+    "card",
+    "online"
+  ]
+}

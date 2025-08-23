@@ -1,0 +1,1948 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="menu_style.css">
+  <title>Menu</title>
+  
+  <!-- Quick Navigation Styles -->
+  <style>
+    #fixed-nav-bar button:hover {
+      transform: translateX(-5px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    
+    /* Basket Modal Styles */
+    #empty-basket:hover {
+      background: #c0392b !important;
+    }
+    
+    #pay-basket:hover {
+      background: #219653 !important;
+    }
+    
+    .basket:hover {
+      background: rgba(255,255,255,0.1);
+      border-radius: 4px;
+    }
+    
+    /* Payment Modal Styles */
+    #pay-form button[type="submit"]:hover {
+      background: #219653 !important;
+    }
+    
+    /* Admin Control Box Styles */
+    #admin-control {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      z-index: 1500;
+      min-width: 250px;
+      max-width: 350px;
+      border: 2px solid #3498db;
+      display: none;
+    }
+    
+    #admin-control.visible {
+      display: block;
+    }
+    
+    /* Admin Toggle Button Styles */
+    #admin-toggle-btn {
+      padding: 10px 14px;
+      background: #2c3e50;
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      transition: all 0.3s;
+      min-width: 120px;
+      text-align: center;
+      margin-top: 8px;
+    }
+    
+    #admin-toggle-btn:hover {
+      background: #34495e;
+      transform: translateX(-5px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    
+    #admin-control h3 {
+      margin: 0 0 12px 0;
+      color: #2c3e50;
+      font-size: 1.1rem;
+      text-align: center;
+      border-bottom: 2px solid #3498db;
+      padding-bottom: 8px;
+    }
+    
+    .admin-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    
+    .admin-stat {
+      background: #ecf0f1;
+      padding: 8px;
+      border-radius: 6px;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+    
+    .admin-stat-value {
+      font-weight: bold;
+      font-size: 1.2rem;
+      color: #2c3e50;
+    }
+    
+    .admin-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    
+    .admin-btn {
+      padding: 8px 12px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: all 0.3s;
+      font-weight: 500;
+    }
+    
+    .admin-btn.view-orders {
+      background: #3498db;
+      color: white;
+    }
+    
+    .admin-btn.view-orders:hover {
+      background: #2980b9;
+    }
+    
+    .admin-btn.clear-all {
+      background: #e74c3c;
+      color: white;
+    }
+    
+    .admin-btn.clear-all:hover {
+      background: #c0392b;
+    }
+    
+    .admin-btn.print-orders {
+      background: #f39c12;
+      color: white;
+    }
+    
+    .admin-btn.print-orders:hover {
+      background: #e67e22;
+    }
+    
+    .admin-btn.toggle-sound {
+      background: #27ae60;
+      color: white;
+    }
+    
+    .admin-btn.toggle-sound:hover {
+      background: #219653;
+    }
+    
+    .admin-toggle {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      background: #3498db;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+    
+    .orders-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.5);
+      z-index: 3500;
+      display: none;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .orders-modal-content {
+      background: white;
+      border-radius: 12px;
+      padding: 24px;
+      max-width: 90vw;
+      max-height: 80vh;
+      overflow-y: auto;
+      position: relative;
+      min-width: 400px;
+    }
+    
+    .order-item {
+      background: #f8f9fa;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 12px;
+      border-left: 4px solid #3498db;
+    }
+    
+    .order-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    
+    .order-id {
+      font-weight: bold;
+      color: #2c3e50;
+    }
+    
+    .order-time {
+      color: #7f8c8d;
+      font-size: 0.9rem;
+    }
+    
+    .order-total {
+      font-weight: bold;
+      color: #27ae60;
+      font-size: 1.1rem;
+    }
+    
+    .order-items {
+      margin: 8px 0;
+    }
+    
+    .order-items div {
+      padding: 4px 0;
+      border-bottom: 1px solid #ecf0f1;
+    }
+    
+    @media (max-width: 768px) {
+      #admin-control {
+        top: 10px;
+        left: 10px;
+        min-width: 200px;
+        max-width: 280px;
+        padding: 12px;
+      }
+      
+      .admin-stats {
+        grid-template-columns: 1fr;
+      }
+      
+      .orders-modal-content {
+        min-width: 300px;
+        padding: 16px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      #fixed-nav-bar {
+        right: 5px;
+        top: 20px;
+        transform: none;
+        padding: 8px 6px;
+        max-height: 85vh;
+        overflow-y: auto;
+      }
+      #fixed-nav-bar button {
+        padding: 8px 10px;
+        font-size: 0.7rem;
+        min-width: 80px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Zaglavlje stranice s nazivom restorana i osnovnim informacijama -->
+  <header id="zaglavlje">
+        <h1>RESTORAN SHPANAC</h1>
+  <!-- Glavna navigacija kroz stranicu -->
+  <nav id="navigacija1">
+            <ul class="navigacija1">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+  <!-- Adresa restorana i radno vrijeme -->
+  <div class="sadrzaj">
+            <p>Šantićeva ulica 9, 10298 Oborovo bistransko</p>
+            <p>Nedeljom i praznicima ne radimo!</p>
+        </div>
+    </header>
+  <!-- Glavni sadržaj menija restorana -->
+  <!-- Fiksirana brza navigacija na desnoj strani za skok na sekcije -->
+  <div id="fixed-nav-bar" style="position:fixed;top:50%;right:20px;transform:translateY(-50%);z-index:1000;background:rgba(255,255,255,0.95);backdrop-filter:blur(10px);border-radius:25px;padding:16px 12px;box-shadow:0 4px 20px rgba(0,0,0,0.15);display:flex;flex-direction:column;gap:10px;max-height:90vh;">
+    <button onclick="document.getElementById('pizza-section').scrollIntoView({behavior:'smooth'})" style="padding:12px 16px;background:#c0392b;color:#fff;border:none;border-radius:20px;cursor:pointer;font-size:0.9rem;transition:all 0.3s;min-width:120px;text-align:center;">🍕 Pizza</button>
+    <button onclick="document.getElementById('grill-section').scrollIntoView({behavior:'smooth'})" style="padding:12px 16px;background:#e74c3c;color:#fff;border:none;border-radius:20px;cursor:pointer;font-size:0.9rem;transition:all 0.3s;min-width:120px;text-align:center;">🥩 Grill</button>
+    <button onclick="document.getElementById('burger-section').scrollIntoView({behavior:'smooth'})" style="padding:12px 16px;background:#f39c12;color:#fff;border:none;border-radius:20px;cursor:pointer;font-size:0.9rem;transition:all 0.3s;min-width:120px;text-align:center;">🍔 Burger</button>
+    <button onclick="document.getElementById('slastice-section').scrollIntoView({behavior:'smooth'})" style="padding:12px 16px;background:#e91e63;color:#fff;border:none;border-radius:20px;cursor:pointer;font-size:0.9rem;transition:all 0.3s;min-width:120px;text-align:center;">🍰 Slastice</button>
+    <button onclick="document.getElementById('pomes-section').scrollIntoView({behavior:'smooth'})" style="padding:12px 16px;background:#ff9800;color:#fff;border:none;border-radius:20px;cursor:pointer;font-size:0.9rem;transition:all 0.3s;min-width:120px;text-align:center;">🍟 Pomfrit</button>
+    <button onclick="document.getElementById('bier-section').scrollIntoView({behavior:'smooth'})" style="padding:12px 16px;background:#8bc34a;color:#fff;border:none;border-radius:20px;cursor:pointer;font-size:0.9rem;transition:all 0.3s;min-width:120px;text-align:center;">🍺 Pivo</button>
+    <button onclick="document.getElementById('gas-drink-section').scrollIntoView({behavior:'smooth'})" style="padding:12px 16px;background:#3498db;color:#fff;border:none;border-radius:20px;cursor:pointer;font-size:0.9rem;transition:all 0.3s;min-width:120px;text-align:center;">🥤 Pića</button>
+    <button id="admin-toggle-btn" onclick="toggleAdminPanel()">⚙️ Admin</button>
+  </div>
+  <main>
+  <!-- Sekcija s ponudom pizza -->
+  <section class="menu-section"  id="pizza-section" >
+
+     
+  <div class="menu-layout"> <!-- Layout sekcije pizze -->
+  <div class="menu-info-left"> <!-- Informacije o pizzama -->
+          <div class="menu-info-box">
+            <h2>-PIZZA MENU-</h2>
+            <p>Izaberite iz naše ponude pizza. Sve pizze su pripremljene od svježih sastojaka i pečene u krušnoj peći.</p>
+          </div>
+        </div>
+  <div class="card-grid"> <!-- Grid s karticama pizza -->
+          <article class="card">
+            <img src="pizza/CALZIONE.jpg" alt="Calzone" class="menu-img">
+            <h3>CALZIONE</h3>
+            <p>Preklopljena pizza, sir, šunka, rajčica.</p><br><br>
+            <div class="card-actions">
+              <span class="menu-price">8.50 €</span>
+              <button class="add-to-basket-btn" data-name="CALZIONE" data-price="8.50">🛒</button>
+            </div>
+            
+          </article>
+          <article class="card">
+            <img src="pizza/DIAVOLO.jpeg" alt="Diavolo" class="menu-img">
+            <h3>DIAVOLO</h3>
+            <p>Pikantna pizza, kulen, feferoni, sir, vrhnje, rajčica.</p><br><br>
+            <div class="card-actions">
+            <span class="menu-price">10.00 €</span>
+             <button class="add-to-basket-btn" data-name="DIAVOLO" data-price="10.00">🛒</button>
+            </div>
+          
+          </article>
+          <article class="card">
+            <img src="pizza/KAFANSKA.jpeg" alt="Kafanska" class="menu-img">
+            <h3>KAFANSKA</h3>
+            <p>Šunka, gljive, masline, sir, rajčica, dimljeni vrat.</p><br><br>
+            <div class="card-actions">
+            <span class="menu-price">9.00 €</span>
+            <button class="add-to-basket-btn" data-name="KAFANSKA" data-price="9.00">🛒</button>
+          </div>
+         
+        </article>
+        <article class="card">
+          <img src="pizza/MARGHERITA.jpeg" alt="Margherita" class="menu-img">
+          <h3>MARGHERITA</h3>
+          <p>Rajčica, sir, maslinovo ulje, origano, bosiljak.</p><br><br>
+            <div class="card-actions">
+          <span class="menu-price">7.50 €</span>
+          <button class="add-to-basket-btn" data-name="MARGHERITA" data-price="7.50">🛒</button>
+          </div>
+          
+        </article>
+        <article class="card">
+          <img src="pizza/MEXICANA.jpeg" alt="Mexicana" class="menu-img">
+          <h3>MEXICANA</h3>
+            <p>Kobasica, kukuruz, paprika, chili papričice, sir, rajčica.</p><br><br>
+          <div class="card-actions">
+            <span class="menu-price">9.50 €</span>
+            <button class="add-to-basket-btn" data-name="MEXICANA" data-price="9.50">🛒</button>
+          </div>
+            
+          </article>
+          <article class="card">
+            <img src="pizza/PANCETA.jpeg" alt="Panceta" class="menu-img">
+            <h3>PANCETA</h3>
+            <p>Panceta, sir, rajčica, začini.</p><br><br><br>
+         <div class="card-actions">
+            <span class="menu-price">10.50 €</span>
+            <button class="add-to-basket-btn" data-name="PANCETA" data-price="10.50">🛒</button>
+          </div>
+          
+          </article>
+          <article class="card">
+            <img src="pizza/PEPERONI.jpeg" alt="Peperoni" class="menu-img">
+            <h3>PEPERONI</h3>
+            <p>Peperoni, sir, rajčica.</p><br><br><br>
+            <div class="card-actions">
+              <span class="menu-price">9.00 €</span>
+              <button class="add-to-basket-btn" data-name="PEPERONI" data-price="9.00">🛒</button>
+            </div>
+         
+          </article>
+          <article class="card">
+            <img src="pizza/PROSCIUTTO.jpeg" alt="Prosciutto" class="menu-img">
+            <h3>PROSCIUTTO</h3>
+            <p>Pršut, sir, rajčica,rikola.</p><br><br><br>
+            <div class="card-actions">
+              <span class="menu-price">10.00 €</span>
+              <button class="add-to-basket-btn" data-name="PROSCIUTTO" data-price="10.00">🛒</button>
+            </div>
+           
+          </article>
+          <article class="card">
+            <img src="pizza/SLAVONSKA.jpeg" alt="Slavonska" class="menu-img">
+            <h3>SLAVONSKA</h3>
+            <p>Kulen, šunka, sir, paprika, rajčica.</p><br><br>
+            <div class="card-actions">
+              <span class="menu-price">11.00 €</span>
+              <button class="add-to-basket-btn" data-name="SLAVONSKA" data-price="11.00">🛒</button>
+            </div>
+   
+          </article>
+          <article class="card">
+            <img src="pizza/TUNA.jpeg" alt="Tuna" class="menu-img">
+            <h3>TUNA</h3>
+            <p>Tuna, kapari, masline, sir, rajčica.</p><br><br>
+            <div class="card-actions">
+              <span class="menu-price">12.00 €</span>
+              <button class="add-to-basket-btn" data-name="TUNA" data-price="12.00">🛒</button>
+            </div>
+          
+          </article>
+        </div>
+      </div>
+    </section>
+  <!-- Sekcija za roštilj (grill) s ponudom raznih jela od mesa -->
+  <section class="menu-section" id="grill-section">
+     
+  <div class="menu-layout"> <!-- Layout sekcije roštilj -->
+  <div class="menu-info-left"> <!-- Informacije o roštilju -->
+          <h2>-GRILL MENU-</h2>
+          <p>Naše meso je pažljivo odabrano i pripremljeno s ljubavlju,i jako smo ponosni našim opg-ovima,volimo hrvatsko!</p>
+        </div>
+  <div class="card-grid"> <!-- Grid s karticama roštilja -->
+          <article class="card">
+            <img src="rostilj/CARSKO MESO.jpeg" alt="carsko-meso" class="menu-img">
+            <h3>CARSKO MESO</h3>
+            <p>Savršeno zapečen ribeye, poslužen s povrćem.</p><br><br><br>
+            <div class="card-actions">
+              <span class="menu-price">15.50 €</span>
+              <button class="add-to-basket-btn" data-name="CARSKO MESO" data-price="15.50">🛒</button>
+            </div>
+          </article>
+          <article class="card">
+            <img src="rostilj/GURMANSKA PILETINA.jpeg" alt="gurmanska-piletina" class="menu-img">
+            <h3>Filet GURMANSKA PILETINA</h3>
+            <p>Nježni file, umak po izboru, prilog krumpir.</p><br><br>
+            <div class="card-actions">
+              <span class="menu-price">10.00 €</span>
+              <button class="add-to-basket-btn" data-name="Filet GURMANSKA PILETINA" data-price="10.00">🛒</button>
+            </div>
+          </article>
+          <article class="card">
+            <img src="rostilj/MJEŠANO MESO.jpeg" alt="mješano-meso" class="menu-img">
+            <h3>MJEŠANO MESO</h3>
+            <p>Klasik za ljubitelje mesa, dva reza u jednom.</p><br><br><br>
+            <div class="card-actions">
+              <span class="menu-price">14.00 €</span>
+              <button class="add-to-basket-btn" data-name="MJEŠANO MESO" data-price="14.00">🛒</button>
+            </div>
+          </article>
+          <article class="card">
+            <img src="rostilj/PEČENICE.jpeg" alt="pečenice" class="menu-img">
+            <h3>PEČENICE</h3>
+            <p>Veliki komad mesa, idealan za dvoje.</p><br><br><br>
+            <div class="card-actions">
+              <span class="menu-price">12.00 €</span>
+              <button class="add-to-basket-btn" data-name="PEČENICE" data-price="12.00">🛒</button>
+            </div>
+          </article>
+          <article class="card">
+            <img src="rostilj/PIKANTNI UŠTIPAK.jpeg" alt="pikantni-uštipak" class="menu-img">
+            <h3>PIKANTNI UŠTIPAK</h3>
+            <p>Sočan sirloin, poslužen s povrćem i umakom.</p><br><br>
+            <div class="card-actions">
+              <span class="menu-price">11.00 €</span>
+              <button class="add-to-basket-btn" data-name="PIKANTNI UŠTIPAK" data-price="11.00">🛒</button>
+            </div>
+          </article>
+          <article class="card">
+            <img src="rostilj/PILEĆI MEDALJONI.jpeg" alt="pileći-medaljoni" class="menu-img">
+            <h3>PILEĆI MEDALJONI</h3>
+            <p>Sočan flank steak, poslužen s chimichurri umakom.</p><br><br><br>
+            <div class="card-actions">
+              <span class="menu-price">10.00 €</span>
+              <button class="add-to-basket-btn" data-name="PILEĆI MEDALJONI" data-price="10.00">🛒</button>
+            </div>
+          </article>
+          <article class="card">
+            <img src="rostilj/PUNJENA PLESKAVICA.jpeg" alt="punjena-pleskavica" class="menu-img">
+            <h3>PUNJENA PLJESKAVICA</h3>
+            <p>Sočan skirt steak, poslužen s salatom.</p><br>
+            <div class="card-actions">
+              <span class="menu-price">12.00 €</span>
+              <button class="add-to-basket-btn" data-name="PUNJENA PLJESKAVICA" data-price="12.00">🛒</button>
+            </div>
+          </article>
+          <article class="card">
+            <img src="rostilj/ČEVAPI KAJMAK.jpeg" alt="čevapi-kajmak" class="menu-img">
+            <h3>ČEVAPI KAJMAK</h3>
+            <p>Sočan chuck eye steak, poslužen s prilogom.</p><br><br>
+            <div class="card-actions">
+              <span class="menu-price">12.00 €</span>
+              <button class="add-to-basket-btn" data-name="ČEVAPI KAJMAK" data-price="12.00">🛒</button>
+            </div>
+          </article>
+          <article class="card">
+            <img src="rostilj/ČEVAPI.jpeg" alt="čevapi" class="menu-img">
+            <h3>ČEVAPI</h3>
+            <p>Sočan flat iron steak, poslužen s povrćem.</p><br><br>
+            <div class="card-actions">
+              <span class="menu-price">10.00 €</span>
+              <button class="add-to-basket-btn" data-name="ČEVAPI" data-price="10.00">🛒</button>
+            </div>
+          </article>
+          <article class="card">
+            <img src="rostilj/ŠIŠ ČEVAP.jpeg" alt="šiš-čevap" class="menu-img">
+            <h3>ŠIŠ ČEVAP</h3>
+            <p>Sočan hanger steak, poslužen s chimichurri umakom.</p><br>
+            <div class="card-actions">
+              <span class="menu-price">10.00 €</span>
+              <button class="add-to-basket-btn" data-name="ŠIŠ ČEVAP" data-price="10.00">🛒</button>
+            </div>
+          </article>
+        
+        </div>
+      </div>
+    </section>
+    <!-- BURGER MENU SECTION START -->
+    <section class="menu-section" id="burger-section">
+      <div class="menu-layout">
+        <div class="menu-info-left">
+          <h2>-BURGER MENU-</h2>
+          <p>Izaberite iz naše ponude burgera. Svaki burger je pripremljen od svježih sastojaka i domaćih peciva.</p>
+        </div>
+        <div class="card-grid">
+          <article class="card">
+            <img src="burgeri/BURGER CLASSIC.jpeg" alt="burger-1" class="menu-img">
+            <h3>Burger Classic</h3>
+            <p>Govedina, sir, salata, rajčica, umak.</p><br><br>
+            <div class="card-actions">
+              <span class="menu-price">8.00 €</span>
+              <button class="add-to-basket-btn" data-name="Burger Classic" data-price="8.00">🛒</button>
+            </div>
+          </article>
+          <article class="card">
+            <img src="burgeri/SPICY BURGER.jpeg" alt="burger-2" class="menu-img">
+            <h3>Spicy Burger</h3>
+            <p>Govedina, cheddar, jalapeno, salata, umak.</p><br><br>
+            <div class="card-actions">
+              <span class="menu-price">8.50 €</span>
+              <button class="add-to-basket-btn" data-name="Spicy Burger" data-price="8.50">🛒</button>
+            </div>
+          </article>
+          <article class="card">
+            <img src="burgeri/BACON_BBQ.jpeg" alt="burger-3" class="menu-img">
+            <h3>Bacon BBQ Burger</h3>
+            <p>Govedina, slanina, BBQ umak, sir, salata.</p><br><br>
+            <div class="card-actions">
+              <span class="menu-price">9.00 €</span>
+              <button class="add-to-basket-btn" data-name="Bacon BBQ Burger" data-price="9.00">🛒</button>
+            </div>
+          </article>
+          <article class="card">
+            <img src="burgeri/ONION_BURGER.jpg" alt="burger-4" class="menu-img">
+            <h3>Onion Burger</h3>
+            <p>Govedina, prženi luk, sir, umak, salata.</p><br><br><br>
+            <div class="card-actions">
+              <span class="menu-price">8.50 €</span>
+              <button class="add-to-basket-btn" data-name="Onion Burger" data-price="8.50">🛒</button>
+            </div>
+          </article>
+          <article class="card">
+            <img src="burgeri/BURGER DUPLI SPECIJAL.jpeg" alt="burger-5" class="menu-img">
+            <h3>Double Cheese Burger</h3>
+            <p>2x govedina, 2x sir, salata, umak.</p><br><br>
+            <div class="card-actions">
+              <span class="menu-price">10.00 €</span>
+              <button class="add-to-basket-btn" data-name="Double Cheese Burger" data-price="10.00">🛒</button>
+            </div>
+          </article>
+          <article class="card">
+            <img src="burgeri/BURGER PILETINA.jpeg" alt="burger-6" class="menu-img">
+            <h3>Chicken Burger</h3>
+            <p>Piletina, salata, rajčica, umak.</p><br><br><br><br>
+            <div class="card-actions">
+              <span class="menu-price">8.00 €</span>
+              <button class="add-to-basket-btn" data-name="Chicken Burger" data-price="8.00">🛒</button>
+            </div>
+          </article>
+          <article class="card">
+            <img src="burgeri/VEGE_BURGER.jpg" alt="burger-7" class="menu-img">
+            <h3>Veggie Burger</h3>
+            <p>Povrtna pljeskavica, sir, salata, umak.</p><br><br><br>
+            <div class="card-actions">
+              <span class="menu-price">7.50 €</span>
+              <button class="add-to-basket-btn" data-name="Veggie Burger" data-price="7.50">🛒</button>
+            </div>
+          </article>
+          <article class="card">
+            <img src="burgeri/ŠPEKSI BURGER.jpeg" alt="burger-8" class="menu-img">
+            <h3>Egg & Bacon Burger</h3>
+            <p>Govedina, jaje, slanina, sir, salata.</p><br><br>
+            <div class="card-actions">
+              <span class="menu-price">9.50 €</span>
+              <button class="add-to-basket-btn" data-name="Egg & Bacon Burger" data-price="9.50">🛒</button>
+            </div>
+          </article>
+          <article class="card">
+            <img src="burgeri/BLUE_CHESE.jpg" alt="burger-9" class="menu-img">
+            <h3>Blue Cheese Burger</h3>
+            <p>Govedina, blue cheese, rukola, umak.</p><br><br>
+            <div class="card-actions">
+              <span class="menu-price">10.00 €</span>
+              <button class="add-to-basket-btn" data-name="Blue Cheese Burger" data-price="10.00">🛒</button>
+            </div>
+          </article>
+          <article class="card">
+            <img src="burgeri/MUSHROOM_BURGER.jpg" alt="burger-10" class="menu-img">
+            <h3>Mushroom Burger</h3>
+            <p>Govedina, pržene gljive, sir, salata, umak.</p><br><br>
+            <div class="card-actions">
+              <span class="menu-price">9.00 €</span>
+              <button class="add-to-basket-btn" data-name="Mushroom Burger" data-price="9.00">🛒</button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+    <!-- SLASTICE MENU SECTION START -->
+    <section class="menu-section" id="slastice-section">
+      <div class="menu-layout">
+        <div class="menu-info-left">
+          <h2>-SLASTICE MENU-</h2>
+          <p>Izaberite iz naše ponude slastica. Svaki desert je pripremljen s pažnjom i ljubavlju.</p>
+        </div>
+        <div class="card-grid">
+          <article class="card">
+            <img src="slastice/čokoladni-kolač.jpeg" alt="slastica-1" class="menu-img">
+            <h3>Čokoladni kolač</h3>
+            <p>Bogati čokoladni kolač s preljevom od tamne čokolade.</p><br><br>
+            <div class="card-actions">
+              <span class="menu-price">4.00 €</span>
+              <button class="add-to-basket-btn" data-name="Čokoladni kolač" data-price="4.00">🛒</button>
+            </div>
+          </article>
+          <article class="card">
+            <img src="slastice/tiramisu.images.jpg" alt="slastica-2" class="menu-img">
+            <h3>Tiramisu</h3>
+            <p>Klasični talijanski desert s kavom i mascarpone sirom.</p><br><br><br>
+            <div class="card-actions">
+              <span class="menu-price">4.50 €</span>
+              <button class="add-to-basket-btn" data-name="Tiramisu" data-price="4.50">🛒</button>
+            </div>
+          </article>
+          <article class="card">
+            <img src="slastice/domacica-cheesecake.jpg" alt="slastica-3" class="menu-img">
+            <h3>Cheesecake</h3>
+            <p>Kremasti cheesecake s preljevom od šumskog voća.</p><br><br><br>
+            <div class="card-actions">
+              <span class="menu-price">4.50 €</span>
+              <button class="add-to-basket-btn" data-name="Cheesecake" data-price="4.50">🛒</button>
+            </div>
+          </article>
+          <article class="card">
+            <img src="slastice/baklava_images.jpg" alt="slastica-4" class="menu-img">
+            <h3>Baklava</h3>
+            <p>Tradicionalna baklava s orasima i medom.</p><br><br>
+            <div class="card-actions">
+              <span class="menu-price">3.50 €</span>
+              <button class="add-to-basket-btn" data-name="Baklava" data-price="3.50">🛒</button>
+            </div>
+          </article>
+          <article class="card">
+            <img src="slastice/palacinke.jpeg" alt="slastica-5" class="menu-img">
+            <h3>Palačinke</h3>
+            <p>Palačinke s čokoladom, orasima i šlagom.</p><br><br>
+            <div class="card-actions">
+              <span class="menu-price">3.50 €</span>
+              <button class="add-to-basket-btn" data-name="Palačinke" data-price="3.50">🛒</button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+    <!-- POMES MENU SECTION START -->
+    <section class="menu-section" id="pomes-section">
+      <div class="menu-layout">
+        <div class="menu-info-left">
+          <h2>-POMES MENU-</h2>
+          <p>Izaberite iz naše ponude prženih krumpirića i dodataka.</p>
+        </div>
+        <div class="card-grid">
+          <article class="card">
+            <img src="pomes/FRY AND DEEP.jpg" alt="Pomfrit" class="menu-img">
+            <h3>Pomfrit</h3>
+            <p>Hrskavi prženi krumpirići, idealni kao prilog ili snack.</p><br><br>
+            <div class="card-actions">
+              <span class="menu-price">3.00 €</span>
+              <button class="add-to-basket-btn" data-name="Pomfrit" data-price="3.00">🛒</button>
+            </div>
+          </article>
+          <article class="card">
+            <img src="pomes/pomes_sir.jpg" alt="Pomfrit sa sirom" class="menu-img">
+            <h3>Pomfrit sa sirom</h3>
+            <p>Pomfrit preliven topljenim sirom za još bolji užitak.</p><br><br>
+            <div class="card-actions">
+              <span class="menu-price">4.00 €</span>
+              <button class="add-to-basket-btn" data-name="Pomfrit sa sirom" data-price="4.00">🛒</button>
+            </div>
+          </article>
+          <article class="card">
+            <img src="pomes/JULIENNE.jpeg" alt="Pomfrit s umakom" class="menu-img">
+            <h3>Pomfrit s umakom</h3>
+            <p>Pomfrit s izborom umaka (ketchup, majoneza, BBQ).</p><br><br>
+            <div class="card-actions">
+              <span class="menu-price">4.50 €</span>
+              <button class="add-to-basket-btn" data-name="Pomfrit s umakom" data-price="4.50">🛒</button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+    <!-- BIER MENU SECTION START -->
+    <section class="menu-section" id="bier-section">
+      <div class="menu-layout">
+        <div class="menu-info-left">
+          <h2>-BIER MENU-</h2>
+          <p>Izaberite iz naše ponude piva. Uživajte u hladnom pivu uz vaše omiljeno jelo!</p>
+        </div>
+        <div class="card-grid">
+          <article class="card">
+            <img src="piva/1-OŽUJSKO.jpg" alt="Ožujsko" class="menu-img">
+            <h3>Ožujsko</h3>
+            <p>Popularno hrvatsko svijetlo pivo, 0.5L.</p><br><br>
+            <div class="card-actions">
+              <span class="menu-price">3.00 €</span>
+              <button class="add-to-basket-btn" data-name="Ožujsko" data-price="3.00">🛒</button>
+            </div>
+          </article>
+          <article class="card">
+            <img src="piva/2-KARLOVAČKO.jpg" alt="Karlovačko" class="menu-img">
+            <h3>Karlovačko</h3>
+            <p>Osježavajuće svijetlo pivo, 0.5L.</p><br><br>
+            <div class="card-actions">
+              <span class="menu-price">3.00 €</span>
+              <button class="add-to-basket-btn" data-name="Karlovačko" data-price="3.00">🛒</button>
+            </div>
+          </article>
+          <article class="card">
+            <img src="piva/3-PAULANER.jpg" alt="Paulaner" class="menu-img">
+            <h3>Paulaner</h3>
+            <p>Njemačko pšenično pivo, 0.5L.</p><br><br>
+            <div class="card-actions">
+              <span class="menu-price">4.50 €</span>
+              <button class="add-to-basket-btn" data-name="Paulaner" data-price="4.50">🛒</button>
+            </div>
+          </article>
+          <article class="card">
+            <img src="piva/4-GUINNESS.jpg" alt="Guinness" class="menu-img">
+            <h3>Guinness</h3>
+            <p>Irskog crno pivo, 0.44L.</p><br><br><br>
+            <div class="card-actions">
+              <span class="menu-price">5.00 €</span>
+              <button class="add-to-basket-btn" data-name="Guinness" data-price="5.00">🛒</button>
+            </div>
+          </article>
+          <article class="card">
+            <img src="piva/5-BIER_LECH.jpg" alt="Lech" class="menu-img">
+            <h3>Lech</h3>
+            <p>Poljsko svijetlo pivo, 0.5L.</p><br><br><br>
+            <div class="card-actions">
+              <span class="menu-price">3.50 €</span>
+              <button class="add-to-basket-btn" data-name="Lech" data-price="3.50">🛒</button>
+            </div>
+          </article>
+          <article class="card">
+            <img src="piva/6-BECKS.jpg" alt="Beck's" class="menu-img">
+            <h3>Beck's</h3>
+            <p>Njemačko premium pivo, 0.5L.</p><br><br>
+            <div class="card-actions">
+              <span class="menu-price">4.00 €</span>
+              <button class="add-to-basket-btn" data-name="Beck's" data-price="4.00">🛒</button>
+            </div>
+          </article>
+          <article class="card">
+            <img src="piva/7-HEINEKEN.jpg" alt="Heineken" class="menu-img">
+            <h3>Heineken</h3>
+            <p>Nizozemsko svijetlo pivo, 0.5L.</p><br><br>
+            <div class="card-actions">
+              <span class="menu-price">4.00 €</span>
+              <button class="add-to-basket-btn" data-name="Heineken" data-price="4.00">🛒</button>
+            </div>
+          </article>
+          <article class="card">
+            <img src="piva/8-STELLA.jpg" alt="Stella Artois" class="menu-img">
+            <h3>Stella Artois</h3>
+            <p>Belgijsko premium pivo, 0.5L.</p><br><br>
+            <div class="card-actions">
+              <span class="menu-price">4.50 €</span>
+              <button class="add-to-basket-btn" data-name="Stella Artois" data-price="4.50">🛒</button>
+            </div>
+          </article>
+          <article class="card">
+            <img src="piva/9-CORONA.jpg" alt="Corona" class="menu-img">
+            <h3>Corona</h3>
+            <p>Meksičko svijetlo pivo, 0.33L.</p><br><br>
+            <div class="card-actions">
+              <span class="menu-price">5.00 €</span>
+              <button class="add-to-basket-btn" data-name="Corona" data-price="5.00">🛒</button>
+            </div>
+          </article>
+          <article class="card">
+            <img src="piva/10-TUBORG.jpg" alt="Tuborg" class="menu-img">
+            <h3>Tuborg</h3>
+            <p>Dansko svijetlo pivo, 0.5L.</p><br><br><br>
+            <div class="card-actions">
+              <span class="menu-price">3.50 €</span>
+              <button class="add-to-basket-btn" data-name="Tuborg" data-price="3.50">🛒</button>
+            </div>
+          </article>
+          <article class="card">
+            <img src="piva/11-AMSTEL.jpg" alt="Amstel" class="menu-img">
+            <h3>Amstel</h3>
+            <p>Nizozemsko pivo, 0.5L.</p><br><br><br>
+            <div class="card-actions">
+              <span class="menu-price">3.50 €</span>
+              <button class="add-to-basket-btn" data-name="Amstel" data-price="3.50">🛒</button>
+            </div>
+          </article>
+          <article class="card">
+            <img src="piva/12-SVIJETSKO_PIVO.jpg" alt="Svijetsko" class="menu-img">
+            <h3>Svijetsko</h3>
+            <p>Specijalno pivo iz naše ponude, 0.5L.</p><br><br>
+            <div class="card-actions">
+              <span class="menu-price">4.00 €</span>
+              <button class="add-to-basket-btn" data-name="Svijetsko" data-price="4.00">🛒</button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+    <!-- GAZIRANA PIĆA MENU SECTION START -->
+    <section class="menu-section" id="gas-drink-section">
+      <div class="menu-layout">
+        <div class="menu-info-left">
+          <h2>-GAZIRANA PIĆA-</h2>
+          <p>Izaberite iz naše ponude gaziranih pića. Osvježite se uz hladno piće!</p>
+        </div>
+        <div class="card-grid">
+          <article class="card">
+            <img src="gazirano/1-COCA-COLA.jpg" alt="Coca-Cola" class="menu-img">
+            <h3>Coca-Cola</h3>
+            <p>Klasično gazirano piće, 0.33L.</p><br><br>
+            <div class="card-actions">
+              <span class="menu-price">2.50 €</span>
+              <button class="add-to-basket-btn" data-name="Coca-Cola" data-price="2.50">🛒</button>
+            </div>
+          </article>
+          <article class="card">
+            <img src="gazirano/2-COCA_COLA_0.jpg" alt="Coca-Cola Zero" class="menu-img">
+            <h3>Coca-Cola Zero</h3>
+            <p>Bez šećera, 0.33L.</p><br><br><br>
+            <div class="card-actions">
+              <span class="menu-price">2.50 €</span>
+              <button class="add-to-basket-btn" data-name="Coca-Cola Zero" data-price="2.50">🛒</button>
+            </div>
+          </article>
+          <article class="card">
+            <img src="gazirano/3-FANTA.jpg" alt="Fanta" class="menu-img">
+            <h3>Fanta</h3>
+            <p>Naranča, 0.33L.</p><br><br><br>
+            <div class="card-actions">
+              <span class="menu-price">2.50 €</span>
+              <button class="add-to-basket-btn" data-name="Fanta" data-price="2.50">🛒</button>
+            </div>
+          </article>
+          <article class="card">
+            <img src="gazirano/4-SPRITE.jpg" alt="Sprite" class="menu-img">
+            <h3>Sprite</h3>
+            <p>Limun-limeta, 0.33L.</p><br><br><br>
+            <div class="card-actions">
+              <span class="menu-price">2.50 €</span>
+              <button class="add-to-basket-btn" data-name="Sprite" data-price="2.50">🛒</button>
+            </div>
+          </article>
+          <article class="card">
+            <img src="gazirano/5-SCHWEPPES_TONIC.jpg" alt="Schweppes Tonic" class="menu-img">
+            <h3>Schweppes Tonic</h3>
+            <p>Tonic water, 0.25L.</p><br><br><br>
+            <div class="card-actions">
+              <span class="menu-price">2.50 €</span>
+              <button class="add-to-basket-btn" data-name="Schweppes Tonic" data-price="2.50">🛒</button>
+            </div>
+          </article>
+          <article class="card">
+            <img src="gazirano/6-SCHWEPPES_BITER_LEMMON.jpg" alt="Schweppes Bitter Lemon" class="menu-img">
+            <h3>Schweppes Bitter Lemon</h3>
+            <p>Bitter Lemon, 0.25L.</p><br><br>
+            <div class="card-actions">
+              <span class="menu-price">2.50 €</span>
+              <button class="add-to-basket-btn" data-name="Schweppes Bitter Lemon" data-price="2.50">🛒</button>
+            </div>
+          </article>
+          <article class="card">
+            <img src="gazirano/7-PEPSI.jpg.jpg" alt="Pepsi" class="menu-img">
+            <h3>Pepsi</h3>
+            <p>Gazirano piće, 0.33L.</p><br><br><br>
+            <div class="card-actions">
+              <span class="menu-price">2.50 €</span>
+              <button class="add-to-basket-btn" data-name="Pepsi" data-price="2.50">🛒</button>
+            </div>
+          </article>
+          <article class="card">
+            <img src="gazirano/8-PEPSI_MAX.jpg" alt="Pepsi Max" class="menu-img">
+            <h3>Pepsi Max</h3>
+            <p>Bez šećera, 0.33L.</p><br><br><br>
+            <div class="card-actions">
+              <span class="menu-price">2.50 €</span>
+              <button class="add-to-basket-btn" data-name="Pepsi Max" data-price="2.50">🛒</button>
+            </div>
+          </article>
+          <article class="card">
+            <img src="gazirano/9-CEDEVITA.jpg" alt="Cedevita" class="menu-img">
+            <h3>Cedevita</h3>
+            <p>Gazirani napitak s vitaminima, 0.33L.</p><br><br>
+            <div class="card-actions">
+              <span class="menu-price">2.50 €</span>
+              <button class="add-to-basket-btn" data-name="Cedevita" data-price="2.50">🛒</button>
+            </div>
+          </article>
+          <article class="card">
+            <img src="gazirano/10-ORANGINA.jpg" alt="Orangina" class="menu-img">
+            <h3>Orangina</h3>
+            <p>Gazirani napitak od naranče, 0.25L.</p><br><br><br>
+            <div class="card-actions">
+              <span class="menu-price">2.50 €</span>
+              <button class="add-to-basket-btn" data-name="Orangina" data-price="2.50">🛒</button>
+            </div>
+          </article>
+          <article class="card">
+            <img src="gazirano/11-7UP.jpg" alt="7up" class="menu-img">
+            <h3>7up</h3>
+            <p>Gazirani napitak, 0.33L.</p><br><br><br><br>
+            <div class="card-actions">
+              <span class="menu-price">2.50 €</span>
+              <button class="add-to-basket-btn" data-name="7up" data-price="2.50">🛒</button>
+            </div>
+          </article>
+          <article class="card">
+            <img src="gazirano/12-HELL_ENERGY.jpg" alt="Hell Energy" class="menu-img">
+            <h3>Hell Energy</h3>
+            
+           
+            <p>Energetsko piće, 0.25L.</p><br><br><br><br>  
+            <div class="card-actions">
+              <span class="menu-price">3.00 €</span>
+              <button class="add-to-basket-btn" data-name="Hell Energy" data-price="3.00">🛒</button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+    <!-- GAZIRANA PIĆA MENU SECTION END -->
+  </main>
+  <!-- Item Lot Modal Popup -->
+  <div id="item-lot-modal" style="display:none;position:fixed;z-index:2100;left:0;top:0;width:100vw;height:100vh;background:rgba(0,0,0,0.5);justify-content:center;align-items:center;">
+    <div style="background:#fff;padding:24px 24px 16px 24px;border-radius:16px;max-width:350px;min-width:260px;max-height:90vh;overflow:hidden;box-shadow:0 10px 40px rgba(0,0,0,0.2);position:relative;margin:20px;display:flex;flex-direction:column;align-items:center;">
+      <button id="item-lot-modal-close" style="position:absolute;top:12px;right:16px;font-size:1.8rem;background:none;border:none;cursor:pointer;color:#666;line-height:1;width:30px;height:30px;display:flex;align-items:center;justify-content:center;">&times;</button>
+      <img id="item-lot-modal-img" src="" alt="item image" style="width:120px;height:120px;object-fit:cover;border-radius:12px;margin-bottom:12px;box-shadow:0 2px 8px rgba(0,0,0,0.08);">
+      <h3 id="item-lot-modal-name" style="margin:0 0 8px 0;font-size:1.2rem;color:#222;text-align:center;"></h3>
+      <div id="item-lot-modal-price" style="font-size:1.1rem;color:#27ae60;margin-bottom:12px;"></div>
+      <div style="display:flex;align-items:center;gap:16px;margin-bottom:18px;">
+        <button id="lot-minus" style="font-size:1.5rem;width:36px;height:36px;border-radius:50%;border:none;background:#eee;color:#333;cursor:pointer;">-</button>
+        <span id="lot-qty" style="font-size:1.3rem;width:32px;display:inline-block;text-align:center;">1</span>
+        <button id="lot-plus" style="font-size:1.5rem;width:36px;height:36px;border-radius:50%;border:none;background:#eee;color:#333;cursor:pointer;">+</button>
+      </div>
+      <button id="lot-add-btn" style="padding:10px 24px;background:#27ae60;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:1rem;font-weight:bold;width:100%;margin-bottom:8px;">Dodaj u košaricu</button>
+    </div>
+  </div>
+  <!-- Basket Modal Popup (unchanged, but hidden from direct add-to-basket) -->
+  <div id="basket-modal" style="display:none;position:fixed;z-index:2000;left:0;top:0;width:100vw;height:100vh;background:rgba(0,0,0,0.5);justify-content:center;align-items:center;">
+    <div style="background:#fff;padding:24px;border-radius:12px;max-width:500px;min-width:320px;max-height:80vh;overflow:hidden;box-shadow:0 10px 40px rgba(0,0,0,0.2);position:relative;margin:20px;">
+      <button id="basket-modal-close" style="position:absolute;top:12px;right:16px;font-size:1.8rem;background:none;border:none;cursor:pointer;color:#666;line-height:1;width:30px;height:30px;display:flex;align-items:center;justify-content:center;">&times;</button>
+      <h2 style="margin:0 0 20px 0;color:#333;font-size:1.5rem;">🛒 Vaša Košarica</h2>
+      <div id="basket-modal-content" style="overflow-y:auto;max-height:400px;"></div>
+      <div style="margin-top:20px;display:flex;gap:12px;flex-wrap:wrap;">
+        <button id="empty-basket" style="padding:10px 16px;background:#e74c3c;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:0.9rem;flex:1;min-width:120px;transition:background 0.3s;">� Obriši</button>
+        <button id="pay-basket" style="padding:10px 16px;background:#27ae60;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:0.9rem;flex:1;min-width:120px;transition:background 0.3s;">💳 Plati</button>
+      </div>
+    </div>
+  </div>
+  <!-- Payment Modal Popup -->
+  <div id="pay-modal" style="display:none;position:fixed;z-index:3000;left:0;top:0;width:100vw;height:100vh;background:rgba(0,0,0,0.5);justify-content:center;align-items:center;">
+    <div style="background:#fff;padding:24px;border-radius:12px;max-width:450px;min-width:320px;max-height:80vh;overflow:auto;box-shadow:0 10px 40px rgba(0,0,0,0.2);position:relative;margin:20px;">
+      <button id="pay-modal-close" style="position:absolute;top:12px;right:16px;font-size:1.8rem;background:none;border:none;cursor:pointer;color:#666;line-height:1;width:30px;height:30px;display:flex;align-items:center;justify-content:center;">&times;</button>
+      <h2 style="margin:0 0 20px 0;color:#333;font-size:1.5rem;">💳 Plaćanje</h2>
+      <form id="pay-form">
+        <label style="display:block;margin-bottom:16px;">
+          <span style="display:block;margin-bottom:6px;font-weight:500;">Način preuzimanja:</span>
+          <select id="delivery-method" required style="width:100%;padding:10px;border:1px solid #ddd;border-radius:6px;font-size:1rem;" onchange="handleDeliveryChange(this)">
+            <option value="" disabled selected>Odaberite način</option>
+            <option value="delivery">🚚 Dostava</option>
+            <option value="pickup">🏪 Osobno preuzimanje</option>
+          </select>
+        </label>
+        
+        <!-- Customer Information Fields -->
+        <div id="customer-info" style="display:none;">
+          <label style="display:block;margin-bottom:12px;">
+            <span style="display:block;margin-bottom:6px;font-weight:500;">👤 Ime i prezime:</span>
+            <input type="text" id="customer-name" required style="width:100%;padding:10px;border:1px solid #ddd;border-radius:6px;font-size:1rem;" placeholder="Unesite vaše ime i prezime">
+          </label>
+          <label style="display:block;margin-bottom:12px;">
+            <span style="display:block;margin-bottom:6px;font-weight:500;">📞 Telefon:</span>
+            <input type="tel" id="customer-phone" required style="width:100%;padding:10px;border:1px solid #ddd;border-radius:6px;font-size:1rem;" placeholder="Unesite broj telefona">
+          </label>
+          <label style="display:block;margin-bottom:12px;">
+            <span style="display:block;margin-bottom:6px;font-weight:500;">📧 Email:</span>
+            <input type="email" id="customer-email" style="width:100%;padding:10px;border:1px solid #ddd;border-radius:6px;font-size:1rem;" placeholder="Unesite email adresu (neobavezno)">
+          </label>
+          <label style="display:block;margin-bottom:12px;">
+            <span style="display:block;margin-bottom:6px;font-weight:500;">📍 Adresa dostave:</span>
+            <input type="text" id="customer-address" required style="width:100%;padding:10px;border:1px solid #ddd;border-radius:6px;font-size:1rem;" placeholder="Ulica, broj, grad">
+          </label>
+          <label style="display:block;margin-bottom:16px;">
+            <span style="display:block;margin-bottom:6px;font-weight:500;">📝 Napomene za dostavu:</span>
+            <textarea id="delivery-notes" style="width:100%;padding:10px;border:1px solid #ddd;border-radius:6px;font-size:1rem;resize:vertical;min-height:60px;" placeholder="Sprat, zvono, posebne instrukcije... (neobavezno)"></textarea>
+          </label>
+        </div>
+        
+        <div id="card-fields" style="display:none;">
+          <label style="display:block;margin-bottom:12px;">
+            <span style="display:block;margin-bottom:6px;font-weight:500;">Ime na kartici:</span>
+            <input type="text" id="card-name" required style="width:100%;padding:10px;border:1px solid #ddd;border-radius:6px;font-size:1rem;">
+          </label>
+          <label style="display:block;margin-bottom:12px;">
+            <span style="display:block;margin-bottom:6px;font-weight:500;">Broj kartice:</span>
+            <input type="text" id="card-number" required pattern="[0-9]{16}" maxlength="16" style="width:100%;padding:10px;border:1px solid #ddd;border-radius:6px;font-size:1rem;" placeholder="1234 5678 9012 3456">
+          </label>
+          <div style="display:flex;gap:12px;">
+            <label style="flex:1;">
+              <span style="display:block;margin-bottom:6px;font-weight:500;">Datum isteka:</span>
+              <input type="text" id="card-expiry" required placeholder="MM/YY" pattern="(0[1-9]|1[0-2])\/([0-9]{2})" maxlength="5" style="width:100%;padding:10px;border:1px solid #ddd;border-radius:6px;font-size:1rem;">
+            </label>
+            <label style="flex:1;">
+              <span style="display:block;margin-bottom:6px;font-weight:500;">CVV:</span>
+              <input type="password" id="card-cvv" required pattern="[0-9]{3}" maxlength="3" style="width:100%;padding:10px;border:1px solid #ddd;border-radius:6px;font-size:1rem;" placeholder="123">
+            </label>
+          </div>
+          <button type="submit" style="margin-top:20px;padding:12px 20px;background:#27ae60;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:1rem;width:100%;transition:background 0.3s;">💳 Završi Plaćanje</button>
+        </div>
+      </form>
+      <div id="pay-success" style="display:none;color:#27ae60;font-weight:bold;margin-top:16px;text-align:center;padding:20px;background:#d4edda;border-radius:6px;">
+        <div style="font-size:2rem;margin-bottom:10px;">✅</div>
+        <div>Plaćanje uspješno! Hvala na kupnji.</div>
+      </div>
+    </div>
+  </div>
+   <footer id="podnožje">
+        <div class="footer-content">
+            <span>&copy; 2023 Restoran Shpanac. Sva prava pridržana.</span>
+            <span class="basket">
+                🛒 <span id="basket-count">0</span> Košarica
+            </span>
+        </div>
+        <div class="footer-cards">
+            <span class="card-icons">
+                <!-- Visa SVG -->
+                <svg width="32" height="20" viewBox="0 0 32 20" style="vertical-align:middle; margin-left:10px;">
+                    <rect width="32" height="20" rx="3" fill="#1a1f71"/>
+                    <text x="16" y="14" text-anchor="middle" font-size="12" fill="#fff" font-family="Arial">VISA</text>
+                </svg>
+                <!-- MasterCard SVG -->
+                <svg width="32" height="20" viewBox="0 0 32 20" style="vertical-align:middle;">
+                    <circle cx="13" cy="10" r="7" fill="#eb001b"/>
+                    <circle cx="19" cy="10" r="7" fill="#f79e1b" fill-opacity="0.8"/>
+                </svg>
+                <!-- Maestro SVG -->
+                <svg width="32" height="20" viewBox="0 0 32 20" style="vertical-align:middle;">
+                    <circle cx="13" cy="10" r="7" fill="#009ddc"/>
+                    <circle cx="19" cy="10" r="7" fill="#ed1c24" fill-opacity="0.8"/>
+                    <text x="16" y="14" text-anchor="middle" font-size="8" fill="#fff" font-family="Arial">Maestro</text>
+                </svg>
+            </span>
+        </div>
+    </footer>
+    <button onclick="window.scrollTo({top: 0, behavior: 'smooth'});" style="position:fixed;right:24px;bottom:32px;z-index:9999;padding:14px 22px;font-size:1.2rem;background:#1a1f71;color:#fff;border:none;border-radius:50px;box-shadow:0 2px 8px rgba(0,0,0,0.15);cursor:pointer;">⬆️ Povratak na vrh</button>
+
+    <!-- Notification Bubble -->
+    <div id="basket-notification" style="display:none;position:fixed;top:32px;right:32px;z-index:99999;background:#27ae60;color:#fff;padding:16px 28px;border-radius:32px;font-size:1.2rem;box-shadow:0 4px 16px rgba(0,0,0,0.18);transition:opacity 0.3s;opacity:0;pointer-events:none;">
+      Košarica
+    </div>
+
+    <!-- Admin Control Box -->
+  <div id="admin-control">
+    <button class="admin-toggle" onclick="toggleAdminControl()" title="Toggle Control Panel">⚙️</button>
+    <div id="admin-content">
+      <h3>📊 Control Panel</h3>
+      <div class="admin-stats">
+        <div class="admin-stat">
+          <div class="admin-stat-value" id="total-orders">0</div>
+          <div>Total Orders</div>
+        </div>
+        <div class="admin-stat">
+          <div class="admin-stat-value" id="total-revenue">€0.00</div>
+          <div>Revenue</div>
+        </div>
+        <div class="admin-stat">
+          <div class="admin-stat-value" id="active-baskets">0</div>
+          <div>Active Baskets</div>
+        </div>
+        <div class="admin-stat">
+          <div class="admin-stat-value" id="avg-order">€0.00</div>
+          <div>Avg Order</div>
+        </div>
+      </div>
+      <div class="admin-buttons">
+        <button class="admin-btn view-orders" onclick="viewAllOrders()">📋 View All Orders</button>
+        <button class="admin-btn print-orders" onclick="printOrders()">🖨️ Print Orders</button>
+        <button class="admin-btn toggle-sound" onclick="toggleNotificationSound()" id="sound-toggle">🔊 Sound: ON</button>
+        <button class="admin-btn clear-all" onclick="clearAllData()">🗑️ Clear All Data</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Orders Modal -->
+  <div id="orders-modal" class="orders-modal">
+    <div class="orders-modal-content">
+      <button onclick="closeOrdersModal()" style="position:absolute;top:12px;right:16px;font-size:1.8rem;background:none;border:none;cursor:pointer;color:#666;">&times;</button>
+      <h2 style="margin:0 0 20px 0;color:#333;">📋 All Orders</h2>
+      <div id="orders-list"></div>
+    </div>
+  </div>
+
+    <script>
+// Global variables
+let basketItems = [];
+let allOrders = [];
+let notificationSound = true;
+let adminControlVisible = false;
+
+// Admin Control Functions
+function toggleAdminPanel() {
+  const adminControl = document.getElementById('admin-control');
+  const toggleBtn = document.getElementById('admin-toggle-btn');
+  
+  if (adminControl.classList.contains('visible')) {
+    adminControl.classList.remove('visible');
+    toggleBtn.textContent = '⚙️ Admin';
+    toggleBtn.style.background = '#2c3e50';
+  } else {
+    adminControl.classList.add('visible');
+    toggleBtn.textContent = '❌ Close';
+    toggleBtn.style.background = '#e74c3c';
+  }
+}
+
+function toggleAdminControl() {
+  const content = document.getElementById('admin-content');
+  const toggle = document.querySelector('.admin-toggle');
+  
+  if (adminControlVisible) {
+    content.style.display = 'none';
+    toggle.textContent = '👁️';
+    toggle.title = 'Show Control Panel';
+    adminControlVisible = false;
+  } else {
+    content.style.display = 'block';
+    toggle.textContent = '⚙️';
+    toggle.title = 'Hide Control Panel';
+    adminControlVisible = true;
+  }
+}
+
+function updateAdminStats() {
+  const totalOrders = allOrders.length;
+  const totalRevenue = allOrders.reduce((sum, order) => sum + order.total, 0);
+  const avgOrder = totalOrders > 0 ? totalRevenue / totalOrders : 0;
+  const activeBaskets = basketItems.length > 0 ? 1 : 0;
+  
+  document.getElementById('total-orders').textContent = totalOrders;
+  document.getElementById('total-revenue').textContent = `€${totalRevenue.toFixed(2)}`;
+  document.getElementById('active-baskets').textContent = activeBaskets;
+  document.getElementById('avg-order').textContent = `€${avgOrder.toFixed(2)}`;
+}
+
+function viewAllOrders() {
+  const modal = document.getElementById('orders-modal');
+  const ordersList = document.getElementById('orders-list');
+  
+  if (allOrders.length === 0) {
+    ordersList.innerHTML = '<p style="text-align:center;color:#666;padding:20px;">No orders yet.</p>';
+  } else {
+    let html = '';
+    allOrders.forEach((order, index) => {
+      html += `
+        <div class="order-item">
+          <div class="order-header">
+            <span class="order-id">Order #${String(index + 1).padStart(3, '0')}</span>
+            <span class="order-time">${order.timestamp}</span>
+            <span class="order-total">€${order.total.toFixed(2)}</span>
+          </div>
+          <div><strong>Method:</strong> ${order.method === 'delivery' ? '🚚 Delivery' : '🏪 Pickup'}</div>
+          ${order.customerName ? `<div><strong>👤 Customer:</strong> ${order.customerName}</div>` : ''}
+          ${order.customerPhone ? `<div><strong>📞 Phone:</strong> ${order.customerPhone}</div>` : ''}
+          ${order.customerEmail ? `<div><strong>📧 Email:</strong> ${order.customerEmail}</div>` : ''}
+          ${order.customerAddress && order.customerAddress !== 'N/A' ? `<div><strong>📍 Address:</strong> ${order.customerAddress}</div>` : ''}
+          ${order.deliveryNotes ? `<div><strong>📝 Notes:</strong> ${order.deliveryNotes}</div>` : ''}
+          ${order.status ? `<div><strong>Status:</strong> <span style="color:${order.status.includes('Novo') ? '#e74c3c' : '#27ae60'}">${order.status}</span></div>` : ''}
+          <div class="order-items">
+            <strong>Items:</strong>
+            ${order.items.map(item => `
+              <div>${item.name} x${item.quantity} - €${(item.price * item.quantity).toFixed(2)}</div>
+            `).join('')}
+          </div>
+          <button onclick="removeOrder(${index})" style="background:#e74c3c;color:white;border:none;border-radius:4px;padding:4px 8px;cursor:pointer;font-size:12px;margin-top:8px;">Remove Order</button>
+        </div>
+      `;
+    });
+    ordersList.innerHTML = html;
+  }
+  
+  modal.style.display = 'flex';
+}
+
+function closeOrdersModal() {
+  document.getElementById('orders-modal').style.display = 'none';
+}
+
+function removeOrder(index) {
+  allOrders.splice(index, 1);
+  saveOrdersToStorage();
+  updateAdminStats();
+  viewAllOrders(); // Refresh the view
+}
+
+function printOrders() {
+  if (allOrders.length === 0) {
+    alert('No orders to print!');
+    return;
+  }
+  
+  let printContent = `
+    <html>
+    <head>
+      <title>Restaurant Orders - ${new Date().toLocaleDateString()}</title>
+      <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .header { text-align: center; margin-bottom: 30px; border-bottom: 2px solid #333; padding-bottom: 10px; }
+        .order { margin-bottom: 20px; border: 1px solid #ddd; padding: 15px; border-radius: 5px; }
+        .order-header { display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 10px; }
+        .items { margin: 10px 0; }
+        .total-summary { margin-top: 30px; border-top: 2px solid #333; padding-top: 15px; text-align: right; }
+      </style>
+    </head>
+    <body>
+      <div class="header">
+        <h1>RESTORAN SHPANAC</h1>
+        <h2>Orders Report</h2>
+        <p>Generated: ${new Date().toLocaleString()}</p>
+      </div>
+  `;
+  
+  allOrders.forEach((order, index) => {
+    printContent += `
+      <div class="order">
+        <div class="order-header">
+          <span>Order #${String(index + 1).padStart(3, '0')}</span>
+          <span>${order.timestamp}</span>
+          <span>€${order.total.toFixed(2)}</span>
+        </div>
+        <div><strong>Method:</strong> ${order.method === 'delivery' ? 'Delivery' : 'Pickup'}</div>
+        <div class="items">
+          ${order.items.map(item => `
+            <div>${item.name} x${item.quantity} - €${(item.price * item.quantity).toFixed(2)}</div>
+          `).join('')}
+        </div>
+      </div>
+    `;
+  });
+  
+  const totalRevenue = allOrders.reduce((sum, order) => sum + order.total, 0);
+  printContent += `
+      <div class="total-summary">
+        <h3>Summary</h3>
+        <p>Total Orders: ${allOrders.length}</p>
+        <p>Total Revenue: €${totalRevenue.toFixed(2)}</p>
+        <p>Average Order: €${(totalRevenue / allOrders.length).toFixed(2)}</p>
+      </div>
+    </body>
+    </html>
+  `;
+  
+  const printWindow = window.open('', '_blank');
+  printWindow.document.write(printContent);
+  printWindow.document.close();
+  printWindow.print();
+}
+
+function toggleNotificationSound() {
+  notificationSound = !notificationSound;
+  const soundToggle = document.getElementById('sound-toggle');
+  soundToggle.textContent = notificationSound ? '🔊 Sound: ON' : '🔇 Sound: OFF';
+  localStorage.setItem('notificationSound', notificationSound);
+}
+
+function playNotificationSound() {
+  if (notificationSound) {
+    // Create a simple beep sound
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    const oscillator = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+    
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+    
+    oscillator.frequency.value = 800;
+    oscillator.type = 'sine';
+    
+    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+    
+    oscillator.start(audioContext.currentTime);
+    oscillator.stop(audioContext.currentTime + 0.5);
+  }
+}
+
+function playAngrySound() {
+  if (notificationSound) {
+    // Create angry buzzer sound
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    
+    // First angry buzz
+    const osc1 = audioContext.createOscillator();
+    const gain1 = audioContext.createGain();
+    osc1.connect(gain1);
+    gain1.connect(audioContext.destination);
+    osc1.frequency.value = 200;
+    osc1.type = 'sawtooth';
+    gain1.gain.setValueAtTime(0.4, audioContext.currentTime);
+    gain1.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+    osc1.start(audioContext.currentTime);
+    osc1.stop(audioContext.currentTime + 0.3);
+    
+    // Second angry buzz
+    const osc2 = audioContext.createOscillator();
+    const gain2 = audioContext.createGain();
+    osc2.connect(gain2);
+    gain2.connect(audioContext.destination);
+    osc2.frequency.value = 150;
+    osc2.type = 'sawtooth';
+    gain2.gain.setValueAtTime(0.4, audioContext.currentTime + 0.4);
+    gain2.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.7);
+    osc2.start(audioContext.currentTime + 0.4);
+    osc2.stop(audioContext.currentTime + 0.7);
+    
+    // Third angry buzz
+    const osc3 = audioContext.createOscillator();
+    const gain3 = audioContext.createGain();
+    osc3.connect(gain3);
+    gain3.connect(audioContext.destination);
+    osc3.frequency.value =  100;
+    osc3.type = 'sawtooth';
+    gain3.gain.setValueAtTime(0.5, audioContext.currentTime + 0.8);
+    gain3.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 1.2);
+    osc3.start(audioContext.currentTime + 0.8);
+    osc3.stop(audioContext.currentTime + 1.2);
+  }
+}
+
+function playHappySound() {
+  if (notificationSound) {
+    // Create happy celebration sound
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    
+    // Happy chime 1
+    const osc1 = audioContext.createOscillator();
+    const gain1 = audioContext.createGain();
+    osc1.connect(gain1);
+    gain1.connect(audioContext.destination);
+    osc1.frequency.value = 523; // C5
+    osc1.type = 'sine';
+    gain1.gain.setValueAtTime(0.3, audioContext.currentTime);
+    gain1.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.4);
+    osc1.start(audioContext.currentTime);
+    osc1.stop(audioContext.currentTime + 0.4);
+    
+    // Happy chime 2
+    const osc2 = audioContext.createOscillator();
+    const gain2 = audioContext.createGain();
+    osc2.connect(gain2);
+    gain2.connect(audioContext.destination);
+    osc2.frequency.value = 659; // E5
+    osc2.type = 'sine';
+    gain2.gain.setValueAtTime(0.3, audioContext.currentTime + 0.2);
+    gain2.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.6);
+    osc2.start(audioContext.currentTime + 0.2);
+    osc2.stop(audioContext.currentTime + 0.6);
+    
+    // Happy chime 3
+    const osc3 = audioContext.createOscillator();
+    const gain3 = audioContext.createGain();
+    osc3.connect(gain3);
+    gain3.connect(audioContext.destination);
+    osc3.frequency.value = 784; // G5
+    osc3.type = 'sine';
+    gain3.gain.setValueAtTime(0.4, audioContext.currentTime + 0.4);
+    gain3.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 1.0);
+    osc3.start(audioContext.currentTime + 0.4);
+    osc3.stop(audioContext.currentTime + 1.0);
+  }
+}
+
+function showHappyNotification() {
+  const notif = document.getElementById('basket-notification');
+  notif.textContent = '😊🍽️ HVALA! DOBAR TEK! 🍽️😊';
+  notif.style.background = '#27ae60';
+  notif.style.fontSize = '1.4rem';
+  notif.style.display = 'block';
+  notif.style.opacity = '1';
+  
+  // Bounce animation
+  let bounceCount = 0;
+  const bounceInterval = setInterval(() => {
+    notif.style.transform = bounceCount % 2 === 0 ? 'translateY(-10px) scale(1.1)' : 'translateY(0) scale(1)';
+    bounceCount++;
+    if (bounceCount > 6) {
+      clearInterval(bounceInterval);
+      notif.style.transform = 'translateY(0) scale(1)';
+    }
+  }, 200);
+  
+  setTimeout(() => {
+    notif.style.opacity = '0';
+    setTimeout(() => { 
+      notif.style.display = 'none';
+      notif.style.fontSize = '1.2rem'; // Reset font size
+    }, 300);
+  }, 4000);
+  
+  playHappySound();
+}
+
+function showAngryNotification() {
+  const notif = document.getElementById('basket-notification');
+  notif.textContent = '😡💢 KOŠARICA OBRISANA! 💢😡';
+  notif.style.background = '#e74c3c';
+  notif.style.fontSize = '1.4rem';
+  notif.style.display = 'block';
+  notif.style.opacity = '1';
+  
+  // Shake animation
+  let shakeCount = 0;
+  const shakeInterval = setInterval(() => {
+    notif.style.transform = shakeCount % 2 === 0 ? 'translateX(-10px)' : 'translateX(10px)';
+    shakeCount++;
+    if (shakeCount > 8) {
+      clearInterval(shakeInterval);
+      notif.style.transform = 'translateX(0)';
+    }
+  }, 100);
+  
+  setTimeout(() => {
+    notif.style.opacity = '0';
+    setTimeout(() => { 
+      notif.style.display = 'none';
+      notif.style.background = '#27ae60'; // Reset to green
+      notif.style.fontSize = '1.2rem'; // Reset font size
+    }, 300);
+  }, 3000);
+  
+  playAngrySound();
+}
+
+function clearAllData() {
+  if (confirm('Are you sure you want to clear ALL data? This includes orders, baskets, and statistics. This action cannot be undone!')) {
+    if (confirm('This will permanently delete all order history and customer data. Continue?')) {
+      allOrders = [];
+      basketItems = [];
+      sessionStorage.clear();
+      localStorage.removeItem('allOrders');
+      localStorage.removeItem('notificationSound');
+      updateBasketCount();
+      updateAdminStats();
+      alert('All data has been cleared!');
+    }
+  }
+}
+
+function saveOrdersToStorage() {
+  localStorage.setItem('allOrders', JSON.stringify(allOrders));
+}
+
+function loadOrdersFromStorage() {
+  const stored = localStorage.getItem('allOrders');
+  if (stored) {
+    try {
+      allOrders = JSON.parse(stored);
+    } catch(e) {
+      console.error('Error loading orders:', e);
+      allOrders = [];
+    }
+  }
+  
+  const soundSetting = localStorage.getItem('notificationSound');
+  if (soundSetting !== null) {
+    notificationSound = soundSetting === 'true';
+    document.getElementById('sound-toggle').textContent = notificationSound ? '🔊 Sound: ON' : '🔇 Sound: OFF';
+  }
+}
+
+// Handle delivery change in payment form
+function handleDeliveryChange(select) {
+  const cardFields = document.getElementById('card-fields');
+  const customerInfo = document.getElementById('customer-info');
+  const customerName = document.getElementById('customer-name');
+  const customerPhone = document.getElementById('customer-phone');
+  const customerAddress = document.getElementById('customer-address');
+  
+  if (select.value === 'delivery') {
+    // Show customer info fields for delivery
+    customerInfo.style.display = 'block';
+    customerName.required = true;
+    customerPhone.required = true;
+    customerAddress.required = true;
+    cardFields.style.display = 'block';
+  } else if (select.value === 'pickup') {
+    // Hide customer info for pickup, just show payment
+    customerInfo.style.display = 'none';
+    customerName.required = false;
+    customerPhone.required = false;
+    customerAddress.required = false;
+    cardFields.style.display = 'block';
+  } else {
+    // Hide everything if no method selected
+    customerInfo.style.display = 'none';
+    cardFields.style.display = 'none';
+    customerName.required = false;
+    customerPhone.required = false;
+    customerAddress.required = false;
+  }
+}
+
+// Handle delivery order when returning from contact page
+function processDeliveryOrder() {
+  // Check if we have delivery info from contact form
+  const deliveryInfo = sessionStorage.getItem('deliveryInfo');
+  const deliveryBasket = sessionStorage.getItem('deliveryBasket');
+  
+  if (deliveryInfo && deliveryBasket) {
+    const customerData = JSON.parse(deliveryInfo);
+    const basketData = JSON.parse(deliveryBasket);
+    
+    // Calculate total
+    const total = basketData.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    
+    // Create delivery order
+    const order = {
+      timestamp: new Date().toLocaleString(),
+      items: [...basketData],
+      total: total,
+      method: 'delivery',
+      customerName: customerData.name || 'N/A',
+      customerAddress: customerData.address || 'N/A',
+      customerPhone: customerData.phone || 'N/A',
+      customerEmail: customerData.email || '',
+      deliveryNotes: customerData.message || '',
+      status: 'Novo - Dostava'
+    };
+    
+    // Add to orders list
+    allOrders.push(order);
+    saveOrdersToStorage();
+    
+    // Clear delivery session data
+    sessionStorage.removeItem('deliveryInfo');
+    sessionStorage.removeItem('deliveryBasket');
+    sessionStorage.removeItem('returnToPayment');
+    
+    // Show success notification
+    showHappyNotification();
+    playHappySound();
+    
+    // Clear current basket if it matches the delivery basket
+    basketItems = [];
+    saveBasketToStorage();
+    updateBasketCount();
+    updateAdminStats();
+    
+    // Show success message
+    alert('Dostava narudžba uspješno poslana! Hvala vam!');
+  }
+}
+
+// Load basket from sessionStorage
+function loadBasketFromStorage() {
+  const stored = sessionStorage.getItem('basketItems');
+  if (stored) {
+    try {
+      basketItems = JSON.parse(stored);
+    } catch(e) {
+      console.error('Error loading basket:', e);
+      basketItems = [];
+    }
+  } else {
+    basketItems = [];
+  }
+  updateBasketCount();
+}
+
+// Save basket to sessionStorage
+function saveBasketToStorage() {
+  sessionStorage.setItem('basketItems', JSON.stringify(basketItems));
+}
+
+// Show notification when item is added
+function showBasketNotification(itemName, quantity) {
+  const notif = document.getElementById('basket-notification');
+  notif.textContent = `${itemName} (${quantity}) dodano u košaricu!`;
+  notif.style.display = 'block';
+  notif.style.opacity = '1';
+  
+  setTimeout(() => {
+    notif.style.opacity = '0';
+    setTimeout(() => { 
+      notif.style.display = 'none';
+    }, 300);
+  }, 2000);
+  
+  playNotificationSound();
+}
+
+// Ask for quantity when adding item
+function askForQuantity(itemName, itemPrice) {
+  const quantity = prompt(`Koliko ${itemName} želite dodati u košaricu?`, '1');
+  if (quantity !== null && quantity !== '' && !isNaN(quantity) && parseInt(quantity) > 0) {
+    const price = parseFloat(itemPrice);
+    const qty = parseInt(quantity);
+    if (!isNaN(price) && price > 0) {
+      addToBasket(itemName, price, qty);
+    } else {
+      alert('Greška u cijeni proizvoda!');
+    }
+  }
+}
+
+// Add item to basket
+function addToBasket(itemName, itemPrice, quantity) {
+  if (!itemName || isNaN(itemPrice) || isNaN(quantity) || itemPrice <= 0 || quantity <= 0) {
+    return;
+  }
+  
+  const existingItem = basketItems.find(item => item.name === itemName);
+  if (existingItem) {
+    existingItem.quantity += quantity;
+  } else {
+    basketItems.push({
+      name: itemName,
+      price: itemPrice,
+      quantity: quantity
+    });
+  }
+  
+  saveBasketToStorage();
+  updateBasketCount();
+  updateAdminStats();
+  showBasketNotification(itemName, quantity);
+}
+
+// Update basket count display
+function updateBasketCount() {
+  const totalItems = basketItems.reduce((sum, item) => sum + item.quantity, 0);
+  const basketCountElement = document.getElementById('basket-count');
+  if (basketCountElement) {
+    basketCountElement.textContent = totalItems;
+  }
+}
+
+// Update basket modal content
+function updateBasketModal() {
+  const modalContent = document.getElementById('basket-modal-content');
+  
+  if (!basketItems || basketItems.length === 0) {
+    modalContent.innerHTML = '<p style="text-align:center;color:#666;padding:20px;">Košarica je prazna.</p>';
+    return;
+  }
+
+  let html = '<div style="max-height:400px;overflow-y:auto;">';
+  let total = 0;
+  
+  basketItems.forEach((item, index) => {
+    const price = parseFloat(item.price) || 0;
+    const quantity = parseInt(item.quantity) || 0;
+    const itemTotal = price * quantity;
+    total += itemTotal;
+    html += `
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid #eee;">
+        <div>
+          <strong>${item.name}</strong><br>
+          <span style=\"color:#666;\">€${price.toFixed(2)} x </span>
+          <button class='basket-minus' data-index='${index}' style='margin:0 4px;font-size:1.1rem;width:28px;height:28px;border-radius:50%;border:none;background:#eee;color:#333;cursor:pointer;'>-</button>
+          <span id='basket-qty-${index}' style='min-width:24px;display:inline-block;text-align:center;'>${quantity}</span>
+          <button class='basket-plus' data-index='${index}' style='margin:0 4px;font-size:1.1rem;width:28px;height:28px;border-radius:50%;border:none;background:#eee;color:#333;cursor:pointer;'>+</button>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span style="font-weight:bold;">€${itemTotal.toFixed(2)}</span>
+          <button onclick="removeFromBasket(${index})" style="background:#e74c3c;color:#fff;border:none;border-radius:4px;padding:4px 8px;cursor:pointer;font-size:12px;">✕</button>
+        </div>
+      </div>
+    `;
+  });
+  
+  html += `</div>
+    <div style="margin-top:16px;padding-top:16px;border-top:2px solid #ddd;text-align:center;">
+      <strong style="font-size:1.3rem;">Ukupno: €${total.toFixed(2)}</strong>
+    </div>`;
+  
+  modalContent.innerHTML = html;
+  // Add event listeners for plus/minus after rendering
+  modalContent.querySelectorAll('.basket-plus').forEach(btn => {
+    btn.onclick = function() {
+      const idx = parseInt(this.getAttribute('data-index'));
+      if (basketItems[idx].quantity < 99) {
+        basketItems[idx].quantity++;
+        saveBasketToStorage();
+        updateBasketCount();
+        updateBasketModal();
+        updateAdminStats();
+      }
+    };
+  });
+  modalContent.querySelectorAll('.basket-minus').forEach(btn => {
+    btn.onclick = function() {
+      const idx = parseInt(this.getAttribute('data-index'));
+      if (basketItems[idx].quantity > 1) {
+        basketItems[idx].quantity--;
+        saveBasketToStorage();
+        updateBasketCount();
+        updateBasketModal();
+        updateAdminStats();
+      }
+    };
+  });
+}
+
+// Remove item from basket
+function removeFromBasket(index) {
+  basketItems.splice(index, 1);
+  saveBasketToStorage();
+  updateBasketCount();
+  updateBasketModal();
+  updateAdminStats();
+}
+
+// Show basket modal
+function showBasketModal() {
+  updateBasketModal();
+  document.getElementById('basket-modal').style.display = 'flex';
+}
+
+// Initialize everything when page loads
+document.addEventListener('DOMContentLoaded', function() {
+  // Load existing data
+  loadBasketFromStorage();
+  loadOrdersFromStorage();
+  updateAdminStats();
+  
+  // Restore payment modal if returning from contact page
+  if (sessionStorage.getItem('returnToPayment') === '1') {
+    sessionStorage.removeItem('returnToPayment');
+    document.getElementById('pay-modal').style.display = 'flex';
+    document.getElementById('delivery-method').value = 'delivery';
+    document.getElementById('card-fields').style.display = 'block';
+  }
+
+  // Process delivery order if coming from contact page
+  processDeliveryOrder();
+
+  // Add event listeners to add-to-basket buttons (open lot modal)
+  document.querySelectorAll('.add-to-basket-btn').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      const itemName = this.getAttribute('data-name');
+      const itemPrice = this.getAttribute('data-price');
+      // Try to get image src from the card
+      let imgSrc = '';
+      const card = this.closest('.card');
+      if (card) {
+        const img = card.querySelector('img');
+        if (img) imgSrc = img.getAttribute('src');
+      }
+      openLotModal(itemName, itemPrice, imgSrc);
+    });
+  });
+
+  // Lot modal logic
+  function openLotModal(name, price, imgSrc) {
+    document.getElementById('item-lot-modal-name').textContent = name;
+    document.getElementById('item-lot-modal-price').textContent = `€${parseFloat(price).toFixed(2)}`;
+    document.getElementById('item-lot-modal-img').src = imgSrc || '';
+    document.getElementById('lot-qty').textContent = '1';
+    document.getElementById('item-lot-modal').style.display = 'flex';
+    document.getElementById('lot-add-btn').onclick = function() {
+      const qty = parseInt(document.getElementById('lot-qty').textContent);
+      addToBasket(name, parseFloat(price), qty);
+      document.getElementById('item-lot-modal').style.display = 'none';
+    };
+  }
+  document.getElementById('item-lot-modal-close').onclick = function() {
+    document.getElementById('item-lot-modal').style.display = 'none';
+  };
+  document.getElementById('lot-plus').onclick = function() {
+    let qty = parseInt(document.getElementById('lot-qty').textContent);
+    if (qty < 99) document.getElementById('lot-qty').textContent = qty + 1;
+  };
+  document.getElementById('lot-minus').onclick = function() {
+    let qty = parseInt(document.getElementById('lot-qty').textContent);
+    if (qty > 1) document.getElementById('lot-qty').textContent = qty - 1;
+  };
+
+  // Add event listener to basket in footer
+  const basketElement = document.querySelector('.basket');
+  if (basketElement) {
+    basketElement.addEventListener('click', function(e) {
+      e.preventDefault();
+      showBasketModal();
+    });
+    basketElement.style.cursor = 'pointer';
+  }
+
+  // Modal close buttons
+  document.getElementById('basket-modal-close').addEventListener('click', function() {
+    document.getElementById('basket-modal').style.display = 'none';
+  });
+
+  document.getElementById('pay-modal-close').addEventListener('click', function() {
+    document.getElementById('pay-modal').style.display = 'none';
+  });
+
+  // Empty basket button
+  document.getElementById('empty-basket').addEventListener('click', function() {
+    if (confirm('😡 Jeste li sigurni da želite OBRISATI košaricu? 😡')) {
+      basketItems = [];
+      saveBasketToStorage();
+      updateBasketCount();
+      updateBasketModal();
+      updateAdminStats();
+      showAngryNotification();
+    }
+  });
+
+  // Pay basket button
+  document.getElementById('pay-basket').addEventListener('click', function() {
+    if (!basketItems || basketItems.length === 0) {
+      alert('Košarica je prazna!');
+      return;
+    }
+    
+    document.getElementById('basket-modal').style.display = 'none';
+    document.getElementById('pay-modal').style.display = 'flex';
+    document.getElementById('delivery-method').value = '';
+    document.getElementById('card-fields').style.display = 'none';
+  });
+
+  // Payment form handling
+  document.getElementById('pay-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Calculate total
+    const total = basketItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    
+    // Get customer information
+    const deliveryMethod = document.getElementById('delivery-method').value;
+    const customerName = document.getElementById('customer-name').value;
+    const customerPhone = document.getElementById('customer-phone').value;
+    const customerEmail = document.getElementById('customer-email').value;
+    const customerAddress = document.getElementById('customer-address').value;
+    const deliveryNotes = document.getElementById('delivery-notes').value;
+    
+    // Create order record
+    const order = {
+      timestamp: new Date().toLocaleString(),
+      items: [...basketItems],
+      total: total,
+      method: deliveryMethod,
+      customerName: deliveryMethod === 'delivery' ? customerName : 'Osobno preuzimanje',
+      customerPhone: deliveryMethod === 'delivery' ? customerPhone : 'N/A',
+      customerEmail: deliveryMethod === 'delivery' ? customerEmail : 'N/A',
+      customerAddress: deliveryMethod === 'delivery' ? customerAddress : 'N/A',
+      deliveryNotes: deliveryMethod === 'delivery' ? deliveryNotes : '',
+      status: deliveryMethod === 'delivery' ? 'Novo - Dostava' : 'Novo - Preuzimanje'
+    };
+    
+    // Add to orders list
+    allOrders.push(order);
+    saveOrdersToStorage();
+    
+    document.getElementById('card-fields').style.display = 'none';
+    document.getElementById('pay-success').style.display = 'block';
+    
+    // Play success sound and show happy notification
+    playNotificationSound();
+    showHappyNotification();
+    
+    // Clear basket after successful payment
+    setTimeout(() => {
+      basketItems = [];
+      saveBasketToStorage();
+      updateBasketCount();
+      updateAdminStats();
+      document.getElementById('pay-modal').style.display = 'none';
+      document.getElementById('pay-success').style.display = 'none';
+      document.getElementById('card-fields').style.display = 'none';
+      document.getElementById('customer-info').style.display = 'none';
+      document.getElementById('delivery-method').value = '';
+      document.getElementById('customer-name').value = '';
+      document.getElementById('customer-phone').value = '';
+      document.getElementById('customer-email').value = '';
+      document.getElementById('customer-address').value = '';
+      document.getElementById('delivery-notes').value = '';
+    }, 3000);
+  });
+
+  // Click outside modal to close
+  document.getElementById('basket-modal').addEventListener('click', function(e) {
+    if (e.target === this) {
+      this.style.display = 'none';
+    }
+  });
+
+  document.getElementById('pay-modal').addEventListener('click', function(e) {
+    if (e.target === this) {
+      this.style.display = 'none';
+    }
+  });
+
+  document.getElementById('orders-modal').addEventListener('click', function(e) {
+    if (e.target === this) {
+      this.style.display = 'none';
+    }
+  });
+});
+</script>
+
+ 
+</body>
+</html>
+
+
+

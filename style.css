@@ -1,0 +1,870 @@
+/* Resetiranje i osnovni stilovi - sve margine i paddingi na nulu, box-sizing na border-box */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Stilovi za zaglavlje i podnožje stranice */
+footer, header {
+  display: flex;
+  font-family: Arial, Helvetica, sans-serif;
+  height: 10vh;
+  background-color: #333;
+  color: tomato;
+  font-style: italic;
+  font-size: 20px;
+  font-weight: bold;
+  box-sizing: border-box;
+}
+
+/* Glavno zaglavlje stranice - sticky na vrhu */
+#zaglavlje {
+  box-sizing: border-box;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: #333;
+}
+
+/* Naslov restorana - animacija boje i sjena */
+h1 {
+  font-size: 40px;
+  text-shadow: 2px 2px 2px rgba(255, 255, 255, 0.5), 0px 0px 10px rgba(255, 255, 255, 0.5);
+  animation: colorChange 3s infinite alternate;
+  transition: color 3s;
+}
+
+/* Animacija promjene boje za naslov */
+@keyframes colorChange {
+  from {
+    color: red;
+  }
+  to {
+    color: yellow;
+  }
+}
+
+/* Podnožje stranice - raspored elemenata */
+#podnožje {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+/* Osnovni stilovi za html i body - visina 100% */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Tijelo stranice - flex layout, minimalna visina */
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Podnožje i footer uvijek na dnu stranice */
+footer, .site-footer, #podnožje {
+  flex-shrink: 0;
+}
+
+/* Glavni sadržaj stranice - pozadinska slika, flex layout */
+main {
+  max-height: 80vh;
+  overflow-y: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-image: url(POZADINSKA\ SLIKA\ 3.jpeg);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  flex: 1 0 auto;
+  position: relative;
+}
+
+/* Navigacija na vrhu stranice */
+#navigacija1 {
+  color: white;
+  padding: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+/* Linkovi u navigaciji */
+#navigacija1 a {
+  text-decoration: none;
+  color: white;
+  padding: 5px;
+  margin-bottom: 10px;
+  display: block;
+  border: #33b5e5;
+  text-align: center;
+  transition: background 0.5s;
+}
+
+/* Hover efekt za linkove u navigaciji */
+#navigacija1 a:hover {
+  background-color: #d8b504;
+  cursor: pointer;
+}
+
+/* Lista linkova u navigaciji */
+#navigacija1 ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  flex-wrap: wrap;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Alternativna navigacija (druga stranica) */
+#navigacija {
+  color: white;
+  padding: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 3px rgba(226, 197, 197, 0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+#navigacija ul {
+  list-style-type: none;
+}
+
+#navigacija a {
+  text-decoration: none;
+  color: white;
+  padding: 5px;
+  margin-bottom: 10px;
+  display: block;
+  border: #33b5e5;
+  text-align: center;
+  transition: background 0.5s;
+}
+
+#navigacija a:hover {
+  background-color: #890409;
+  cursor: pointer;
+}
+
+#navigacija li:hover {
+  background-color: #eb3535;
+  cursor: pointer;
+}
+
+/* Slika bannera - okrugla, sjena */
+#banner-img {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(242, 240, 240, 0.12), 0 1px 2px rgba(0,0,0,0.24);
+  margin: 10px 0 auto;
+  display: block;
+}
+
+/* Tipka za prikaz mape */
+.map-btn {
+  display: block;
+  margin: 15px auto 0 auto;
+  padding: 10px 25px;
+  background-color: #33b5e5;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+/* Hover efekt za tipku mape */
+.map-btn:hover {
+  background-color: #0099cc;
+}
+
+/* Sekcija about - osnovni stilovi */
+#about {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Zaglavlje i podnožje za about stranicu */
+#foter-about, header-about {
+  display: flex;
+  font-family: Arial, Helvetica, sans-serif;
+  height: 10vh;
+  background-color: #333;
+  color: tomato;
+  box-sizing: border-box;
+}
+
+/* Drugo zaglavlje (about stranica) */
+#zaglavlje2 {
+  box-sizing: border-box;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+/* Navigacija na about stranici */
+#navigacija2 {
+  text-decoration: none;
+  color: white;
+  padding: 5px;
+  margin-bottom: 10px;
+  display: block;
+  border: #33b5e5;
+  text-align: center;
+  transition: background 0.5s;
+}
+
+/* Podnožje na about stranici */
+.podnožje2 {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  align-items: center;
+  text-align: center;
+  height: 10vh;
+  background-color: #333;
+  color: tomato;
+}
+
+/* Stil za tekst "potrazi" - animacija boje */
+.potrazi {
+  font-size: 20px;
+  text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5), 0px 0px 5px rgba(255, 255, 255, 0.5);
+  animation: colorChange 0.5s infinite alternate;
+  transition: color 1s;
+}
+
+/* Animacija promjene boje za "potrazi" */
+@keyframes colorChange {
+  from {
+    color: red;
+  }
+  to {
+    color: rgb(184, 184, 66);
+  }
+}
+
+/* Stilovi za main-about sekciju (pozadina, font) */
+.main-about {
+  font-family: 'Poppins', sans-serif;
+  background-image: url(POZADINSKA\ SLIKA\ 3.jpeg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 80vh;
+  position: relative;
+}
+
+/* Kontejner za mapu - pozicioniranje, zaobljenje */
+.map-container {
+  position: relative;
+  display: inline-block;
+  margin: 0;
+  align-self: flex-start;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+/* Logo restorana - pozicioniranje, pokazivač */
+.logo {
+  display: block;
+  cursor: pointer;
+  z-index: 2;
+  position: relative;
+}
+
+/* Mapa - skrivena dok nije hover, pozicioniranje */
+.map {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 300px;
+  height: 300px;
+  z-index: 3;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* Prikaz mape na hover */
+.map-container:hover .map {
+  display: block;
+}
+
+/* Slika u map-containeru */
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 1s ease;
+}
+
+/* Mapa - pozadinska slika, tranzicija */
+.map {
+  position: absolute;
+  top: 0;
+  left: 0%;
+  width: 100%;
+  height: 100%;
+  background-image: url('mapa.jpg');
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+/* Smanji vidljivost slike na hover */
+.map-container:hover .image {
+  opacity: 0;
+}
+
+/* Prikaz mape na hover */
+.map-container:hover .map {
+  opacity: 1;
+}
+
+/* Iframe za prikaz Google mape */
+.map iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+/* Forma za registraciju - pozicioniranje */
+.registracija {
+  position: absolute;
+  top: 50%;
+  left: 73%;
+  transform: translateY(-50%);
+  color: snow;
+}
+
+/* Polje za poruku u formi */
+#poruka {
+  background: transparent;
+  color: snow;
+  border: 1px solid #fff;
+  border-radius: 20px;
+  padding: 10px;
+  resize: none;
+}
+
+/* Polje za ime u formi */
+#ime {
+  background: transparent;
+  color: snow;
+  border-radius: 5px;
+  padding: 2px;
+}
+
+/* Tipka za slanje forme */
+#submit {
+  background: transparent;
+  color: snow;
+  border-radius: 3px;
+}
+
+/* Glavni sadržaj na dnu stranice */
+.content-main {
+  position: absolute;
+  bottom: 0;
+  left: 40%;
+  transform: translateX(-50%);
+  padding: 10px 30px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: rgb(227, 18, 18);
+  text-align: center;
+  display: inline-block;
+  border-radius: 10px;
+  font-size: 20px;
+}
+
+/* Naslov u glavnom sadržaju */
+.content-main h2 {
+  font-size: 40px;
+  text-shadow: 2px 2px 2px rgba(255, 255, 255, 0.5), 0px 0px 10px rgba(255, 255, 255, 0.5);
+  color: navajowhite;
+}
+
+/* Pozadinska slika preko cijele stranice */
+main::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: url('POZADINSKA SLIKA 3.jpeg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Glavna kartica - layout, boja */
+.main-card {
+  height: 80vh;
+  display: flex;
+  color: white;
+  background-image: none;
+  background-color: bisque;
+}
+
+/* Grid za kartice pizze */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 100px;
+}
+
+/* Stilovi za pojedinu karticu pizze */
+.card {
+  border-radius: 8px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05);
+  padding: 20px;
+  background-color: white;
+  transition: transform 0.3s ease;
+  color: crimson;
+}
+
+/* Hover efekt za karticu pizze */
+.card:hover {
+  cursor: pointer;
+  transform: translateY(-5px);
+}
+
+/* Naslov u gridu kartica */
+.card-grid h2 {
+  color: black;
+  font-size: 2em;
+  text-align: center;
+  text-shadow: 2px 2px 2px rgba(255, 255, 255, 0.5), 0px 0px 10px rgba(255, 255, 255, 0.5);
+}
+
+/* Pozadinske slike za svaku karticu pizze */
+.card1, .card2, .card3, .card4, .card5, .card6, .card7, .card8, .card9, .card10 {
+  border-radius: 8px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05);
+  padding: 20px;
+  transition: transform 0.3s ease;
+  color: crimson;
+  background-size: cover;
+}
+
+/* Svaka kartica ima svoju sliku pizze */
+.card1 { background-image: url(pizza/CALZIONE.jpg); }
+.card2 { background-image: url(pizza/DIAVOLO.jpeg); }
+.card3 { background-image: url(pizza/KAFANSKA.jpeg); }
+.card4 { background-image: url(pizza/MARGHERITA.jpeg); }
+.card5 { background-image: url(pizza/MEXICANA.jpeg); }
+.card6 { background-image: url(pizza/PANCETA.jpeg); }
+.card7 { background-image: url(pizza/PEPERONI.jpeg); }
+.card8 { background-image: url(pizza/PROSCIUTTO.jpeg); }
+.card9 { background-image: url(pizza/SLAVONSKA.jpeg); }
+.card10 { background-image: url(pizza/TUNA.jpeg); }
+
+/* Hover efekt za sve kartice pizze */
+.card1:hover, .card2:hover, .card3:hover, .card4:hover, .card5:hover, .card6:hover, .card7:hover, .card8:hover, .card9:hover, .card10:hover {
+  cursor: pointer;
+  transform: translateY(-5px);
+}
+
+/* Grid za dodatne kartice (npr. vegetarijanska pizza) */
+.card-grid2 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 100px;
+}
+
+/* Kartica za vegetarijansku pizzu */
+.card11 {
+  border-radius: 8px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05);
+  padding: 20px;
+  transition: transform 0.3s ease;
+  color: crimson;
+  background-image: url(pizza/VEGETARIJANSKA.jpeg);
+  background-size: cover;
+}
+
+/* Modalni prozor - prikaz košarice, plaćanja itd. */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.5);
+  transition: opacity 0.3s;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Prikaz modala kad je aktivan */
+.modal.show {
+  display: flex;
+  opacity: 1;
+}
+
+/* Sadržaj modala */
+.modal-content {
+  background: #fff;
+  color: #333;
+  padding: 30px 40px;
+  border-radius: 12px;
+  min-width: 300px;
+  max-width: 90vw;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  transform: scale(0.8);
+  transition: transform 0.3s;
+}
+
+/* Animacija prikaza sadržaja modala */
+.modal.show .modal-content {
+  transform: scale(1);
+}
+
+/* Tipka za zatvaranje modala */
+.close-btn {
+  position: absolute;
+  right: 30px;
+  top: 20px;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+/* Sadržaj podnožja - raspored, košarica */
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 900px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Prikaz košarice u podnožju */
+.basket {
+  font-size: 1.3em;
+  color: #e74c3c;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Modalna kutija košarice */
+.basket-box {
+  display: none;
+  position: fixed;
+  right: 30px;
+  bottom: 80px;
+  background: #fff;
+  color: #333;
+  border-radius: 10px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+  padding: 24px 32px;
+  z-index: 10000;
+  min-width: 220px;
+}
+
+/* Animacija prikaza košarice */
+.basket-box.show {
+  display: block;
+  animation: basketFadeIn 0.4s;
+}
+
+/* Animacija fade-in za košaricu */
+@keyframes basketFadeIn {
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Lista artikala u košarici */
+#basket-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 16px 0;
+}
+
+/* Svaki artikl u košarici */
+#basket-list li {
+  margin-bottom: 8px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 4px;
+}
+
+/* Tipka za zatvaranje košarice */
+#close-basket {
+  background: #e74c3c;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 6px 16px;
+  cursor: pointer;
+}
+
+/* Tipka za više informacija */
+.more-btn {
+  text-decoration: none;
+  color: #120302;
+  transition: text-decoration 0.3s;
+}
+
+/* Hover efekt za tipku više informacija */
+.more-btn:hover {
+  color: rgb(209, 84, 17);
+}
+
+/* Labela za plaćanje */
+.payment-label {
+  position: relative;
+  margin: 0 auto 24px auto;
+  left: 0;
+  right: 0;
+  width: fit-content;
+  background: #ffffff;
+  color: #e74c3c;
+  border: 2px solid #e74c3c;
+  border-radius: 8px;
+  padding: 12px 28px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+  font-weight: bold;
+  font-size: 1.1em;
+  z-index: 1000;
+  animation: paymentPop 0.6s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* Animacija za prikaz labele plaćanja */
+@keyframes paymentPop {
+  from { opacity: 0; transform: translateY(-30px) scale(0.9); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Modalni prozor za formu plaćanja */
+#pay-form-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.4);
+  z-index: 20000;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Prikaz modala forme plaćanja */
+#pay-form-modal.show {
+  display: flex;
+}
+
+/* Forma za plaćanje */
+#pay-form {
+  background: #fff;
+  border: 2px solid #e74c3c;
+  border-radius: 12px;
+  padding: 32px 40px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  min-width: 320px;
+  max-width: 90vw;
+  font-size: 1.1em;
+}
+
+/* Ikone kartica za plaćanje */
+.card-icons svg {
+  margin-left: 8px;
+}
+
+/* Prikaz mape na stranici */
+#mapa {
+  position: absolute;
+  top: 120px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 320px;
+  max-width: 90vw;
+  z-index: 10;
+  background: #fff;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  border-radius: 12px;
+  padding: 8px;
+}
+
+/* Layout kontakt stranice */
+.contact-main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 70vh;
+  width: 100vw;
+  background: transparent;
+}
+
+/* Kontejner za kontakt podatke i slider */
+.contact-container {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  width: 80vw;
+  max-width: 900px;
+  justify-content: center;
+  align-items: stretch;
+  margin: 24px auto;
+}
+
+/* Kutija s kontakt podacima */
+.contact-box {
+  flex: 1 1 220px;
+  background: #7a0c06eb;
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  padding: 18px 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 1em;
+  color:snow;
+  min-width: 180px;
+  max-width: 320px;
+}
+
+/* Kutija sa sliderom slika */
+.slider-box {
+  flex: 1 1 440px;
+  background: rgba(213, 156, 22, 0.92);
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  padding: 18px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 360px;
+  max-width: 640px;
+  overflow: hidden;
+}
+
+/* Slider za slike */
+.slider {
+  width: 100%;
+  height: 360px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Slika u slideru */
+.slider-img {
+  width: 100%;
+  height: 360px;
+  object-fit: cover;
+  border-radius: 12px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  transition: opacity 1s;
+  z-index: 1;
+}
+
+/* Prikaz slike kad je aktivna u slideru */
+.slider-img[style*="display: block"] {
+  opacity: 1;
+  z-index: 2;
+}
+
+/* Responsivnost za kontakt stranicu na manjim ekranima */
+@media (max-width: 900px) {
+  .contact-container {
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+    width: 98vw;
+    max-width: 98vw;
+  }
+  .contact-box, .slider-box {
+    max-width: 98vw;
+    width: 100%;
+  }
+  .slider {
+    height: 180px;
+  }
+  .slider-img {
+    height: 180px;
+  }
+}
+
+/* Zaglavlje i podnožje za kontakt stranicu (isto kao početna) */
+.header, .footer {
+  display: flex;
+  font-family: Arial, Helvetica, sans-serif;
+  height: 10vh;
+  background-color: #333;
+  color: tomato;
+  font-style: italic;
+  font-size: 20px;
+  font-weight: bold;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+}
+
+/* Navigacija u zaglavlju kontakt stranice */
+.header nav {
+  display: flex;
+  gap: 24px;
+}
+
+/* Linkovi u navigaciji kontakt stranice */
+.header nav a {
+  color: tomato;
+  text-decoration: none;
+  font-size: 1em;
+  font-style: italic;
+  padding: 6px 16px;
+  border-radius: 6px;
+  transition: background 0.3s, color 0.3s;
+}
+
+/* Hover efekt za linkove u kontakt navigaciji */
+.header nav a:hover {
+  background: #d8b504;
+  color: #333;
+}
+
+/* Podnožje kontakt stranice */
+.footer {
+  justify-content: center;
+  text-align: center;
+  font-size: 1em;
+  padding: 16px 0;
+}
+
+
+
+
+

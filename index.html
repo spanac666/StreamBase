@@ -1,0 +1,623 @@
+<!-- Dokument tip: HTML5 -->
+<!DOCTYPE html>
+<!-- Početak HTML dokumenta, jezik: hrvatski -->
+<html lang="hr">
+
+<head>
+  <!-- Postavljanje kodiranja znakova -->
+  <meta charset="UTF-8">
+  <!-- Omogućuje responzivni dizajn na mobilnim uređajima -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Naslov stranice -->
+  <title>RESTORAN SHPANAC</title>
+  <!-- Povezivanje vanjskog CSS-a -->
+  <link rel="stylesheet" href="style.css">
+  <!-- Opis stranice za tražilice -->
+  <meta name="description" content="Restoran u Zagrebu - naj bolji restoran u Zagrebu">
+  <!-- Ključne riječi za SEO -->
+  <meta name="keywords" content="Restoran, Zagreb, najbolji restoran, hrvatsko italijanska kuhinja">
+  <!-- Autor stranice -->
+  <meta name="author" content="Restoran">
+  <!-- Ikona stranice -->
+  <link rel="icon" href="slike/favicon.jpeg" type="image/x-icon">
+
+  <!-- Unutarnji CSS stilovi za izgled stranice i responzivnost -->
+  <style>
+  /* Osnovni stilovi */
+      html, body {
+        box-sizing: border-box;
+        width: 100vw;
+        overflow-x: hidden;
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background: #fff;
+        color: #222;
+      }
+      *, *:before, *:after {
+        box-sizing: inherit;
+      }
+
+  /* Stilovi za hamburger meni */
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+        background: none;
+        border: none;
+        padding: 5px;
+        margin: 10px 0;
+      }
+
+      .hamburger span {
+        width: 25px;
+        height: 3px;
+        background-color: tomato;
+        margin: 3px 0;
+        transition: 0.3s;
+        display: block;
+      }
+
+      .hamburger.active span:nth-child(1) {
+        transform: rotate(-45deg) translate(-5px, 6px);
+      }
+
+      .hamburger.active span:nth-child(2) {
+        opacity: 0;
+      }
+
+      .hamburger.active span:nth-child(3) {
+        transform: rotate(45deg) translate(-5px, -6px);
+      }
+
+  /* Stilovi za mobilnu navigaciju */
+      .nav-mobile {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: rgba(51, 51, 51, 0.95);
+        backdrop-filter: blur(10px);
+        z-index: 999;
+        padding: 15px 0;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+      }
+
+      .nav-mobile.active {
+        display: block;
+      }
+
+  /* Poboljšana responzivnost za mobilne uređaje */
+      @media (max-width: 900px) {
+        /* Header adjustments */
+        #zaglavlje {
+          position: relative;
+        }
+
+        /* Show hamburger menu */
+        .hamburger {
+          display: flex;
+          align-self: flex-end;
+        }
+
+        /* Hide desktop navigation */
+        #navigacija1 {
+          display: none;
+        }
+
+        /* Logo smaller on mobile */
+        .logo {
+          width: 50vw !important;
+          max-width: 180px !important;
+          height: auto !important;
+          display: block;
+          margin: 0 auto 15px auto;
+        }
+
+        /* Main navigation - flexbox wrap for mobile */
+        #navigacija {
+          margin-top: 15px;
+          width: 100%;
+          padding: 0 5px;
+        }
+
+        .navigacija {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          align-items: stretch;
+          gap: 6px;
+          padding: 0;
+          list-style: none;
+          margin: 0;
+        }
+
+        .navigacija li {
+          list-style: none;
+          flex: 1 1 calc(50% - 3px); /* 2 items per row on mobile */
+          min-width: 140px;
+        }
+
+        .navigacija a {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 12px 8px;
+          background: rgba(234, 234, 234, 0.9);
+          border-radius: 6px;
+          text-align: center;
+          font-size: 0.9em;
+          text-decoration: none;
+          color: #222 !important;
+          font-weight: bold;
+          transition: all 0.2s ease;
+          border: 1px solid #ddd;
+          min-height: 44px;
+          width: 100%;
+          box-sizing: border-box;
+        }
+
+        #mapa iframe {
+          width: 100vw !important;
+          min-width: 0;
+          max-width: 100vw;
+          height: 35vw !important;
+          min-height: 140px;
+          max-height: 250px;
+          display: block;
+          margin: 0 auto;
+        }
+
+    /* Stilovi za mobilnu navigaciju u zaglavlju */
+        .navigacija1 {
+          display: flex;
+          flex-direction: column;
+          align-items: stretch;
+          gap: 8px;
+          padding: 0 15px;
+          list-style: none;
+          margin: 0;
+        }
+
+        .navigacija1 li {
+          list-style: none;
+        }
+
+        .navigacija1 a {
+          display: block;
+          padding: 12px 8px;
+          background: rgba(234, 234, 234, 0.9);
+          border-radius: 6px;
+          text-align: center;
+          font-size: 0.95em;
+          text-decoration: none;
+          color: #222 !important;
+          font-weight: bold;
+          transition: all 0.2s ease;
+          border: 1px solid #ddd;
+        }
+
+        .navigacija1 a:active, .navigacija1 a:focus, .navigacija1 a:hover {
+          background: #d1d1d1;
+          transform: scale(0.98);
+        }
+
+        .sadrzaj p {
+          font-size: 0.9em;
+          text-align: center;
+          margin: 2px 0;
+        }
+
+        main {
+          padding: 10px 2vw;
+        }
+
+        label {
+          color: #222 !important;
+          font-size: 1em;
+          font-weight: bold;
+        }
+      }
+
+      @media (max-width: 600px) {
+        h1 {
+          font-size: 1.2em;
+          text-align: center;
+          margin: 5px 0;
+        }
+
+        /* Even smaller logo on small screens */
+        .logo {
+          width: 45vw !important;
+          max-width: 150px !important;
+          margin: 0 auto 10px auto;
+        }
+
+        #mapa iframe {
+          height: 30vw !important;
+          min-height: 120px;
+          max-height: 200px;
+        }
+
+        /* More compact navigation layout */
+        .navigacija {
+          gap: 4px;
+          padding: 0 5px;
+        }
+
+        .navigacija li {
+          flex: 1 1 calc(50% - 2px);
+          min-width: 120px;
+        }
+
+        .navigacija a {
+          padding: 10px 6px;
+          font-size: 0.85em;
+          border-radius: 4px;
+          min-height: 40px;
+        }
+
+        .navigacija1 a {
+          padding: 10px 6px;
+          font-size: 0.9em;
+          border-radius: 4px;
+        }
+
+        .sadrzaj p {
+          font-size: 0.85em;
+        }
+
+        main {
+          padding: 8px 1.5vw;
+        }
+
+        footer#podnožje {
+          font-size: 0.9em;
+          text-align: center;
+          padding: 8px 0;
+        }
+
+        .map-btn {
+          padding: 8px 12px;
+          font-size: 0.9em;
+        }
+
+        label {
+          font-size: 0.9em;
+        }
+      }
+
+      @media (max-width: 480px) {
+        h1 {
+          font-size: 1.1em;
+        }
+
+        /* Minimal logo on very small screens */
+        .logo {
+          width: 40vw !important;
+          max-width: 130px !important;
+        }
+
+        .hamburger {
+          margin: 5px 0;
+        }
+
+        .navigacija1 a {
+          padding: 8px 4px;
+          font-size: 0.8em;
+        }
+
+        .sadrzaj p {
+          font-size: 0.8em;
+        }
+
+        /* Ultra compact navigation - 2 items per row */
+        .navigacija {
+          gap: 3px;
+          padding: 0 3px;
+        }
+
+        .navigacija li {
+          flex: 1 1 calc(50% - 1.5px);
+          min-width: 100px;
+        }
+
+        .navigacija a {
+          padding: 8px 4px;
+          font-size: 0.8em;
+          min-height: 36px;
+        }
+
+        #mapa iframe {
+          height: 25vw !important;
+          min-height: 100px;
+          max-height: 180px;
+        }
+      }
+
+  /* Poboljšanja za uređaje osjetljive na dodir */
+      @media (hover: none) and (pointer: coarse) {
+        .navigacija1 a, .navigacija a, .map-btn, .hamburger {
+          min-height: 44px;
+          min-width: 44px;
+        }
+      }
+    </style>
+</head>
+<!-- Početak tijela stranice -->
+<body>
+  <!-- Zaglavlje stranice s naslovom i navigacijom -->
+  <header id="zaglavlje">
+  <!-- Glavni naslov -->
+  <h1>RESTORAN SHPANAC</h1>
+        
+  <!-- Hamburger meni za mobilne uređaje -->
+  <button class="hamburger" onclick="toggleMobileNav()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        
+  <!-- Navigacija za desktop -->
+  <nav id="navigacija1">
+            <ul class="navigacija1">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        
+  <!-- Navigacija za mobilne uređaje (dropdown) -->
+  <nav class="nav-mobile" id="nav-mobile">
+            <ul class="navigacija1">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        
+  <!-- Dodatne informacije o lokaciji i radnom vremenu -->
+  <div class="sadrzaj">
+            <p>Šantićeva ulica 9, 10298 Oborovo bistransko</p>
+            <p>Nedeljom i praznicima ne radimo!</p>
+        </div>
+    </header>
+        
+  <!-- Glavni sadržaj stranice -->
+  <main>
+            <!-- Prikaz logotipa restorana -->
+            <img src="slike/logo.jpeg" alt="Logo restorana Španac" class="logo" width="300" height="200" id="banner-img"> 
+
+            <!-- Google mapa lokacije restorana -->
+            <div id="mapa" style="display:none;">
+                <iframe 
+                    src="https://www.google.com/maps?q=Šantićeva%20ulica%209,%20Oborovo%20bistransko,%20Hrvatska&output=embed"
+                    width="100%" 
+                    height="300" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        
+  <!-- Glavna navigacija kroz sekcije menija -->
+  <nav id="navigacija"class="d-kolona-3 t-kolona-3 m-kolona-9">
+            <ul class="navigacija">
+                <!-- Linkovi na sekcije menija -->
+                <li><a href="meni_clean.html#pizza-section">PIZZE</a></li>
+                <li><a href="meni_clean.html#grill-section">ROŠTILJ</a></li>
+                <li><a href="meni_clean.html#burger-section">BURGERI</a></li>
+                <li><a href="meni_clean.html#slastice-section">SLASTICE</a></li>
+                <li><a href="meni_clean.html#pomes-section">POMES</a></li>
+                <li><a href="meni_clean.html#bier-section">PIVA</a></li>
+                <li><a href="meni_clean.html#gas-drink-section">SOKOVI</a></li>
+                
+                
+                <li><a href="contact.html">PRIJAVA ZA POSAO </a></li>
+ 
+            </ul>
+        </nav>
+       
+ 
+            
+        </main>
+            
+ 
+  <!-- Podnožje stranice -->
+  <footer id="podnožje">
+  <!-- Gumb za prijavu/registraciju -->
+  <div style="margin:12px 0;display:flex;gap:10px;justify-content:center;">
+          <button id="footerAuthBtn" style="padding:8px 14px;background:#3498db;color:#fff;border:none;border-radius:6px;cursor:pointer;font-weight:bold;">Prijava / Registracija</button>
+        </div>
+<!-- Moderni modal za prijavu/registraciju -->
+<div id="modern-auth-modal" style="display:none;position:fixed;z-index:99999;left:0;top:0;width:100vw;height:100vh;background:rgba(0,0,0,0.4);justify-content:center;align-items:center;">
+  <div style="background:#fff;padding:32px 24px 18px 24px;border-radius:16px;max-width:370px;min-width:240px;box-shadow:0 8px 32px rgba(0,0,0,0.18);position:relative;">
+    <button id="modern-auth-modal-close" style="position:absolute;top:10px;right:14px;font-size:1.7rem;background:none;border:none;cursor:pointer;color:#666;">&times;</button>
+    <div style="display:flex;gap:0;justify-content:center;margin-bottom:18px;">
+      <button id="tab-login" style="flex:1;padding:10px 0;border:none;border-radius:8px 0 0 8px;background:#3498db;color:#fff;font-weight:bold;cursor:pointer;">Prijava</button>
+      <button id="tab-register" style="flex:1;padding:10px 0;border:none;border-radius:0 8px 8px 0;background:#eee;color:#333;font-weight:bold;cursor:pointer;">Registracija</button>
+    </div>
+    <form id="modern-login-form" style="display:block;">
+      <input type="text" id="login-username" placeholder="Korisničko ime" required style="width:100%;margin-bottom:12px;padding:10px;border:1px solid #ccc;border-radius:6px;font-size:1rem;">
+      <input type="password" id="login-password" placeholder="Lozinka" required style="width:100%;margin-bottom:16px;padding:10px;border:1px solid #ccc;border-radius:6px;font-size:1rem;">
+      <button type="submit" style="width:100%;padding:10px 0;background:#3498db;color:#fff;border:none;border-radius:6px;font-size:1rem;font-weight:bold;">Prijavi se</button>
+      <div id="login-message" style="margin-top:10px;color:#e74c3c;text-align:center;font-size:0.98em;"></div>
+    </form>
+    <form id="modern-register-form" style="display:none;">
+      <input type="text" id="register-username" placeholder="Korisničko ime" required style="width:100%;margin-bottom:12px;padding:10px;border:1px solid #ccc;border-radius:6px;font-size:1rem;">
+      <input type="password" id="register-password" placeholder="Lozinka" required style="width:100%;margin-bottom:12px;padding:10px;border:1px solid #ccc;border-radius:6px;font-size:1rem;">
+      <input type="password" id="register-password2" placeholder="Potvrdite lozinku" required style="width:100%;margin-bottom:16px;padding:10px;border:1px solid #ccc;border-radius:6px;font-size:1rem;">
+      <button type="submit" style="width:100%;padding:10px 0;background:#27ae60;color:#fff;border:none;border-radius:6px;font-size:1rem;font-weight:bold;">Registriraj se</button>
+      <div id="register-message" style="margin-top:10px;color:#e74c3c;text-align:center;font-size:0.98em;"></div>
+    </form>
+  </div>
+</div>
+  <!-- Gumb za prikaz Google karte -->
+  <button id="showMapBtn" class="map-btn">Prikaži kartu</button>
+  <!-- Google karta lokacije restorana -->
+  <div id="mapa" style="display:none; margin-top:15px;">
+            <iframe 
+                src="https://www.google.com/maps?q=Šantićeva%20ulica%209,%20Oborovo%20bistransko,%20Hrvatska&output=embed"
+                width="100%" 
+                height="300" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+  <!-- Autorska prava -->
+  <p>&copy; 2023 Restoran Shpanac. Sva prava pridržana.</p>
+    </footer>
+    <script>
+    // Logika za moderni modal za prijavu/registraciju
+    const modernAuthModal = document.getElementById('modern-auth-modal');
+    const modernAuthModalClose = document.getElementById('modern-auth-modal-close');
+    const tabLogin = document.getElementById('tab-login');
+    const tabRegister = document.getElementById('tab-register');
+    const loginForm = document.getElementById('modern-login-form');
+    const registerForm = document.getElementById('modern-register-form');
+    const loginMessage = document.getElementById('login-message');
+    const registerMessage = document.getElementById('register-message');
+    // Prikazuje modal iz podnožja
+    document.getElementById('footerAuthBtn').onclick = function() {
+      showAuthModal('login');
+    };
+    modernAuthModalClose.onclick = function() {
+      modernAuthModal.style.display = 'none';
+    };
+    window.addEventListener('click', function(e) {
+      if (e.target === modernAuthModal) modernAuthModal.style.display = 'none';
+    });
+    tabLogin.onclick = function() { showAuthModal('login'); };
+    tabRegister.onclick = function() { showAuthModal('register'); };
+    // Funkcija za prikaz modala za login/registraciju
+    function showAuthModal(mode) {
+      modernAuthModal.style.display = 'flex';
+      if (mode === 'login') {
+        tabLogin.style.background = '#3498db';
+        tabLogin.style.color = '#fff';
+        tabRegister.style.background = '#eee';
+        tabRegister.style.color = '#333';
+        loginForm.style.display = 'block';
+        registerForm.style.display = 'none';
+        loginMessage.textContent = '';
+      } else {
+        tabLogin.style.background = '#eee';
+        tabLogin.style.color = '#333';
+        tabRegister.style.background = '#27ae60';
+        tabRegister.style.color = '#fff';
+        loginForm.style.display = 'none';
+        registerForm.style.display = 'block';
+        registerMessage.textContent = '';
+      }
+    }
+    // Spremanje korisnika u localStorage
+    function getUsers() {
+      return JSON.parse(localStorage.getItem('users') || '[]');
+    }
+    function saveUsers(users) {
+      localStorage.setItem('users', JSON.stringify(users));
+    }
+    // Registracija korisnika
+    registerForm.onsubmit = function(e) {
+      e.preventDefault();
+      const username = document.getElementById('register-username').value.trim();
+      const password = document.getElementById('register-password').value;
+      const password2 = document.getElementById('register-password2').value;
+      if (!username || !password || !password2) {
+        registerMessage.textContent = 'Sva polja su obavezna.';
+        return;
+      }
+      if (password.length < 4) {
+        registerMessage.textContent = 'Lozinka mora imati barem 4 znaka.';
+        return;
+      }
+      if (password !== password2) {
+        registerMessage.textContent = 'Lozinke se ne podudaraju!';
+        return;
+      }
+      let users = getUsers();
+      if (users.find(u => u.username === username)) {
+        registerMessage.textContent = 'Korisničko ime već postoji!';
+        return;
+      }
+      users.push({ username, password });
+      saveUsers(users);
+      registerMessage.style.color = '#27ae60';
+      registerMessage.textContent = 'Registracija uspješna! Prijavite se.';
+      setTimeout(() => {
+        showAuthModal('login');
+        registerMessage.style.color = '#e74c3c';
+        registerMessage.textContent = '';
+      }, 1200);
+    };
+    // Prijava korisnika
+    loginForm.onsubmit = function(e) {
+      e.preventDefault();
+      const username = document.getElementById('login-username').value.trim();
+      const password = document.getElementById('login-password').value;
+      if (!username || !password) {
+        loginMessage.textContent = 'Unesite korisničko ime i lozinku.';
+        return;
+      }
+      let users = getUsers();
+      const user = users.find(u => u.username === username && u.password === password);
+      if (user) {
+        loginMessage.style.color = '#27ae60';
+        loginMessage.textContent = 'Prijava uspješna!';
+        setTimeout(() => { modernAuthModal.style.display = 'none'; loginMessage.style.color = '#e74c3c'; }, 1000);
+      } else {
+        loginMessage.style.color = '#e74c3c';
+        loginMessage.textContent = 'Pogrešno korisničko ime ili lozinka!';
+      }
+    };
+        // Funkcionalnost za prikaz/sakrivanje Google karte
+        const btn = document.getElementById('showMapBtn');
+        const mapa = document.getElementById('mapa');
+        btn.onclick = function() {
+            if (mapa.style.display === "none") {
+                mapa.style.display = "block";
+                btn.textContent = "Sakrij kartu";
+            } else {
+                mapa.style.display = "none";
+                btn.textContent = "Prikaži kartu";
+            }
+        }
+
+        // Funkcija za otvaranje/zatvaranje mobilne navigacije
+        function toggleMobileNav() {
+            const hamburger = document.querySelector('.hamburger');
+            const mobileNav = document.getElementById('nav-mobile');
+            
+            hamburger.classList.toggle('active');
+            mobileNav.classList.toggle('active');
+        }
+
+        // Zatvara mobilnu navigaciju kada se klikne na link
+        document.querySelectorAll('.nav-mobile a').forEach(link => {
+            link.addEventListener('click', () => {
+                const hamburger = document.querySelector('.hamburger');
+                const mobileNav = document.getElementById('nav-mobile');
+                
+                hamburger.classList.remove('active');
+                mobileNav.classList.remove('active');
+            });
+        });
+
+        // Zatvara mobilnu navigaciju kada se klikne izvan zaglavlja
+        document.addEventListener('click', function(event) {
+            const hamburger = document.querySelector('.hamburger');
+            const mobileNav = document.getElementById('nav-mobile');
+            const header = document.getElementById('zaglavlje');
+            
+            if (!header.contains(event.target)) {
+                hamburger.classList.remove('active');
+                mobileNav.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
