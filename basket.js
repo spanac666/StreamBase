@@ -109,6 +109,13 @@ document.addEventListener('DOMContentLoaded', function() {
         // Slanje forme za plaćanje
         payForm.onsubmit = function(e) {
             e.preventDefault();
+            // Prikupljanje podataka o plaćanju
+            const ime = document.getElementById('pay-name') ? document.getElementById('pay-name').value : '';
+            const metoda = document.getElementById('pay-method') ? document.getElementById('pay-method').value : 'gotovina';
+            // Poziv funkcije za spremanje narudžbe u Firestore
+            if (window.saveOrderToFirestore) {
+                window.saveOrderToFirestore(basket, { ime: ime, method: metoda });
+            }
             payForm.style.display = 'none';
             paySuccess.style.display = 'block';
             paySuccess.innerHTML = '<span style="font-size:6rem;">😄</span><br><strong>Hvala i dobar tek!</strong>';

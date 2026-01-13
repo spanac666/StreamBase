@@ -19,6 +19,18 @@
   <link rel="icon" href="slike/favicon.jpeg">
   <!-- Povezivanje vanjskog CSS-a -->
   <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="menu_style.css">
+    <style>
+      @media (max-width: 900px) {
+        form#contact-form label {
+          color: #111 !important;
+        }
+      }
+    </style>
+
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script type="module" src="firebaseConfig.js"></script>
   <!-- Unutarnji CSS stilovi za hamburger meni, kontakt sekciju i responzivnost -->
   <style>
   /* Stilovi za hamburger meni */
@@ -1123,6 +1135,32 @@ document.addEventListener('DOMContentLoaded', function() {
 function goToMenu() {
   window.location.href = 'meni_clean.html';
 }
+</script>
+<script>
+// Firebase inicijalizacija (pretpostavlja se da je firebaseConfig.js već učitan)
+const db = firebase.firestore();
+
+document.getElementById('job-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  // Dohvati podatke iz forme
+  const ime = document.getElementById('job-ime').value;
+  const adresa = document.getElementById('job-adresa').value;
+  const iskustvo = document.getElementById('job-exp').value;
+
+  // Spremi prijavu u kolekciju "prijave"
+  try {
+    await db.collection('prijave').add({
+      ime: ime,
+      adresa: adresa,
+      iskustvo: iskustvo,
+      datum: new Date().toISOString()
+    });
+    alert('Prijava je uspješno poslana!');
+    document.getElementById('job-form').reset();
+  } catch (err) {
+    alert('Greška pri slanju prijave: ' + err.message);
+  }
+});
 </script>
 </body>
 </html>

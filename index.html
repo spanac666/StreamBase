@@ -1,29 +1,22 @@
-<!-- Dokument tip: HTML5 -->
 <!DOCTYPE html>
-<!-- Početak HTML dokumenta, jezik: hrvatski -->
 <html lang="hr">
 
 <head>
-  <!-- Postavljanje kodiranja znakova -->
-  <meta charset="UTF-8">
-  <!-- Omogućuje responzivni dizajn na mobilnim uređajima -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Naslov stranice -->
-  <title>RESTORAN SHPANAC</title>
-  <!-- Povezivanje vanjskog CSS-a -->
-  <link rel="stylesheet" href="style.css">
-  <!-- Opis stranice za tražilice -->
-  <meta name="description" content="Restoran u Zagrebu - naj bolji restoran u Zagrebu">
-  <!-- Ključne riječi za SEO -->
-  <meta name="keywords" content="Restoran, Zagreb, najbolji restoran, hrvatsko italijanska kuhinja">
-  <!-- Autor stranice -->
-  <meta name="author" content="Restoran">
-  <!-- Ikona stranice -->
-  <link rel="icon" href="slike/favicon.jpeg" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RESTORAN SHPANAC</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="description" content="Restoran u Zagrebu - naj bolji restoran u Zagrebu">
+    <meta name="keywords" content="Restoran, Zagreb, najbolji restoran, hrvatsko italijanska kuhinja">
+    <meta name="author" content="Restoran">
+    <link rel="icon" href="slike/favicon.jpeg" type="image/x-icon">
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+ <script type="module" src="firebaseConfig.js"></script>
+<script  type="module" src="firebaseCrud.js"></script>
 
-  <!-- Unutarnji CSS stilovi za izgled stranice i responzivnost -->
-  <style>
-  /* Osnovni stilovi */
+    <style>
+      /* Base styles */
       html, body {
         box-sizing: border-box;
         width: 100vw;
@@ -38,7 +31,7 @@
         box-sizing: inherit;
       }
 
-  /* Stilovi za hamburger meni */
+      /* Hamburger menu styles */
       .hamburger {
         display: none;
         flex-direction: column;
@@ -70,7 +63,7 @@
         transform: rotate(45deg) translate(-5px, -6px);
       }
 
-  /* Stilovi za mobilnu navigaciju */
+      /* Mobile navigation styles */
       .nav-mobile {
         display: none;
         position: absolute;
@@ -88,7 +81,7 @@
         display: block;
       }
 
-  /* Poboljšana responzivnost za mobilne uređaje */
+      /* Enhanced mobile responsiveness */
       @media (max-width: 900px) {
         /* Header adjustments */
         #zaglavlje {
@@ -169,7 +162,7 @@
           margin: 0 auto;
         }
 
-    /* Stilovi za mobilnu navigaciju u zaglavlju */
+        /* Header mobile navigation styles - only for dropdown */
         .navigacija1 {
           display: flex;
           flex-direction: column;
@@ -336,7 +329,7 @@
         }
       }
 
-  /* Poboljšanja za uređaje osjetljive na dodir */
+      /* Touch-friendly improvements */
       @media (hover: none) and (pointer: coarse) {
         .navigacija1 a, .navigacija a, .map-btn, .hamburger {
           min-height: 44px;
@@ -345,22 +338,21 @@
       }
     </style>
 </head>
-<!-- Početak tijela stranice -->
 <body>
-  <!-- Zaglavlje stranice s naslovom i navigacijom -->
-  <header id="zaglavlje">
-  <!-- Glavni naslov -->
-  <h1>RESTORAN SHPANAC</h1>
+    <header id="zaglavlje">
+        <h1>RESTORAN SHPANAC</h1>
+        <!-- Plutajući admin gumb -->
+        <button id="floating-admin-btn" style="display:none;position:absolute;top:18px;right:24px;z-index:10001;padding:10px 18px;background:#e67e22;color:#fff;border:none;border-radius:8px;font-weight:bold;box-shadow:0 2px 12px #0002;cursor:pointer;">ADMIN</button>
         
-  <!-- Hamburger meni za mobilne uređaje -->
-  <button class="hamburger" onclick="toggleMobileNav()">
+        <!-- Hamburger menu for mobile -->
+        <button class="hamburger" onclick="toggleMobileNav()">
             <span></span>
             <span></span>
             <span></span>
         </button>
         
-  <!-- Navigacija za desktop -->
-  <nav id="navigacija1">
+        <!-- Desktop navigation -->
+        <nav id="navigacija1">
             <ul class="navigacija1">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="about.html">About</a></li>
@@ -368,8 +360,8 @@
             </ul>
         </nav>
         
-  <!-- Navigacija za mobilne uređaje (dropdown) -->
-  <nav class="nav-mobile" id="nav-mobile">
+        <!-- Mobile navigation dropdown -->
+        <nav class="nav-mobile" id="nav-mobile">
             <ul class="navigacija1">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="about.html">About</a></li>
@@ -377,19 +369,15 @@
             </ul>
         </nav>
         
-  <!-- Dodatne informacije o lokaciji i radnom vremenu -->
-  <div class="sadrzaj">
+        <div class="sadrzaj">
             <p>Šantićeva ulica 9, 10298 Oborovo bistransko</p>
             <p>Nedeljom i praznicima ne radimo!</p>
         </div>
     </header>
         
-  <!-- Glavni sadržaj stranice -->
-  <main>
-            <!-- Prikaz logotipa restorana -->
+        <main>
             <img src="slike/logo.jpeg" alt="Logo restorana Španac" class="logo" width="300" height="200" id="banner-img"> 
 
-            <!-- Google mapa lokacije restorana -->
             <div id="mapa" style="display:none;">
                 <iframe 
                     src="https://www.google.com/maps?q=Šantićeva%20ulica%209,%20Oborovo%20bistransko,%20Hrvatska&output=embed"
@@ -402,10 +390,8 @@
                 </iframe>
             </div>
         
-  <!-- Glavna navigacija kroz sekcije menija -->
-  <nav id="navigacija"class="d-kolona-3 t-kolona-3 m-kolona-9">
+        <nav id="navigacija"class="d-kolona-3 t-kolona-3 m-kolona-9">
             <ul class="navigacija">
-                <!-- Linkovi na sekcije menija -->
                 <li><a href="meni_clean.html#pizza-section">PIZZE</a></li>
                 <li><a href="meni_clean.html#grill-section">ROŠTILJ</a></li>
                 <li><a href="meni_clean.html#burger-section">BURGERI</a></li>
@@ -419,25 +405,27 @@
  
             </ul>
         </nav>
+
+
        
  
             
         </main>
             
  
-  <!-- Podnožje stranice -->
-  <footer id="podnožje">
-  <!-- Gumb za prijavu/registraciju -->
-  <div style="margin:12px 0;display:flex;gap:10px;justify-content:center;">
+    <footer id="podnožje">
+        <div style="margin:12px 0;display:flex;gap:10px;justify-content:center;">
           <button id="footerAuthBtn" style="padding:8px 14px;background:#3498db;color:#fff;border:none;border-radius:6px;cursor:pointer;font-weight:bold;">Prijava / Registracija</button>
         </div>
-<!-- Moderni modal za prijavu/registraciju -->
+<!-- Modern Auth Modal -->
 <div id="modern-auth-modal" style="display:none;position:fixed;z-index:99999;left:0;top:0;width:100vw;height:100vh;background:rgba(0,0,0,0.4);justify-content:center;align-items:center;">
   <div style="background:#fff;padding:32px 24px 18px 24px;border-radius:16px;max-width:370px;min-width:240px;box-shadow:0 8px 32px rgba(0,0,0,0.18);position:relative;">
     <button id="modern-auth-modal-close" style="position:absolute;top:10px;right:14px;font-size:1.7rem;background:none;border:none;cursor:pointer;color:#666;">&times;</button>
     <div style="display:flex;gap:0;justify-content:center;margin-bottom:18px;">
-      <button id="tab-login" style="flex:1;padding:10px 0;border:none;border-radius:8px 0 0 8px;background:#3498db;color:#fff;font-weight:bold;cursor:pointer;">Prijava</button>
-      <button id="tab-register" style="flex:1;padding:10px 0;border:none;border-radius:0 8px 8px 0;background:#eee;color:#333;font-weight:bold;cursor:pointer;">Registracija</button>
+      <button id="tab-login" style="flex:1;padding:10px 0;border:none;border-radius:8px 0 0 8px;background:#3498db;color:#fff;font-weight:bold;cursor:pointer;">Prijava korisnik</button>
+      <button id="tab-register" style="flex:1;padding:10px 0;border:none;border-radius:0 8px 8px 0;background:#eee;color:#333;font-weight:bold;cursor:pointer;">Registracija korisnik</button>
+      <button id="tab-admin-login" style="flex:1;padding:10px 0;border:none;border-radius:8px;background:#eee;color:#333;font-weight:bold;cursor:pointer;">Prijava admin</button>
+      <button id="tab-admin-register" style="flex:1;padding:10px 0;border:none;border-radius:8px;background:#eee;color:#333;font-weight:bold;cursor:pointer;">Registracija admin</button>
     </div>
     <form id="modern-login-form" style="display:block;">
       <input type="text" id="login-username" placeholder="Korisničko ime" required style="width:100%;margin-bottom:12px;padding:10px;border:1px solid #ccc;border-radius:6px;font-size:1rem;">
@@ -452,12 +440,23 @@
       <button type="submit" style="width:100%;padding:10px 0;background:#27ae60;color:#fff;border:none;border-radius:6px;font-size:1rem;font-weight:bold;">Registriraj se</button>
       <div id="register-message" style="margin-top:10px;color:#e74c3c;text-align:center;font-size:0.98em;"></div>
     </form>
+    <form id="admin-login-form" style="display:none;">
+      <input type="text" id="admin-login-username" placeholder="Admin korisničko ime" required style="width:100%;margin-bottom:12px;padding:10px;border:1px solid #ccc;border-radius:6px;font-size:1rem;">
+      <input type="password" id="admin-login-password" placeholder="Admin lozinka" required style="width:100%;margin-bottom:16px;padding:10px;border:1px solid #ccc;border-radius:6px;font-size:1rem;">
+      <button type="submit" style="width:100%;padding:10px 0;background:#e67e22;color:#fff;border:none;border-radius:6px;font-size:1rem;font-weight:bold;">Prijavi se kao admin</button>
+      <div id="admin-login-message" style="margin-top:10px;color:#e74c3c;text-align:center;font-size:0.98em;"></div>
+    </form>
+    <form id="admin-register-form" style="display:none;">
+      <input type="text" id="admin-register-username" placeholder="Admin korisničko ime" required style="width:100%;margin-bottom:12px;padding:10px;border:1px solid #ccc;border-radius:6px;font-size:1rem;">
+      <input type="password" id="admin-register-password" placeholder="Admin lozinka" required style="width:100%;margin-bottom:12px;padding:10px;border:1px solid #ccc;border-radius:6px;font-size:1rem;">
+      <input type="password" id="admin-register-password2" placeholder="Potvrdite lozinku" required style="width:100%;margin-bottom:16px;padding:10px;border:1px solid #ccc;border-radius:6px;font-size:1rem;">
+      <button type="submit" style="width:100%;padding:10px 0;background:#e67e22;color:#fff;border:none;border-radius:6px;font-size:1rem;font-weight:bold;">Registriraj se kao admin</button>
+      <div id="admin-register-message" style="margin-top:10px;color:#e74c3c;text-align:center;font-size:0.98em;"></div>
+    </form>
   </div>
 </div>
-  <!-- Gumb za prikaz Google karte -->
-  <button id="showMapBtn" class="map-btn">Prikaži kartu</button>
-  <!-- Google karta lokacije restorana -->
-  <div id="mapa" style="display:none; margin-top:15px;">
+        <button id="showMapBtn" class="map-btn">Prikaži kartu</button>
+        <div id="mapa" style="display:none; margin-top:15px;">
             <iframe 
                 src="https://www.google.com/maps?q=Šantićeva%20ulica%209,%20Oborovo%20bistransko,%20Hrvatska&output=embed"
                 width="100%" 
@@ -468,20 +467,30 @@
                 referrerpolicy="no-referrer-when-downgrade">
             </iframe>
         </div>
-  <!-- Autorska prava -->
-  <p>&copy; 2023 Restoran Shpanac. Sva prava pridržana.</p>
+        <p>&copy; 2023 Restoran Shpanac. Sva prava pridržana.</p>
     </footer>
+  <!-- Dodaj na kraj body za automatsko učitavanje modula -->
+<script src="articlesModule.js"></script>
     <script>
-    // Logika za moderni modal za prijavu/registraciju
-    const modernAuthModal = document.getElementById('modern-auth-modal');
-    const modernAuthModalClose = document.getElementById('modern-auth-modal-close');
-    const tabLogin = document.getElementById('tab-login');
-    const tabRegister = document.getElementById('tab-register');
-    const loginForm = document.getElementById('modern-login-form');
-    const registerForm = document.getElementById('modern-register-form');
-    const loginMessage = document.getElementById('login-message');
-    const registerMessage = document.getElementById('register-message');
-    // Prikazuje modal iz podnožja
+  // Modern Auth Modal Logic
+  const modernAuthModal = document.getElementById('modern-auth-modal');
+  const modernAuthModalClose = document.getElementById('modern-auth-modal-close');
+  const tabLogin = document.getElementById('tab-login');
+  const tabRegister = document.getElementById('tab-register');
+  const loginForm = document.getElementById('modern-login-form');
+  const registerForm = document.getElementById('modern-register-form');
+  // --- ADMIN TAB LOGIKA ---
+  const tabAdminLogin = document.getElementById('tab-admin-login');
+  const tabAdminRegister = document.getElementById('tab-admin-register');
+  const adminLoginForm = document.getElementById('admin-login-form');
+  const adminRegisterForm = document.getElementById('admin-register-form');
+  const adminLoginMessage = document.getElementById('admin-login-message');
+  const adminRegisterMessage = document.getElementById('admin-register-message');
+  // Dodano za ispravan rad loginMessage i registerMessage
+  const loginMessage = document.getElementById('login-message');
+  const registerMessage = document.getElementById('register-message');
+
+    // Show modal from footer only
     document.getElementById('footerAuthBtn').onclick = function() {
       showAuthModal('login');
     };
@@ -493,7 +502,36 @@
     });
     tabLogin.onclick = function() { showAuthModal('login'); };
     tabRegister.onclick = function() { showAuthModal('register'); };
-    // Funkcija za prikaz modala za login/registraciju
+    tabAdminLogin.onclick = function() {
+      tabLogin.style.background = '#eee';
+      tabLogin.style.color = '#333';
+      tabRegister.style.background = '#eee';
+      tabRegister.style.color = '#333';
+      tabAdminLogin.style.background = '#e67e22';
+      tabAdminLogin.style.color = '#fff';
+      tabAdminRegister.style.background = '#eee';
+      tabAdminRegister.style.color = '#333';
+      loginForm.style.display = 'none';
+      registerForm.style.display = 'none';
+      adminLoginForm.style.display = 'block';
+      adminRegisterForm.style.display = 'none';
+      adminLoginMessage.textContent = '';
+    };
+    tabAdminRegister.onclick = function() {
+      tabLogin.style.background = '#eee';
+      tabLogin.style.color = '#333';
+      tabRegister.style.background = '#eee';
+      tabRegister.style.color = '#333';
+      tabAdminLogin.style.background = '#eee';
+      tabAdminLogin.style.color = '#333';
+      tabAdminRegister.style.background = '#e67e22';
+      tabAdminRegister.style.color = '#fff';
+      loginForm.style.display = 'none';
+      registerForm.style.display = 'none';
+      adminLoginForm.style.display = 'none';
+      adminRegisterForm.style.display = 'block';
+      adminRegisterMessage.textContent = '';
+    };
     function showAuthModal(mode) {
       modernAuthModal.style.display = 'flex';
       if (mode === 'login') {
@@ -503,25 +541,49 @@
         tabRegister.style.color = '#333';
         loginForm.style.display = 'block';
         registerForm.style.display = 'none';
+        adminLoginForm.style.display = 'none';
+        adminRegisterForm.style.display = 'none';
         loginMessage.textContent = '';
-      } else {
+      } else if (mode === 'register') {
         tabLogin.style.background = '#eee';
         tabLogin.style.color = '#333';
         tabRegister.style.background = '#27ae60';
         tabRegister.style.color = '#fff';
         loginForm.style.display = 'none';
         registerForm.style.display = 'block';
+        adminLoginForm.style.display = 'none';
+        adminRegisterForm.style.display = 'none';
         registerMessage.textContent = '';
+      } else if (mode === 'adminLogin') {
+        tabLogin.style.background = '#eee';
+        tabLogin.style.color = '#333';
+        tabRegister.style.background = '#eee';
+        tabRegister.style.color = '#333';
+        loginForm.style.display = 'none';
+        registerForm.style.display = 'none';
+        adminLoginForm.style.display = 'block';
+        adminRegisterForm.style.display = 'none';
+        adminLoginMessage.textContent = '';
+      } else {
+        tabLogin.style.background = '#eee';
+        tabLogin.style.color = '#333';
+        tabRegister.style.background = '#eee';
+        tabRegister.style.color = '#333';
+        loginForm.style.display = 'none';
+        registerForm.style.display = 'none';
+        adminLoginForm.style.display = 'none';
+        adminRegisterForm.style.display = 'block';
+        adminRegisterMessage.textContent = '';
       }
     }
-    // Spremanje korisnika u localStorage
+    // User storage
     function getUsers() {
       return JSON.parse(localStorage.getItem('users') || '[]');
     }
     function saveUsers(users) {
       localStorage.setItem('users', JSON.stringify(users));
     }
-    // Registracija korisnika
+    // Registration
     registerForm.onsubmit = function(e) {
       e.preventDefault();
       const username = document.getElementById('register-username').value.trim();
@@ -554,7 +616,7 @@
         registerMessage.textContent = '';
       }, 1200);
     };
-    // Prijava korisnika
+    // Login
     loginForm.onsubmit = function(e) {
       e.preventDefault();
       const username = document.getElementById('login-username').value.trim();
@@ -574,7 +636,68 @@
         loginMessage.textContent = 'Pogrešno korisničko ime ili lozinka!';
       }
     };
-        // Funkcionalnost za prikaz/sakrivanje Google karte
+    // --- ADMIN REGISTRACIJA ---
+    function getAdmins() {
+      return JSON.parse(localStorage.getItem('admins') || '[]');
+    }
+    function saveAdmins(admins) {
+      localStorage.setItem('admins', JSON.stringify(admins));
+    }
+    adminRegisterForm.onsubmit = function(e) {
+      e.preventDefault();
+      const username = document.getElementById('admin-register-username').value.trim();
+      const password = document.getElementById('admin-register-password').value;
+      const password2 = document.getElementById('admin-register-password2').value;
+      if (!username || !password || !password2) {
+        adminRegisterMessage.textContent = 'Sva polja su obavezna.';
+        return;
+      }
+      if (password.length < 6) {
+        adminRegisterMessage.textContent = 'Admin lozinka mora imati barem 6 znakova.';
+        return;
+      }
+      if (password !== password2) {
+        adminRegisterMessage.textContent = 'Lozinke se ne podudaraju!';
+        return;
+      }
+      let admins = getAdmins();
+      if (admins.find(a => a.username === username)) {
+        adminRegisterMessage.textContent = 'Admin korisničko ime već postoji!';
+        return;
+      }
+      admins.push({ username, password });
+      saveAdmins(admins);
+      adminRegisterMessage.style.color = '#27ae60';
+      adminRegisterMessage.textContent = 'Admin registracija uspješna! Prijavite se.';
+      setTimeout(() => {
+        tabAdminLogin.onclick();
+        adminRegisterMessage.style.color = '#e74c3c';
+        adminRegisterMessage.textContent = '';
+      }, 1200);
+    };
+    // --- ADMIN PRIJAVA ---
+    adminLoginForm.onsubmit = function(e) {
+      e.preventDefault();
+      const username = document.getElementById('admin-login-username').value.trim();
+      const password = document.getElementById('admin-login-password').value;
+      if (!username || !password) {
+        adminLoginMessage.textContent = 'Unesite admin korisničko ime i lozinku.';
+        return;
+      }
+      let admins = getAdmins();
+      const admin = admins.find(a => a.username === username && a.password === password);
+      if (admin) {
+        adminLoginMessage.style.color = '#27ae60';
+        adminLoginMessage.textContent = 'Admin prijava uspješna!';
+        setTimeout(() => { modernAuthModal.style.display = 'none'; adminLoginMessage.style.color = '#e74c3c'; }, 1000);
+        if (window.setAdminLoggedIn) window.setAdminLoggedIn();
+        showFloatingAdminBtn();
+      } else {
+        adminLoginMessage.style.color = '#e74c3c';
+        adminLoginMessage.textContent = 'Pogrešno admin korisničko ime ili lozinka!';
+      }
+    };
+        // Map toggle functionality
         const btn = document.getElementById('showMapBtn');
         const mapa = document.getElementById('mapa');
         btn.onclick = function() {
@@ -587,7 +710,7 @@
             }
         }
 
-        // Funkcija za otvaranje/zatvaranje mobilne navigacije
+        // Mobile navigation toggle
         function toggleMobileNav() {
             const hamburger = document.querySelector('.hamburger');
             const mobileNav = document.getElementById('nav-mobile');
@@ -596,7 +719,7 @@
             mobileNav.classList.toggle('active');
         }
 
-        // Zatvara mobilnu navigaciju kada se klikne na link
+        // Close mobile navigation when clicking on a link
         document.querySelectorAll('.nav-mobile a').forEach(link => {
             link.addEventListener('click', () => {
                 const hamburger = document.querySelector('.hamburger');
@@ -607,7 +730,7 @@
             });
         });
 
-        // Zatvara mobilnu navigaciju kada se klikne izvan zaglavlja
+        // Close mobile navigation when clicking outside
         document.addEventListener('click', function(event) {
             const hamburger = document.querySelector('.hamburger');
             const mobileNav = document.getElementById('nav-mobile');
@@ -618,6 +741,28 @@
                 mobileNav.classList.remove('active');
             }
         });
+
+        // Prikaz plutajućeg admin gumba kad je admin prijavljen
+function showFloatingAdminBtn() {
+  const btn = document.getElementById('floating-admin-btn');
+  const isAdmin = localStorage.getItem('adminLoggedIn') === 'true';
+  console.log('Admin status:', isAdmin, 'Gumb:', btn);
+  if (btn) {
+    if (isAdmin) {
+      btn.style.display = 'block';
+      btn.onclick = function() {
+        import('./articlesModule.js').then(mod => { mod.showAdminDashboard(); });
+      };
+    } else {
+      btn.style.display = 'none';
+    }
+  } else {
+    // Ako gumb nije učitan, pokušaj ponovno nakon 500ms
+    setTimeout(showFloatingAdminBtn, 500);
+  }
+}
+window.addEventListener('DOMContentLoaded', showFloatingAdminBtn);
+window.addEventListener('storage', showFloatingAdminBtn);
     </script>
 </body>
 </html>

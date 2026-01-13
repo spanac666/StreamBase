@@ -5,7 +5,7 @@
     "contact": {
       "phone": "+385 91 5 406 406",
       "email": "spanac666@gmail.com",
-      "address": "Your Address Here",
+      "address": "Šantićeva 9,10298 Oborovo bistransko",
       "workingHours": {
         "monday": "10:00 - 23:00",
         "tuesday": "10:00 - 23:00",
@@ -13,7 +13,7 @@
         "thursday": "10:00 - 23:00",
         "friday": "10:00 - 23:00",
         "saturday": "10:00 - 23:00",
-        "sunday": "12:00 - 22:00"
+        "sunday": "Ne radimo!"
       }
     }
   },
@@ -45,13 +45,13 @@
       }
     ]
   },
-  "pizzas": [
+  "pizza": [
     {
       "id": 1,
       "name": "CALZONE",
       "description": "Zatvorena pizza sa šunkom, gljivama i sirom",
-      "price": 850,
-      "currency": "RSD",
+      "price": 8.50,
+      "currency": "€",
       "image": "pizza/CALZIONE.jpg",
       "ingredients": ["šunka", "gljive", "sir", "kečap", "origano"],
       "category": "classic",
@@ -61,8 +61,8 @@
       "id": 2,
       "name": "DIAVOLO",
       "description": "Ljuta pizza sa pikantnim kobasicama",
-      "price": 920,
-      "currency": "RSD",
+      "price": 10.00,
+      "currency": "€",
       "image": "pizza/DIAVOLO.jpeg",
       "ingredients": ["pikantne kobasice", "luk", "ljute papričice", "sir", "kečap"],
       "category": "spicy",
@@ -72,8 +72,8 @@
       "id": 3,
       "name": "KAFANSKA",
       "description": "Pizza sa tradicionalnim ukusima",
-      "price": 880,
-      "currency": "RSD",
+      "price": 9.00,
+      "currency": "€",
       "image": "pizza/KAFANSKA.jpeg",
       "ingredients": ["šunka", "slanina", "jaja", "sir", "kečap"],
       "category": "traditional",
@@ -83,8 +83,8 @@
       "id": 4,
       "name": "MARGHERITA",
       "description": "Klasična pizza sa paradajzom i sirom",
-      "price": 650,
-      "currency": "RSD",
+      "price": 7.50,
+      "currency": "€",
       "image": "pizza/MARGHERITA.jpeg",
       "ingredients": ["paradajz", "mozzarella", "bosiljak", "maslinovo ulje"],
       "category": "classic",
@@ -94,8 +94,8 @@
       "id": 5,
       "name": "MEXICANA",
       "description": "Pizza sa meksičkim ukusima",
-      "price": 950,
-      "currency": "RSD",
+      "price": 9.50,
+      "currency": "€",
       "image": "pizza/MEXICANA.jpeg",
       "ingredients": ["piletina", "kukuruz", "feferon", "sir", "kečap"],
       "category": "international",
@@ -105,8 +105,8 @@
       "id": 6,
       "name": "PANCETA",
       "description": "Pizza sa pancetom i gljivama",
-      "price": 890,
-      "currency": "RSD",
+      "price": 10.50,
+      "currency": "€",
       "image": "pizza/PANCETA.jpeg",
       "ingredients": ["panceta", "gljive", "luk", "sir", "kečap"],
       "category": "meat",
@@ -116,8 +116,8 @@
       "id": 7,
       "name": "PEPERONI",
       "description": "Pizza sa peperoni kobasicom",
-      "price": 880,
-      "currency": "RSD",
+      "price": 9.00,
+      "currency": "€",
       "image": "pizza/PEPERONI.jpeg",
       "ingredients": ["peperoni", "sir", "kečap", "origano"],
       "category": "classic",
@@ -127,8 +127,8 @@
       "id": 8,
       "name": "PROSCIUTTO",
       "description": "Pizza sa pršutom i rukolom",
-      "price": 1100,
-      "currency": "RSD",
+      "price": 10.00,
+      "currency": "€",
       "image": "pizza/PROSCIUTTO.jpeg",
       "ingredients": ["pršut", "rukola", "parmezan", "maslinovo ulje"],
       "category": "premium",
@@ -138,8 +138,8 @@
       "id": 9,
       "name": "SLAVONSKA",
       "description": "Pizza sa slavonskim specijalitetima",
-      "price": 920,
-      "currency": "RSD",
+      "price": 11.00,
+      "currency": "€",
       "image": "pizza/SLAVONSKA.jpeg",
       "ingredients": ["kulen", "slanina", "luk", "sir", "kečap"],
       "category": "traditional",
@@ -149,97 +149,585 @@
       "id": 10,
       "name": "TUNA",
       "description": "Pizza sa tunjevinom i maslinama",
-      "price": 870,
-      "currency": "RSD",
+      "price": 12.00,
+      "currency": "€",
       "image": "pizza/TUNA.jpeg",
       "ingredients": ["tunjevina", "masline", "luk", "sir", "kečap"],
       "category": "seafood",
       "available": true
+    }
+
+  ],
+  "grill": [
+    {
+      "id": 1,
+      "name": "CARSKO MESO",
+      "description": "Savršeno zapečen ribeye, poslužen s povrćem.",
+      "price": 15.50,
+      "currency": "€",
+      "image": "rostilj/CARSKO MESO.jpeg",
+      "ingredients": ["ribeye", "povrće", "začini"],
+      "category": "beef",
+      "available": true
     },
     {
-      "id": 11,
-      "name": "VEGETARIJANSKA",
-      "description": "Pizza za vegetarijance",
-      "price": 750,
-      "currency": "RSD",
-      "image": "pizza/VEGETARIJANSKA.jpeg",
-      "ingredients": ["paradajz", "paprike", "gljive", "luk", "sir", "masline"],
-      "category": "vegetarian",
+      "id": 2,
+      "name": "GURMANSKA PILETINA",
+      "description": "Nježni pileći file, umak po izboru, prilog krumpir.",
+      "price": 10.00,
+      "currency": "€",
+      "image": "rostilj/GURMANSKA PILETINA.jpeg",
+      "ingredients": ["pileći file", "umak", "krumpir"],
+      "category": "chicken",
+      "available": true
+    },
+    {
+      "id": 3,
+      "name": "MJEŠANO MESO",
+      "description": "Klasik za ljubitelje mesa, dva reza u jednom.",
+      "price": 14.00,
+      "currency": "€",
+      "image": "rostilj/MJEŠANO MESO.jpeg",
+      "ingredients": ["svinjetina", "govedina", "začini"],
+      "category": "mixed",
+      "available": true
+    },
+    {
+      "id": 4,
+      "name": "PEČENICE",
+      "description": "Veliki komad mesa, idealan za dvoje.",
+      "price": 12.00,
+      "currency": "€",
+      "image": "rostilj/PEČENICE.jpeg",
+      "ingredients": ["svinjetina", "začini"],
+      "category": "pork",
+      "available": true
+    },
+    {
+      "id": 5,
+      "name": "PIKANTNI UŠTIPAK",
+      "description": "Sočan sirloin, poslužen s povrćem i umakom.",
+      "price": 11.00,
+      "currency": "€",
+      "image": "rostilj/PIKANTNI UŠTIPAK.jpeg",
+      "ingredients": ["sirloin", "povrće", "umak", "začini"],
+      "category": "beef",
+      "available": true
+    },
+    {
+      "id": 6,
+      "name": "PILEĆI MEDALJONI",
+      "description": "Sočan pileći medaljon, poslužen s chimichurri umakom.",
+      "price": 10.00,
+      "currency": "€",
+      "image": "rostilj/PILEĆI MEDALJONI.jpeg",
+      "ingredients": ["pileći medaljon", "chimichurri umak", "začini"],
+      "category": "chicken",
+      "available": true
+    },
+    {
+      "id": 7,
+      "name": "PUNJENA PLJESKAVICA",
+      "description": "Sočan skirt steak, poslužen s salatom.",
+      "price": 12.00,
+      "currency": "€",
+      "image": "rostilj/PUNJENA PLESKAVICA.jpeg",
+      "ingredients": ["skirt steak", "salata", "začini"],
+      "category": "beef",
+      "available": true
+    },
+    {
+      "id": 8,
+      "name": "ČEVAPI KAJMAK",
+      "description": "Sočan ćevap s kajmakom, poslužen s prilogom.",
+      "price": 12.00,
+      "currency": "€",
+      "image": "rostilj/ČEVAPI KAJMAK.jpeg",
+      "ingredients": ["ćevapi", "kajmak", "prilog"],
+      "category": "beef",
+      "available": true
+    },
+    {
+      "id": 9,
+      "name": "ČEVAPI",
+      "description": "Sočan ćevap, poslužen s povrćem.",
+      "price": 10.00,
+      "currency": "€",
+      "image": "rostilj/ČEVAPI.jpeg",
+      "ingredients": ["ćevapi", "povrće", "začini"],
+      "category": "beef",
+      "available": true
+    },
+    {
+      "id": 10,
+      "name": "ŠIŠ ČEVAP",
+      "description": "Sočan šiš ćevap, poslužen s chimichurri umakom.",
+      "price": 10.00,
+      "currency": "€",
+      "image": "rostilj/ŠIŠ ČEVAP.jpeg",
+      "ingredients": ["šiš ćevap", "chimichurri umak", "začini"],
+      "category": "beef",
+      "available": true
+    }
+  ],
+  "burger": [
+    {
+      "id": 1,
+      "name": "Burger Classic",
+      "description": "Govedina, sir, salata, rajčica, umak.",
+      "price": 8.00,
+      "currency": "€",
+      "image": "burgeri/BURGER CLASSIC.jpeg",
+      "ingredients": ["govedina", "sir", "salata", "rajčica", "umak"],
+      "category": "classic",
+      "available": true
+    },
+    {
+      "id": 2,
+      "name": "Spicy Burger",
+      "description": "Govedina, cheddar, jalapeno, salata, umak.",
+      "price": 8.50,
+      "currency": "€",
+      "image": "burgeri/SPICY BURGER.jpeg",
+      "ingredients": ["govedina", "cheddar", "jalapeno", "salata", "umak"],
+      "category": "spicy",
+      "available": true
+    },
+    {
+      "id": 3,
+      "name": "Bacon BBQ Burger",
+      "description": "Govedina, slanina, BBQ umak, sir, salata.",
+      "price": 9.00,
+      "currency": "€",
+      "image": "burgeri/BACON_BBQ.jpeg",
+      "ingredients": ["govedina", "slanina", "BBQ umak", "sir", "salata"],
+      "category": "bbq",
+      "available": true
+    },
+    {
+      "id": 4,
+      "name": "Blue Cheese Burger",
+      "description": "Govedina, plavi sir, rukola, umak.",
+      "price": 9.50,
+      "currency": "€",
+      "image": "burgeri/BLUE_CHESE.jpg",
+      "ingredients": ["govedina", "plavi sir", "rukola", "umak"],
+      "category": "cheese",
+      "available": true
+    },
+    {
+      "id": 5,
+      "name": "Burger Dupli Specijal",
+      "description": "Dupla govedina, sir, salata, umak.",
+      "price": 10.00,
+      "currency": "€",
+      "image": "burgeri/BURGER DUPLI SPECIJAL.jpeg",
+      "ingredients": ["dupla govedina", "sir", "salata", "umak"],
+      "category": "special",
+      "available": true
+    },
+    {
+      "id": 6,
+      "name": "Burger Normal Feta",
+      "description": "Govedina, feta sir, salata, umak.",
+      "price": 8.50,
+      "currency": "€",
+      "image": "burgeri/BURGER NORMAL FETA.jpeg",
+      "ingredients": ["govedina", "feta sir", "salata", "umak"],
+      "category": "feta",
+      "available": true
+    },
+    {
+      "id": 7,
+      "name": "Burger Piletina",
+      "description": "Pileći file, salata, rajčica, umak.",
+      "price": 8.00,
+      "currency": "€",
+      "image": "burgeri/BURGER PILETINA.jpeg",
+      "ingredients": ["pileći file", "salata", "rajčica", "umak"],
+      "category": "chicken",
+      "available": true
+    },
+    {
+      "id": 8,
+      "name": "Burger Pršut",
+      "description": "Govedina, pršut, sir, salata, umak.",
+      "price": 9.00,
+      "currency": "€",
+      "image": "burgeri/BURGER PRŠUT.jpeg",
+      "ingredients": ["govedina", "pršut", "sir", "salata", "umak"],
+      "category": "prosciutto",
+      "available": true
+    },
+    {
+      "id": 9,
+      "name": "Mushroom Burger",
+      "description": "Govedina, gljive, sir, salata, umak.",
+      "price": 8.50,
+      "currency": "€",
+      "image": "burgeri/MUSHROOM_BURGER.jpg",
+      "ingredients": ["govedina", "gljive", "sir", "salata", "umak"],
+      "category": "mushroom",
+      "available": true
+    },
+    {
+      "id": 10,
+      "name": "Onion Burger",
+      "description": "Govedina, karamelizirani luk, sir, salata, umak.",
+      "price": 8.50,
+      "currency": "€",
+      "image": "burgeri/ONION_BURGER.jpg",
+      "ingredients": ["govedina", "karamelizirani luk", "sir", "salata", "umak"],
+      "category": "onion",
+      "available": true
+    }
+  ],
+  "slastice": [
+    {
+      "id": 1,
+      "name": "Čokoladni kolač",
+      "description": "Bogati čokoladni kolač s preljevom od tamne čokolade.",
+      "price": 4.00,
+      "currency": "€",
+      "image": "slastice/čokoladni-kolač.jpeg",
+      "ingredients": ["čokolada", "jaja", "šećer", "maslac"],
+      "category": "cake",
+      "available": true
+    },
+    {
+      "id": 2,
+      "name": "Tiramisu",
+      "description": "Klasični talijanski desert s kavom i mascarpone sirom.",
+      "price": 4.50,
+      "currency": "€",
+      "image": "slastice/tiramisu.images.jpg",
+      "ingredients": ["kava", "mascarpone", "piškote", "kakao"],
+      "category": "italian",
+      "available": true
+    },
+    {
+      "id": 3,
+      "name": "Baklava",
+      "description": "Tradicionalna orijentalna slastica s orasima i medom.",
+      "price": 4.00,
+      "currency": "€",
+      "image": "slastice/baklava_images.jpg",
+      "ingredients": ["orašasti plodovi", "med", "tijesto"],
+      "category": "oriental",
+      "available": true
+    },
+    {
+      "id": 4,
+      "name": "Domaćica Cheesecake",
+      "description": "Kremasti cheesecake s podlogom od domaćica keksa.",
+      "price": 4.50,
+      "currency": "€",
+      "image": "slastice/domacica-cheesecake.jpg",
+      "ingredients": ["keks", "sir", "šećer", "jaja"],
+      "category": "cheesecake",
+      "available": true
+    },
+    {
+      "id": 5,
+      "name": "Palačinke",
+      "description": "Palačinke s raznim punjenjima po izboru.",
+      "price": 3.50,
+      "currency": "€",
+      "image": "slastice/palacinke.jpeg",
+      "ingredients": ["brašno", "mlijeko", "jaja", "punjenje"],
+      "category": "pancake",
+      "available": true
+    }
+  ],
+  "pomfri": [
+    {
+      "id": 1,
+      "name": "Pomfrit klasični",
+      "description": "Hrskavi prženi krumpirići, idealni kao prilog ili snack.",
+      "price": 2.80,
+      "currency": "€",
+      "image": "pomes/FRY AND DEEP.jpg",
+      "ingredients": ["krumpir", "ulje", "sol"],
+      "category": "classic",
+      "available": true
+    },
+    {
+      "id": 2,
+      "name": "Pomfrit julienne",
+      "description": "Tanko rezani pomfrit, posebno hrskav.",
+      "price": 3.20,
+      "currency": "€",
+      "image": "pomes/JULIENNE.jpeg",
+      "ingredients": ["krumpir", "ulje", "sol"],
+      "category": "julienne",
+      "available": true
+    },
+    {
+      "id": 3,
+      "name": "Pomfrit sa sirom",
+      "description": "Pomfrit preliven topljenim sirom za još bolji užitak.",
+      "price": 3.90,
+      "currency": "€",
+      "image": "pomes/pomes_sir.jpg",
+      "ingredients": ["krumpir", "sir", "ulje", "sol"],
+      "category": "cheese",
+      "available": true
+    }
+  ],
+  "pivo": [
+    {
+      "id": 1,
+      "name": "Ožujsko",
+      "description": "Popularno hrvatsko svijetlo pivo, 0.5L.",
+      "price": 3.00,
+      "currency": "€",
+      "image": "piva/1-OŽUJSKO.jpg",
+      "category": "lager",
+      "available": true
+    },
+    {
+      "id": 2,
+      "name": "Karlovačko",
+      "description": "Osježavajuće svijetlo pivo, 0.5L.",
+      "price": 3.00,
+      "currency": "€",
+      "image": "piva/2-KARLOVAČKO.jpg",
+      "category": "lager",
+      "available": true
+    },
+    {
+      "id": 3,
+      "name": "Paulaner",
+      "description": "Njemačko pšenično pivo, 0.5L.",
+      "price": 3.50,
+      "currency": "€",
+      "image": "piva/3-PAULANER.jpg",
+      "category": "wheat",
+      "available": true
+    },
+    {
+      "id": 4,
+      "name": "Guinness",
+      "description": "Irski stout, bogatog okusa, 0.5L.",
+      "price": 4.00,
+      "currency": "€",
+      "image": "piva/4-GUINNESS.jpg",
+      "category": "stout",
+      "available": true
+    },
+    {
+      "id": 5,
+      "name": "Bier Lech",
+      "description": "Poljsko svijetlo pivo, 0.5L.",
+      "price": 3.20,
+      "currency": "€",
+      "image": "piva/5-BIER_LECH.jpg",
+      "category": "lager",
+      "available": true
+    },
+    {
+      "id": 6,
+      "name": "Becks",
+      "description": "Njemačko svijetlo pivo, 0.5L.",
+      "price": 3.20,
+      "currency": "€",
+      "image": "piva/6-BECKS.jpg",
+      "category": "lager",
+      "available": true
+    },
+    {
+      "id": 7,
+      "name": "Heineken",
+      "description": "Nizozemsko svijetlo pivo, 0.5L.",
+      "price": 3.30,
+      "currency": "€",
+      "image": "piva/7-HEINEKEN.jpg",
+      "category": "lager",
+      "available": true
+    },
+    {
+      "id": 8,
+      "name": "Stella Artois",
+      "description": "Belgijsko svijetlo pivo, 0.5L.",
+      "price": 3.40,
+      "currency": "€",
+      "image": "piva/8-STELLA.jpg",
+      "category": "lager",
+      "available": true
+    },
+    {
+      "id": 9,
+      "name": "Corona",
+      "description": "Meksičko svijetlo pivo, 0.33L.",
+      "price": 3.50,
+      "currency": "€",
+      "image": "piva/9-CORONA.jpg",
+      "category": "lager",
+      "available": true
+    },
+    {
+      "id": 10,
+      "name": "Tuborg",
+      "description": "Dansko svijetlo pivo, 0.5L.",
+      "price": 3.20,
+      "currency": "€",
+      "image": "piva/10-TUBORG.jpg",
+      "category": "lager",
+      "available": true
+    }
+  ],
+  "pića": [
+    {
+      "id": 1,
+      "name": "Coca-Cola",
+      "description": "Klasično gazirano piće, 0.33L.",
+      "price": 2.50,
+      "currency": "€",
+      "image": "gazirano/1-COCA-COLA.jpg",
+      "category": "soda",
+      "available": true
+    },
+    {
+      "id": 2,
+      "name": "Coca-Cola Zero",
+      "description": "Gazirano piće bez šećera, 0.33L.",
+      "price": 2.50,
+      "currency": "€",
+      "image": "gazirano/2-COCA_COLA_0.jpg",
+      "category": "soda",
+      "available": true
+    },
+    {
+      "id": 3,
+      "name": "Fanta",
+      "description": "Naranča, 0.33L.",
+      "price": 2.50,
+      "currency": "€",
+      "image": "gazirano/3-FANTA.jpg",
+      "category": "soda",
+      "available": true
+    },
+    {
+      "id": 4,
+      "name": "Sprite",
+      "description": "Limun-limeta, 0.33L.",
+      "price": 2.50,
+      "currency": "€",
+      "image": "gazirano/4-SPRITE.jpg",
+      "category": "soda",
+      "available": true
+    },
+    {
+      "id": 5,
+      "name": "Schweppes Tonic",
+      "description": "Tonic voda, 0.33L.",
+      "price": 2.60,
+      "currency": "€",
+      "image": "gazirano/5-SCHWEPPES_TONIC.jpg",
+      "category": "tonic",
+      "available": true
+    },
+    {
+      "id": 6,
+      "name": "Schweppes Bitter Lemon",
+      "description": "Gazirano piće s okusom limuna, 0.33L.",
+      "price": 2.60,
+      "currency": "€",
+      "image": "gazirano/6-SCHWEPPES_BITER_LEMMON.jpg",
+      "category": "lemon",
+      "available": true
+    },
+    {
+      "id": 7,
+      "name": "Pepsi",
+      "description": "Gazirano piće, 0.33L.",
+      "price": 2.50,
+      "currency": "€",
+      "image": "gazirano/7-PEPSI.jpg.jpg",
+      "category": "soda",
+      "available": true
+    },
+    {
+      "id": 8,
+      "name": "Pepsi Max",
+      "description": "Gazirano piće bez šećera, 0.33L.",
+      "price": 2.50,
+      "currency": "€",
+      "image": "gazirano/8-PEPSI_MAX.jpg",
+      "category": "soda",
+      "available": true
+    },
+    {
+      "id": 9,
+      "name": "Cedevita",
+      "description": "Instant napitak s okusom naranče, 0.33L.",
+      "price": 2.40,
+      "currency": "€",
+      "image": "gazirano/9-CEDEVITA.jpg",
+      "category": "juice",
+      "available": true
+    },
+    {
+      "id": 10,
+      "name": "Orangina",
+      "description": "Gazirani napitak od naranče, 0.33L.",
+      "price": 2.60,
+      "currency": "€",
+      "image": "gazirano/10-ORANGINA.jpg",
+      "category": "soda",
       "available": true
     }
   ],
   "categories": [
     {
-      "id": "classic",
-      "name": "Klasične",
-      "description": "Tradicionalne pizza recepte"
+      "id": "pizza",
+      "name": "Pizza",
+      "description": "Sve vrste pizza."
     },
     {
-      "id": "meat",
-      "name": "Mesne",
-      "description": "Pizza sa raznim vrstama mesa"
+      "id": "grill",
+      "name": "Grill",
+      "description": "Jela s roštilja."
     },
     {
-      "id": "vegetarian",
-      "name": "Vegetarijanske",
-      "description": "Pizza bez mesa"
+      "id": "burger",
+      "name": "Burger",
+      "description": "Razni burgeri."
     },
     {
-      "id": "seafood",
-      "name": "Morske",
-      "description": "Pizza sa morskim plodovima"
+      "id": "slastice",
+      "name": "Slastice",
+      "description": "Deserti i kolači."
     },
     {
-      "id": "spicy",
-      "name": "Ljute",
-      "description": "Pizza sa ljutim sastojcima"
+      "id": "pomfri",
+      "name": "Pomfri",
+      "description": "Razne vrste pomfrita."
     },
     {
-      "id": "traditional",
-      "name": "Tradicionalne",
-      "description": "Pizza sa domaćim ukusima"
+      "id": "pivo",
+      "name": "Pivo",
+      "description": "Piva iz ponude."
     },
     {
-      "id": "international",
-      "name": "Internacionalne",
-      "description": "Pizza sa internacionalnim ukusima"
-    },
-    {
-      "id": "premium",
-      "name": "Premium",
-      "description": "Pizza sa premium sastojcima"
+      "id": "pića",
+      "name": "Pića",
+      "description": "Gazirana i negazirana pića."
     }
   ],
   "gallery": [
+
     {
       "id": 1,
-      "title": "Restoran spolja",
-      "image": "gallery/exterior.jpg",
-      "alt": "Spoljašnost restorana SHPANAC"
-    },
-    {
-      "id": 2,
-      "title": "Unutrašnjost",
+      "title": "Restoran unutrašnjost",
       "image": "gallery/interior.jpg",
-      "alt": "Unutrašnjost restorana"
-    },
-    {
-      "id": 3,
-      "title": "Kuhinja",
-      "image": "gallery/kitchen.jpg",
-      "alt": "Profesionalna kuhinja"
-    },
-    {
-      "id": 4,
-      "title": "Pizza priprema",
-      "image": "gallery/preparation.jpg",
-      "alt": "Priprema pizza"
+      "alt": "Unutrašnjost restorana SHPANAC"
     }
   ],
   "settings": {
-    "currency": "RSD",
+    "currency": "€",
     "deliveryFee": 150,
-    "minOrderForFreeDelivery": 1500,
+    "minOrderForFreeDelivery": 30,
     "deliveryTime": {
       "min": 30,
       "max": 45,
